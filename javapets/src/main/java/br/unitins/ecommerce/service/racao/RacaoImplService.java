@@ -17,6 +17,8 @@ import br.unitins.ecommerce.model.produto.racao.EscolhaAnimal;
 import br.unitins.ecommerce.model.produto.racao.Racao;
 import br.unitins.ecommerce.repository.MarcaRepository;
 import br.unitins.ecommerce.repository.RacaoRepository;
+import br.unitins.ecommerce.service.avaliacao.AvaliacaoService;
+import br.unitins.ecommerce.service.usuario.UsuarioService;
 
 @ApplicationScoped
 public class RacaoImplService implements RacaoService {
@@ -26,6 +28,12 @@ public class RacaoImplService implements RacaoService {
 
     @Inject
     MarcaRepository marcaRepository;
+
+    @Inject
+    AvaliacaoService avaliacaoService;
+
+    @Inject
+    UsuarioService usuarioService;
 
     @Inject
     Validator validator;
@@ -111,6 +119,10 @@ public class RacaoImplService implements RacaoService {
             throw new IllegalArgumentException("Número inválido");
 
         Racao racao = racaoRepository.findById(id);
+        
+        avaliacaoService.delete(racao);
+
+        usuarioService.deleteProdutoFromListaDesejo(racao);
 
         if (racaoRepository.isPersistent(racao))
             racaoRepository.delete(racao);

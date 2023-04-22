@@ -14,6 +14,7 @@ import javax.ws.rs.NotFoundException;
 
 import br.unitins.ecommerce.dto.avaliacao.AvaliacaoDTO;
 import br.unitins.ecommerce.dto.avaliacao.AvaliacaoResponseDTO;
+import br.unitins.ecommerce.model.produto.Produto;
 import br.unitins.ecommerce.model.produto.avaliacao.Avaliacao;
 import br.unitins.ecommerce.model.produto.avaliacao.Estrela;
 import br.unitins.ecommerce.repository.AvaliacaoRepository;
@@ -110,6 +111,17 @@ public class AvaliacaoImplService implements AvaliacaoService {
 
         else
             throw new NotFoundException("Nenhuma avaliação encontrado");
+    }
+
+    @Override
+    public void delete(Produto produto) {
+
+        List<Avaliacao> listaAvaliacao = avaliacaoRepository.findByProduto(produto);
+
+        for (Avaliacao avaliacao : listaAvaliacao) {
+            
+            avaliacaoRepository.delete(avaliacao);
+        }
     }
 
     @Override

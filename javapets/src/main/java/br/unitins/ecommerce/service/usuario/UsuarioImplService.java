@@ -18,6 +18,7 @@ import br.unitins.ecommerce.dto.usuario.UsuarioResponseDTO;
 import br.unitins.ecommerce.dto.usuario.listadesejo.ListaDesejoDTO;
 import br.unitins.ecommerce.dto.usuario.listadesejo.ListaDesejoResponseDTO;
 import br.unitins.ecommerce.model.endereco.Endereco;
+import br.unitins.ecommerce.model.produto.Produto;
 import br.unitins.ecommerce.model.usuario.Telefone;
 import br.unitins.ecommerce.model.usuario.Usuario;
 import br.unitins.ecommerce.repository.EnderecoRepository;
@@ -227,6 +228,20 @@ public class UsuarioImplService implements UsuarioService {
             return;
 
         usuario.getProdutos().remove(racaoRepository.findById(idProduto));
+    }
+
+    @Override
+    public void deleteProdutoFromListaDesejo(Produto produto) {
+
+        List<Usuario> usuarios = usuarioRepository.findAll().list();
+
+        for (Usuario usuario : usuarios) {
+            
+            if (usuario.getProdutos().contains(produto)) {
+
+                deleteProdutoFromListaDesejo(usuario.getId(), produto.getId());
+            }
+        }
     }
 
     @Override
