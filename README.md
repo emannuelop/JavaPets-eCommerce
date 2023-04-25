@@ -5,7 +5,7 @@ O projeto é um trabalho da matéria tópicos em programação I na Universidade
 
 ## 📝 UML
 
-![UML do JavaCoffee](https://github.com/emannuelop/JavaCoffee-eCommerce/blob/main/images/uml.png)
+![UML do JavaCoffee](https://github.com/emannuelop/JavaPets-eCommerce/blob/main/images/uml.png)
 
 ## ✔️ Técnicas e tecnologias utilizadas
 
@@ -16,9 +16,9 @@ O projeto é um trabalho da matéria tópicos em programação I na Universidade
 
 ## 👨‍💻 Autores
 
-|  [<img src="https://github.com/emannuelop/JavaCoffee-eCommerce/blob/main/images/emannuel.png" width=115><br><sub>Emannuel Oliveira</sub>](https://github.com/emannuelop) | 
+|  [<img src="https://github.com/emannuelop/JavaPets-eCommerce/blob/main/images/emannuel.png" width=115><br><sub>Emannuel Oliveira</sub>](https://github.com/emannuelop) | 
 | :---: |
 
 ## 📁 Acesso ao projeto
-Você pode acessar os arquivos do projeto clicando [aqui](https://github.com/emannuelop/JavaCoffee-eCommerce/tree/main/javacoffee).
+Você pode acessar os arquivos do projeto clicando [aqui](https://github.com/emannuelop/JavaPets-eCommerce/tree/main/javapets).
 
