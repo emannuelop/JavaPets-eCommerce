@@ -21,7 +21,7 @@ import javax.ws.rs.core.Response.Status;
 import br.unitins.ecommerce.application.Result;
 import br.unitins.ecommerce.dto.municipio.MunicipioDTO;
 import br.unitins.ecommerce.dto.municipio.MunicipioResponseDTO;
-import br.unitins.ecommerce.service.muncipio.MunicipioService;
+import br.unitins.ecommerce.service.municipio.MunicipioService;
 
 @Path("/municipios")
 @Produces(MediaType.APPLICATION_JSON)
