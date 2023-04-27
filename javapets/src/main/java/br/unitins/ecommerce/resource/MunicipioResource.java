@@ -23,7 +23,7 @@ import br.unitins.ecommerce.dto.municipio.MunicipioDTO;
 import br.unitins.ecommerce.dto.municipio.MunicipioResponseDTO;
 import br.unitins.ecommerce.service.muncipio.MunicipioService;
 
-@Path("/muncipios")
+@Path("/municipios")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class MunicipioResource {
