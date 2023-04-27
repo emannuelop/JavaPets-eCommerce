@@ -40,8 +40,8 @@ public record AvaliacaoResponseDTO(
 
         Map<String, Object> produto = new HashMap<>();
 
-        produto.put("Id:", id);
-        produto.put("Nome:", nome);
+        produto.put("Id", id);
+        produto.put("Nome", nome);
 
         return produto;
     }
