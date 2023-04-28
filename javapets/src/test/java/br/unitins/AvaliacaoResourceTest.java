@@ -147,13 +147,7 @@ public class AvaliacaoResourceTest {
     @Test
     public void getByYearTest() {
 
-        AvaliacaoDTO avaliacao = new AvaliacaoDTO(
-                "Gostei demais demais demais",
-                5,
-                3l,
-                2l);
-
-        LocalDate dataAvalicao = (LocalDate) avaliacaoService.insert(avaliacao).data();
+        Integer dataAvalicao = 2023;
 
         given()
                 .when().get("/avaliacoes/searchByYear/" + dataAvalicao)
