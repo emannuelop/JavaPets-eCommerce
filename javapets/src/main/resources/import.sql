@@ -64,3 +64,6 @@ INSERT INTO avaliacao (comentario, data, estrela, id_produto, id_usuario)
 INSERT INTO avaliacao (data, estrela, id_produto, id_usuario) VALUES ('2023-02-08', 1, 2, 3);
 INSERT INTO avaliacao (comentario, data, estrela, id_produto, id_usuario)
                 VALUES ('Ruim', '2023-05-09', 1, 2, 1);
+
+
+                

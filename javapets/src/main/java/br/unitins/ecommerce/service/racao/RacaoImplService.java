@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Validator;
@@ -59,6 +60,7 @@ public class RacaoImplService implements RacaoService {
     }
 
     @Override
+    @Transactional
     public RacaoResponseDTO insert(RacaoDTO racaoDto) throws ConstraintViolationException {
 
         validar(racaoDto);
@@ -87,6 +89,7 @@ public class RacaoImplService implements RacaoService {
     }
 
     @Override
+    @Transactional
     public RacaoResponseDTO update(Long id, RacaoDTO racaoDto) throws ConstraintViolationException {
 
         validar(racaoDto);
@@ -113,6 +116,7 @@ public class RacaoImplService implements RacaoService {
     }
 
     @Override
+    @Transactional
     public void delete(Long id) throws IllegalArgumentException, NotFoundException {
 
         if (id == null)
