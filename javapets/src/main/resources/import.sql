@@ -27,11 +27,12 @@ INSERT INTO racao (quantidadeQuilos, sabor, escolhaAnimal, id) VALUES (12, 'Fran
 INSERT INTO estado (nome, sigla) VALUES ('Acre', 'AC');
 INSERT INTO estado (nome, sigla) VALUES ('Amazonas', 'AM');
 INSERT INTO estado (nome, sigla) VALUES ('Pará', 'PA');
+INSERT INTO estado (nome, sigla) VALUES ('Goiás', 'GO');
 INSERT INTO estado (nome, sigla) VALUES ('Tocantins', 'TO');
 
 INSERT INTO municipio (nome, id_estado) VALUES ('Manaus', 2);
-INSERT INTO municipio (nome, id_estado) VALUES ('Palmas', 4);
-INSERT INTO municipio (nome, id_estado) VALUES ('Guaraí', 4);
+INSERT INTO municipio (nome, id_estado) VALUES ('Palmas', 5);
+INSERT INTO municipio (nome, id_estado) VALUES ('Guaraí', 5);
 INSERT INTO municipio (nome, id_estado) VALUES ('Belém', 3);
 
 INSERT INTO endereco (logradouro, bairro, numero, cep, id_municipio) VALUES ('alameda 12', 'Quadra 708 Sul', 'lote 10', '77082-012', 2);
