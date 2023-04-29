@@ -182,7 +182,7 @@ public class UsuarioResource {
     }
 
     @DELETE
-    @Path("/lista_desejo/{idUsuario}&{idProduto}")
+    @Path("/lista_desejo/{idUsuario}/{idProduto}")
     @Transactional
     public Response deleteProdutoFromListaDesejo(@PathParam("idUsuario") Long idUsuario, @PathParam("idProduto") Long idProdutoListaDesejo) {
 

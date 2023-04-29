@@ -52,11 +52,11 @@ public class MunicipioResourceTest {
     @Test
     public void updateTest() {
 
-        MunicipioDTO municipioDto = new MunicipioDTO(
+        MunicipioDTO municipio = new MunicipioDTO(
                 "Miracema do Tocantins",
                 5l);
 
-        Long id = municipioService.insert(municipioDto).id();
+        Long id = municipioService.insert(municipio).id();
 
         MunicipioDTO municipioUpdate = new MunicipioDTO(
             "Goiânia",

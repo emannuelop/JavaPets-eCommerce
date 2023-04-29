@@ -139,7 +139,7 @@ public class RacaoResource {
     }
 
     @GET
-    @Path("/filterByEntrePreco/{precoMin}&{precoMax}")
+    @Path("/filterByEntrePreco/{precoMin}/{precoMax}")
     public List<RacaoResponseDTO> filterByEntrePreco (@PathParam("precoMin") Double precoMin, @PathParam("precoMax") Double precoMax) {
 
         return racaoService.filterByEntrePreco(precoMin, precoMax);
