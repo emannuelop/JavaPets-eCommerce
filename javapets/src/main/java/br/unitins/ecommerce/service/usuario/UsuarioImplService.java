@@ -286,7 +286,6 @@ public class UsuarioImplService implements UsuarioService {
                     .collect(Collectors.toList());
     }
 
-    @Transactional
     private Telefone insertTelefone (TelefoneDTO telefoneDTO) throws ConstraintViolationException {
 
         validar(telefoneDTO);
@@ -301,7 +300,6 @@ public class UsuarioImplService implements UsuarioService {
         return telefone;
     }
 
-    @Transactional
     private void deleteTelefone (Long id) throws NotFoundException, IllegalArgumentException {
 
         if (id == null)
@@ -316,7 +314,6 @@ public class UsuarioImplService implements UsuarioService {
             throw new NotFoundException("Nenhum Telefone encontrado");
     }
 
-    @Transactional
     private Endereco insertEndereco(EnderecoDTO enderecoDto) throws ConstraintViolationException {
         
         validar(enderecoDto);
@@ -340,7 +337,6 @@ public class UsuarioImplService implements UsuarioService {
         return endereco;
     }
 
-    @Transactional
     private void deleteEndereco (Long id) throws NotFoundException, IllegalArgumentException {
 
         if (id == null)
