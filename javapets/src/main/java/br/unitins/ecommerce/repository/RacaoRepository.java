@@ -2,7 +2,7 @@ package br.unitins.ecommerce.repository;
 
 import java.util.List;
 
-import javax.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 
 import br.unitins.ecommerce.model.produto.Marca;
 import br.unitins.ecommerce.model.produto.racao.EscolhaAnimal;
@@ -17,7 +17,7 @@ public class RacaoRepository implements PanacheRepository<Racao> {
         if (nome == null)
             return null;
 
-        return find("FROM Racao WHERE UPPER(UNACCENT(nome)) LIKE UNACCENT(?1)", "%" + nome.toUpperCase() + "%").list();
+        return find("FROM Racao WHERE UNACCENT(UPPER(nome)) LIKE UNACCENT(?1)", "%" + nome.toUpperCase() + "%").list();
     }
 
     public List<Racao> findByEscolhaAnimal(EscolhaAnimal escolhaAnimal) {

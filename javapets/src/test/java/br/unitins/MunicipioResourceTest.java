@@ -15,7 +15,7 @@ import br.unitins.ecommerce.dto.municipio.MunicipioDTO;
 import br.unitins.ecommerce.dto.municipio.MunicipioResponseDTO;
 import br.unitins.ecommerce.service.municipio.MunicipioService;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 @QuarkusTest
 public class MunicipioResourceTest {

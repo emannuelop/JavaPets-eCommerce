@@ -2,7 +2,7 @@ package br.unitins.ecommerce.repository;
 
 import java.util.List;
 
-import javax.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 
 import br.unitins.ecommerce.model.usuario.Usuario;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
@@ -15,6 +15,6 @@ public class UsuarioRepository implements PanacheRepository<Usuario> {
         if (nome == null)
             return null;
 
-        return find("FROM Usuario WHERE UPPER(UNACCENT(nome)) LIKE UNACCENT(?1)", "%" + nome.toUpperCase() + "%").list();
+        return find("FROM Usuario WHERE UNACCENT(UPPER(nome)) LIKE UNACCENT(?1)", "%" + nome.toUpperCase() + "%").list();
     }
 }
