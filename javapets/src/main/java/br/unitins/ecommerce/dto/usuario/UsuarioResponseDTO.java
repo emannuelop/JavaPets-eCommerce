@@ -9,36 +9,37 @@ import br.unitins.ecommerce.model.endereco.Municipio;
 import br.unitins.ecommerce.model.usuario.Usuario;
 
 public record UsuarioResponseDTO(
-    Long id,
-    String nome,
-    String email,
-    String cpf,
-    Map<String, Object> endereco,
-    Map<String, Object> telefonePrincipal,
-    Map<String, Object> telefoneOpcional
-) {
+        Long id,
+        String nome,
+        String login,
+        String email,
+        String cpf,
+        Map<String, Object> endereco,
+        Map<String, Object> telefonePrincipal,
+        Map<String, Object> telefoneOpcional) {
 
-    public UsuarioResponseDTO (Usuario usuario) {
+    public UsuarioResponseDTO(Usuario usuario) {
 
         this(usuario.getId(),
-            usuario.getNome(),
-            usuario.getEmail(),
-            usuario.getCpf(),
-            viewEndereco(usuario.getEndereco().getLogradouro(),
-                        usuario.getEndereco().getBairro(), 
-                        usuario.getEndereco().getNumero(), 
-                        usuario.getEndereco().getComplemento(), 
+                usuario.getPessoaFisica().getNome(),
+                usuario.getLogin(),
+                usuario.getPessoaFisica().getEmail(),
+                usuario.getPessoaFisica().getCpf(),
+                viewEndereco(usuario.getEndereco().getLogradouro(),
+                        usuario.getEndereco().getBairro(),
+                        usuario.getEndereco().getNumero(),
+                        usuario.getEndereco().getComplemento(),
                         usuario.getEndereco().getCep(),
                         usuario.getEndereco().getMunicipio()),
-            viewTelefone(usuario.getTelefonePrincipal().getCodigoArea(), 
+                viewTelefone(usuario.getTelefonePrincipal().getCodigoArea(),
                         usuario.getTelefonePrincipal().getNumero()),
-            usuario.getTelefoneOpcional() != null?
-                                                viewTelefone(usuario.getTelefoneOpcional().getCodigoArea(),
-                                                            usuario.getTelefoneOpcional().getNumero())
-                                                : null);
+                usuario.getTelefoneOpcional() != null ? viewTelefone(usuario.getTelefoneOpcional().getCodigoArea(),
+                        usuario.getTelefoneOpcional().getNumero())
+                        : null);
     }
-    
-    private static Map<String, Object> viewEndereco (String logradouro, String bairro, String numero, String complemento, String cep, Municipio municipio) {
+
+    private static Map<String, Object> viewEndereco(String logradouro, String bairro, String numero, String complemento,
+            String cep, Municipio municipio) {
 
         Map<String, Object> endereco = new HashMap<>();
 
@@ -62,7 +63,7 @@ public record UsuarioResponseDTO(
         return municipio;
     }
 
-    private static Map<String, Object> viewTelefone (String codigoArea, String numero) {
+    private static Map<String, Object> viewTelefone(String codigoArea, String numero) {
 
         Map<String, Object> telefone = new HashMap<>();
 

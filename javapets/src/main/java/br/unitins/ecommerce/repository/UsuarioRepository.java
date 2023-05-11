@@ -10,11 +10,19 @@ import io.quarkus.hibernate.orm.panache.PanacheRepository;
 @ApplicationScoped
 public class UsuarioRepository implements PanacheRepository<Usuario> {
     
-    public List<Usuario> findByNome (String nome) {
+    public List<Usuario> findByNome (String nomePessoaFisica) {
 
-        if (nome == null)
+        if (nomePessoaFisica == null)
             return null;
 
-        return find("FROM Usuario WHERE UNACCENT(UPPER(nome)) LIKE UNACCENT(?1)", "%" + nome.toUpperCase() + "%").list();
+        return find("FROM Usuario WHERE UNACCENT(UPPER(pessoaFisica.nome)) LIKE UNACCENT(?1)", "%" + nomePessoaFisica.toUpperCase() + "%").list();
+    }
+
+    public Usuario findByLoginAndSenha(String login, String senha) {
+
+        if (login == null || senha == null)
+            return null;
+
+        return find("login = ?1 AND senha = ?2 ", login, senha).firstResult();
     }
 }
