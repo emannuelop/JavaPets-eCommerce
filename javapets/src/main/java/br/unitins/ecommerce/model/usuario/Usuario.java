@@ -110,4 +110,8 @@ public class Usuario extends DefaultEntity {
         return perfis;
     }
 
+    public void setPerfis(Set<Perfil> perfis) {
+        this.perfis = perfis;
+    }
+
 }

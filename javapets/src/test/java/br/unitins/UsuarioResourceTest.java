@@ -22,6 +22,7 @@ import br.unitins.ecommerce.dto.usuario.listadesejo.ListaDesejoDTO;
 import br.unitins.ecommerce.dto.usuario.listadesejo.ListaDesejoResponseDTO;
 import br.unitins.ecommerce.service.usuario.UsuarioService;
 import io.quarkus.test.junit.QuarkusTest;
+import io.quarkus.test.security.TestSecurity;
 import io.restassured.http.ContentType;
 
 @QuarkusTest
@@ -31,6 +32,7 @@ public class UsuarioResourceTest {
     UsuarioService usuarioService;
 
     @Test
+    @TestSecurity(user = "testUser", roles = {"Admin"})
     public void getAllTest() {
 
         given()
@@ -40,6 +42,7 @@ public class UsuarioResourceTest {
     }
 
     @Test
+    @TestSecurity(user = "testUser", roles = {"Admin", "User"})
     public void insertTest() {
 
         PessoaFisicaDTO pessoaFisicaDTO = new PessoaFisicaDTO(
@@ -93,12 +96,13 @@ public class UsuarioResourceTest {
     }
 
     @Test
+    @TestSecurity(user = "testUser", roles = {"Admin", "User"})
     public void updateTest() {
 
         PessoaFisicaDTO pessoaFisicaDTO = new PessoaFisicaDTO(
             "Danilo Da Silva",
-            "89012376094",
-            "DanilDaSi@unitins.br",
+            "21012376094",
+            "DanilDaSi722@unitins.br",
             1);
 
         EnderecoDTO enderecoDTO = new EnderecoDTO(
@@ -181,12 +185,13 @@ public class UsuarioResourceTest {
     }
 
     @Test
+    @TestSecurity(user = "testUser", roles = {"Admin", "User"})
     public void updateTelefonePrincipalTest() {
 
         PessoaFisicaDTO pessoaFisicaDTO = new PessoaFisicaDTO(
-            "Danilo Da Silva",
-            "89012376094",
-            "DanilDaSi@unitins.br",
+            "Emannuel",
+            "19012346084",
+            "Emannuel2209@unitins.br",
             1);
 
         EnderecoDTO enderecoDTO = new EnderecoDTO(
@@ -227,8 +232,8 @@ public class UsuarioResourceTest {
         Map<String, Object> estado = (Map<String, Object>) municipio.get("estado");
 
         assertThat(usuarioResponse.nome(), is("Emannuel"));
-        assertThat(usuarioResponse.email(), is("Emannuel@unitins.br"));
-        assertThat(usuarioResponse.cpf(), is("82012346094"));
+        assertThat(usuarioResponse.email(), is("Emannuel2209@unitins.br"));
+        assertThat(usuarioResponse.cpf(), is("19012346084"));
         assertThat(usuarioResponse.endereco().get("logradouro"), is("Avenida Tocantins"));
         assertThat(usuarioResponse.endereco().get("bairro"), is("Setor Bueno"));
         assertThat(usuarioResponse.endereco().get("numero"), is("8780"));
@@ -245,12 +250,13 @@ public class UsuarioResourceTest {
     }
 
     @Test
+    @TestSecurity(user = "testUser", roles = {"Admin", "User"})
     public void updateEnderecoTest() {
 
         PessoaFisicaDTO pessoaFisicaDTO = new PessoaFisicaDTO(
-            "Danilo Da Silva",
-            "89012376094",
-            "DanilDaSi@unitins.br",
+            "Hitalo",
+            "89412316094",
+            "Hitalo@unitins.br",
             1);
 
         EnderecoDTO enderecoDTO = new EnderecoDTO(
@@ -298,7 +304,7 @@ public class UsuarioResourceTest {
 
         assertThat(usuarioResponse.nome(), is("Hitalo"));
         assertThat(usuarioResponse.email(), is("Hitalo@unitins.br"));
-        assertThat(usuarioResponse.cpf(), is("89012376094"));
+        assertThat(usuarioResponse.cpf(), is("89412316094"));
         assertThat(usuarioResponse.endereco().get("logradouro"), is("Avenida Juscelino Kubistchek"));
         assertThat(usuarioResponse.endereco().get("bairro"), is("Setor Alvorada"));
         assertThat(usuarioResponse.endereco().get("numero"), is("8901"));
@@ -315,6 +321,7 @@ public class UsuarioResourceTest {
     }
 
     @Test
+    @TestSecurity(user = "testUser", roles = {"Admin", "User"})
     public void deleteTest() {
 
         PessoaFisicaDTO pessoaFisicaDTO = new PessoaFisicaDTO(
@@ -363,6 +370,7 @@ public class UsuarioResourceTest {
     }
 
     @Test
+    @TestSecurity(user = "testUser", roles = {"Admin"})
     public void countTest() {
 
         given()
@@ -372,6 +380,7 @@ public class UsuarioResourceTest {
     }
 
     @Test
+    @TestSecurity(user = "testUser", roles = {"Admin"})
     public void getByIdTest() {
 
         PessoaFisicaDTO pessoaFisicaDTO = new PessoaFisicaDTO(
@@ -409,6 +418,7 @@ public class UsuarioResourceTest {
     }
 
     @Test
+    @TestSecurity(user = "testUser", roles = {"Admin"})
     public void getByNomeTest() {
 
         PessoaFisicaDTO pessoaFisicaDTO = new PessoaFisicaDTO(
@@ -446,12 +456,13 @@ public class UsuarioResourceTest {
     }
 
     @Test
+    @TestSecurity(user = "testUser", roles = {"Admin", "User"})
     public void getListaDesejoTest() {
 
         PessoaFisicaDTO pessoaFisicaDTO = new PessoaFisicaDTO(
-                "Danilo Da Silva",
-                "89076237639",
-                "DaniloDaSil@unitins.br",
+                "Luis Felipe",
+                "49028237679",
+                "LuisFelipe@unitins.br",
                 1);
     
             EnderecoDTO enderecoDTO = new EnderecoDTO(
@@ -489,12 +500,13 @@ public class UsuarioResourceTest {
     }
 
     @Test
+    @TestSecurity(user = "testUser", roles = {"Admin", "User"})
     public void insertListaDesejoTest() {
 
         PessoaFisicaDTO pessoaFisicaDTO = new PessoaFisicaDTO(
             "Danilo Da Silva",
             "89076237639",
-            "DaniloDaSil@unitins.br",
+            "Danilo123@unitins.br",
             1);
 
         EnderecoDTO enderecoDTO = new EnderecoDTO(
@@ -531,14 +543,14 @@ public class UsuarioResourceTest {
         ListaDesejoResponseDTO listaResponse = usuarioService.getListaDesejo(idUsuario);
 
         assertThat(listaResponse.usuario().get("id"), is(idUsuario));
-        assertThat(listaResponse.usuario().get("nome"), is("Danilo Da Silva"));
-        assertThat(listaResponse.usuario().get("email"), is("Danilo123@unitins.br"));
+        assertThat(listaResponse.usuario().get("login"), is("Danilo"));
         assertThat(listaResponse.usuario().get("email"), is("Danilo123@unitins.br"));
         assertThat(listaResponse.produtos().get(0).get("id"), is(1l));
         assertThat(listaResponse.produtos().get(0).get("nome"), is("Ração Pedigree Nutrição Essencial"));
     }
 
     @Test
+    @TestSecurity(user = "testUser", roles = {"Admin", "User"})
     public void deleteProdutoFromListaDesejoTest() {
 
         PessoaFisicaDTO pessoaFisicaDTO = new PessoaFisicaDTO(
@@ -600,6 +612,7 @@ public class UsuarioResourceTest {
     }
 
     @Test
+    @TestSecurity(user = "testUser", roles = {"Admin", "User"})
     public void countListaDesejoTest() {
 
         PessoaFisicaDTO pessoaFisicaDTO = new PessoaFisicaDTO(

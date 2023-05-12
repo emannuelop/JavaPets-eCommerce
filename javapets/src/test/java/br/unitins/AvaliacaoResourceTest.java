@@ -64,26 +64,26 @@ public class AvaliacaoResourceTest {
                 .then()
                 .statusCode(201)
                 .body("id", notNullValue(), "comentario", is("Ruim"), "estrela.label", is("⭐"), "produto.id", is(2),
-                        "produto.nome", is("Ração Golden Fórmula Mini Bits"), "usuario.id", is(1), "usuario.nome",
-                        is("João Aguiar"), "usuario.email", is("joao_aguia@gmail.com"));
+                        "produto.nome", is("Ração Golden Fórmula Mini Bits"), "usuario.id", is(1), "usuario.login",
+                        is("JoaoA"), "usuario.email", is("joao_aguia@gmail.com"));
     }
 
     @Test
     public void updateTest() {
 
         AvaliacaoDTO avaliacao = new AvaliacaoDTO(
-                "Gostei demais",
-                4,
-                4l,
+                "muito bão",
+                5,
+                3l,
                 2l);
 
         Long id = avaliacaoService.insert(avaliacao).id();
 
         AvaliacaoDTO avaliacaoUpdate = new AvaliacaoDTO(
-                "Gostei demais demais",
-                5,
-                4l,
-                2l);
+                "Ruim",
+                1,
+                2l,
+                3l);
 
         given()
                 .contentType(ContentType.JSON)
@@ -94,14 +94,13 @@ public class AvaliacaoResourceTest {
 
         AvaliacaoResponseDTO avaliacaoResponse = avaliacaoService.getById(id);
 
-        assertThat(avaliacaoResponse.id(), is(6l));
-        assertThat(avaliacaoResponse.comentario(), is("Gostei demais demais"));
-        assertThat(avaliacaoResponse.estrela().getLabel(), is("⭐⭐⭐⭐⭐"));
-        assertThat(avaliacaoResponse.produto().get("id"), is(4l));
-        assertThat(avaliacaoResponse.produto().get("nome"), is("Ração GranPlus Choice"));
-        assertThat(avaliacaoResponse.usuario().get("id"), is(2l));
-        assertThat(avaliacaoResponse.usuario().get("nome"), is("Maria Fernanda"));
-        assertThat(avaliacaoResponse.usuario().get("email"), is("mariaF@gmail.com"));
+        assertThat(avaliacaoResponse.comentario(), is("Ruim"));
+        assertThat(avaliacaoResponse.estrela().getLabel(), is("⭐"));
+        assertThat(avaliacaoResponse.produto().get("id"), is(2l));
+        assertThat(avaliacaoResponse.produto().get("nome"), is("Ração Golden Fórmula Mini Bits"));
+        assertThat(avaliacaoResponse.usuario().get("id"), is(3l));
+        assertThat(avaliacaoResponse.usuario().get("login"), is("PauloVitor"));
+        assertThat(avaliacaoResponse.usuario().get("email"), is("paulo_gaymer@gmail.com"));
 
     }
 
