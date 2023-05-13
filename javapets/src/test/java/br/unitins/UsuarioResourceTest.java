@@ -7,7 +7,9 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import jakarta.inject.Inject;
 
@@ -20,6 +22,10 @@ import br.unitins.ecommerce.dto.usuario.UsuarioDTO;
 import br.unitins.ecommerce.dto.usuario.UsuarioResponseDTO;
 import br.unitins.ecommerce.dto.usuario.listadesejo.ListaDesejoDTO;
 import br.unitins.ecommerce.dto.usuario.listadesejo.ListaDesejoResponseDTO;
+import br.unitins.ecommerce.model.usuario.Perfil;
+import br.unitins.ecommerce.model.usuario.Usuario;
+import br.unitins.ecommerce.service.hash.HashService;
+import br.unitins.ecommerce.service.token.TokenJwtService;
 import br.unitins.ecommerce.service.usuario.UsuarioService;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.security.TestSecurity;
@@ -31,33 +37,78 @@ public class UsuarioResourceTest {
     @Inject
     UsuarioService usuarioService;
 
+    @Inject
+    HashService hashService;
+
+    @Inject
+    TokenJwtService tokenJwtService;
+
     @Test
-    @TestSecurity(user = "testUser", roles = {"Admin"})
     public void getAllTest() {
 
+        PessoaFisicaDTO pessoaFisicaDTO = new PessoaFisicaDTO(
+                "Danilo Da Silva",
+                "89912402394",
+                "Danil789@unitins.br",
+                1);
+
+        EnderecoDTO enderecoDTO = new EnderecoDTO(
+                "Avenida Tocantins",
+                "Setor Bueno",
+                "8780",
+                "apto 3",
+                "77780-920",
+                4l);
+
+        TelefoneDTO telefonePrincipalDTO = new TelefoneDTO("067", "98467-8901");
+
+        TelefoneDTO telefoneOpcionalDTO = new TelefoneDTO("067", "4002-8922");
+
+        UsuarioDTO usuarioDto = new UsuarioDTO(
+                "Danilo",
+                "senha1234",
+                pessoaFisicaDTO,
+                enderecoDTO,
+                telefonePrincipalDTO,
+                telefoneOpcionalDTO);
+
+        usuarioService.insert(usuarioDto);
+
+        Usuario usuario = usuarioService.getByLoginAndSenha("Danilo", "senha1234");
+
+        Set<Perfil> perfis = new HashSet<>();
+
+        perfis.add(Perfil.ADMIN);
+
+        usuario.setPerfis(perfis);
+
+        String token = tokenJwtService.generateJwt(usuario);
+
         given()
-                .when().get("/usuarios")
+                .header("Authorization", "Bearer " + token) // Adiciona o cabeçalho de autenticação
+                .when()
+                .get("/usuarios")
                 .then()
                 .statusCode(200);
     }
 
     @Test
-    @TestSecurity(user = "testUser", roles = {"Admin", "User"})
+    @TestSecurity(user = "testUser", roles = { "Admin", "User" })
     public void insertTest() {
 
         PessoaFisicaDTO pessoaFisicaDTO = new PessoaFisicaDTO(
-            "Danilo Da Silva",
-            "89912376394",
-            "DaniloDaSi@unitins.br",
-            1);
+                "Danilo Da Silva",
+                "89912376394",
+                "DaniloDaSi@unitins.br",
+                1);
 
         EnderecoDTO enderecoDTO = new EnderecoDTO(
-            "Avenida Tocantins",
-            "Setor Bueno",
-            "8780",
-            "apto 3",
-            "77780-920",
-            4l);
+                "Avenida Tocantins",
+                "Setor Bueno",
+                "8780",
+                "apto 3",
+                "77780-920",
+                4l);
 
         TelefoneDTO telefonePrincipalDTO = new TelefoneDTO("067", "98467-8901");
 
@@ -96,22 +147,22 @@ public class UsuarioResourceTest {
     }
 
     @Test
-    @TestSecurity(user = "testUser", roles = {"Admin", "User"})
+    @TestSecurity(user = "testUser", roles = { "Admin", "User" })
     public void updateTest() {
 
         PessoaFisicaDTO pessoaFisicaDTO = new PessoaFisicaDTO(
-            "Danilo Da Silva",
-            "21012376094",
-            "DanilDaSi722@unitins.br",
-            1);
+                "Danilo Da Silva",
+                "21012376094",
+                "DanilDaSi722@unitins.br",
+                1);
 
         EnderecoDTO enderecoDTO = new EnderecoDTO(
-            "Avenida Tocantins",
-            "Setor Bueno",
-            "8780",
-            "apto 3",
-            "77780-920",
-            4l);
+                "Avenida Tocantins",
+                "Setor Bueno",
+                "8780",
+                "apto 3",
+                "77780-920",
+                4l);
 
         TelefoneDTO telefonePrincipalDTO = new TelefoneDTO("067", "98467-8901");
 
@@ -128,19 +179,18 @@ public class UsuarioResourceTest {
         Long id = usuarioService.insert(usuarioDto).id();
 
         PessoaFisicaDTO updatePessoaFisicaDTO = new PessoaFisicaDTO(
-            "Erick Santos",
-            "64702973802",
-            "ErickSantos@unitins.br",
-            1);
-
+                "Erick Santos",
+                "64702973802",
+                "ErickSantos@unitins.br",
+                1);
 
         EnderecoDTO updateEnderecoDTO = new EnderecoDTO(
-            "Avenida Juscelino Kubistchek",
-            "Setor Alvorada",
-            "8901",
-            "apto 1",
-            "77572-020",
-            4l);
+                "Avenida Juscelino Kubistchek",
+                "Setor Alvorada",
+                "8901",
+                "apto 1",
+                "77572-020",
+                4l);
 
         TelefoneDTO updateTelefonePrincipalDTO = new TelefoneDTO("067", "96821-0293");
 
@@ -155,11 +205,11 @@ public class UsuarioResourceTest {
                 updateTelefoneOpcionalDTO);
 
         given()
-          .contentType(ContentType.JSON)
-          .body(updateUsuarioDto)
-          .when().put("/usuarios/" + id)
-          .then()
-             .statusCode(204);
+                .contentType(ContentType.JSON)
+                .body(updateUsuarioDto)
+                .when().put("/usuarios/" + id)
+                .then()
+                .statusCode(204);
 
         UsuarioResponseDTO usuarioResponse = usuarioService.getById(id);
 
@@ -185,22 +235,22 @@ public class UsuarioResourceTest {
     }
 
     @Test
-    @TestSecurity(user = "testUser", roles = {"Admin", "User"})
+    @TestSecurity(user = "testUser", roles = { "Admin", "User" })
     public void updateTelefonePrincipalTest() {
 
         PessoaFisicaDTO pessoaFisicaDTO = new PessoaFisicaDTO(
-            "Emannuel",
-            "19012346084",
-            "Emannuel2209@unitins.br",
-            1);
+                "Emannuel",
+                "19012346084",
+                "Emannuel2209@unitins.br",
+                1);
 
         EnderecoDTO enderecoDTO = new EnderecoDTO(
-            "Avenida Tocantins",
-            "Setor Bueno",
-            "8780",
-            "apto 3",
-            "77780-920",
-            4l);
+                "Avenida Tocantins",
+                "Setor Bueno",
+                "8780",
+                "apto 3",
+                "77780-920",
+                4l);
 
         TelefoneDTO telefonePrincipalDTO = new TelefoneDTO("067", "98467-8901");
 
@@ -250,22 +300,22 @@ public class UsuarioResourceTest {
     }
 
     @Test
-    @TestSecurity(user = "testUser", roles = {"Admin", "User"})
+    @TestSecurity(user = "testUser", roles = { "Admin", "User" })
     public void updateEnderecoTest() {
 
         PessoaFisicaDTO pessoaFisicaDTO = new PessoaFisicaDTO(
-            "Hitalo",
-            "89412316094",
-            "Hitalo@unitins.br",
-            1);
+                "Hitalo",
+                "89412316094",
+                "Hitalo@unitins.br",
+                1);
 
         EnderecoDTO enderecoDTO = new EnderecoDTO(
-            "Avenida Tocantins",
-            "Setor Bueno",
-            "8780",
-            "apto 3",
-            "77780-920",
-            4l);
+                "Avenida Tocantins",
+                "Setor Bueno",
+                "8780",
+                "apto 3",
+                "77780-920",
+                4l);
 
         TelefoneDTO telefonePrincipalDTO = new TelefoneDTO("067", "98467-8901");
 
@@ -289,7 +339,7 @@ public class UsuarioResourceTest {
                 "77572-020",
                 4l);
 
-                given()
+        given()
                 .contentType(ContentType.JSON)
                 .body(updateEnderecoDTO)
                 .when().patch("/usuarios/update_endereco/" + id)
@@ -321,7 +371,7 @@ public class UsuarioResourceTest {
     }
 
     @Test
-    @TestSecurity(user = "testUser", roles = {"Admin", "User"})
+    @TestSecurity(user = "testUser", roles = { "Admin", "User" })
     public void deleteTest() {
 
         PessoaFisicaDTO pessoaFisicaDTO = new PessoaFisicaDTO(
@@ -329,26 +379,26 @@ public class UsuarioResourceTest {
                 "89042376391",
                 "Danilojasdfns@unitins.br",
                 1);
-    
-            EnderecoDTO enderecoDTO = new EnderecoDTO(
+
+        EnderecoDTO enderecoDTO = new EnderecoDTO(
                 "Avenida Tocantins",
                 "Setor Bueno",
                 "8780",
                 "apto 3",
                 "77780-920",
                 4l);
-    
-            TelefoneDTO telefonePrincipalDTO = new TelefoneDTO("067", "98467-8901");
-    
-            TelefoneDTO telefoneOpcionalDTO = new TelefoneDTO("067", "4002-8922");
-    
-            UsuarioDTO usuarioDto = new UsuarioDTO(
-              "Danilo",
-                    "senha1234",
-                    pessoaFisicaDTO,
-                    enderecoDTO,
-                    telefonePrincipalDTO,
-                    telefoneOpcionalDTO);
+
+        TelefoneDTO telefonePrincipalDTO = new TelefoneDTO("067", "98467-8901");
+
+        TelefoneDTO telefoneOpcionalDTO = new TelefoneDTO("067", "4002-8922");
+
+        UsuarioDTO usuarioDto = new UsuarioDTO(
+                "Danilo",
+                "senha1234",
+                pessoaFisicaDTO,
+                enderecoDTO,
+                telefonePrincipalDTO,
+                telefoneOpcionalDTO);
 
         Long id = usuarioService.insert(usuarioDto).id();
 
@@ -370,7 +420,7 @@ public class UsuarioResourceTest {
     }
 
     @Test
-    @TestSecurity(user = "testUser", roles = {"Admin"})
+    @TestSecurity(user = "testUser", roles = { "Admin" })
     public void countTest() {
 
         given()
@@ -380,7 +430,6 @@ public class UsuarioResourceTest {
     }
 
     @Test
-    @TestSecurity(user = "testUser", roles = {"Admin"})
     public void getByIdTest() {
 
         PessoaFisicaDTO pessoaFisicaDTO = new PessoaFisicaDTO(
@@ -388,37 +437,47 @@ public class UsuarioResourceTest {
                 "89012376394",
                 "DaniloDaSilva@unitins.br",
                 1);
-    
-            EnderecoDTO enderecoDTO = new EnderecoDTO(
+
+        EnderecoDTO enderecoDTO = new EnderecoDTO(
                 "Avenida Tocantins",
                 "Setor Bueno",
                 "8780",
                 "apto 3",
                 "77780-920",
                 4l);
-    
-            TelefoneDTO telefonePrincipalDTO = new TelefoneDTO("067", "98467-8901");
-    
-            TelefoneDTO telefoneOpcionalDTO = new TelefoneDTO("067", "4002-8922");
-    
-            UsuarioDTO usuarioDto = new UsuarioDTO(
-              "Danilo",
-                    "senha1234",
-                    pessoaFisicaDTO,
-                    enderecoDTO,
-                    telefonePrincipalDTO,
-                    telefoneOpcionalDTO);
+
+        TelefoneDTO telefonePrincipalDTO = new TelefoneDTO("067", "98467-8901");
+
+        TelefoneDTO telefoneOpcionalDTO = new TelefoneDTO("067", "4002-8922");
+
+        UsuarioDTO usuarioDto = new UsuarioDTO(
+                "Danilo",
+                "senha1234",
+                pessoaFisicaDTO,
+                enderecoDTO,
+                telefonePrincipalDTO,
+                telefoneOpcionalDTO);
 
         Long id = usuarioService.insert(usuarioDto).id();
 
+        Usuario usuario = usuarioService.getByLoginAndSenha("Danilo", "senha1234");
+
+        Set<Perfil> perfis = new HashSet<>();
+
+        perfis.add(Perfil.ADMIN);
+
+        usuario.setPerfis(perfis);
+
+        String token = tokenJwtService.generateJwt(usuario);
+
         given()
+                .header("Authorization", "Bearer " + token)
                 .when().get("/usuarios/" + id)
                 .then()
                 .statusCode(200);
     }
 
     @Test
-    @TestSecurity(user = "testUser", roles = {"Admin"})
     public void getByNomeTest() {
 
         PessoaFisicaDTO pessoaFisicaDTO = new PessoaFisicaDTO(
@@ -426,64 +485,74 @@ public class UsuarioResourceTest {
                 "89012376794",
                 "DaniloDaSilv@unitins.br",
                 1);
-    
-            EnderecoDTO enderecoDTO = new EnderecoDTO(
+
+        EnderecoDTO enderecoDTO = new EnderecoDTO(
                 "Avenida Tocantins",
                 "Setor Bueno",
                 "8780",
                 "apto 3",
                 "77780-920",
                 4l);
-    
-            TelefoneDTO telefonePrincipalDTO = new TelefoneDTO("067", "98467-8901");
-    
-            TelefoneDTO telefoneOpcionalDTO = new TelefoneDTO("067", "4002-8922");
-    
-            UsuarioDTO usuarioDto = new UsuarioDTO(
-              "Danilo",
-                    "senha1234",
-                    pessoaFisicaDTO,
-                    enderecoDTO,
-                    telefonePrincipalDTO,
-                    telefoneOpcionalDTO);
+
+        TelefoneDTO telefonePrincipalDTO = new TelefoneDTO("067", "98467-8901");
+
+        TelefoneDTO telefoneOpcionalDTO = new TelefoneDTO("067", "4002-8922");
+
+        UsuarioDTO usuarioDto = new UsuarioDTO(
+                "Danilo",
+                "senha1234",
+                pessoaFisicaDTO,
+                enderecoDTO,
+                telefonePrincipalDTO,
+                telefoneOpcionalDTO);
 
         String nome = usuarioService.insert(usuarioDto).nome();
 
+        Usuario usuario = usuarioService.getByLoginAndSenha("Danilo", "senha1234");
+
+        Set<Perfil> perfis = new HashSet<>();
+
+        perfis.add(Perfil.ADMIN);
+
+        usuario.setPerfis(perfis);
+
+        String token = tokenJwtService.generateJwt(usuario);
+
         given()
+                .header("Authorization", "Bearer " + token)
                 .when().get("/usuarios/searchByNome/" + nome)
                 .then()
                 .statusCode(200);
     }
 
     @Test
-    @TestSecurity(user = "testUser", roles = {"Admin", "User"})
     public void getListaDesejoTest() {
 
         PessoaFisicaDTO pessoaFisicaDTO = new PessoaFisicaDTO(
-                "Luis Felipe",
-                "49028237679",
-                "LuisFelipe@unitins.br",
+                "Danilo Da Silva",
+                "89076237639",
+                "DaniloDaSil@unitins.br",
                 1);
-    
-            EnderecoDTO enderecoDTO = new EnderecoDTO(
+
+        EnderecoDTO enderecoDTO = new EnderecoDTO(
                 "Avenida Tocantins",
                 "Setor Bueno",
                 "8780",
                 "apto 3",
                 "77780-920",
                 4l);
-    
-            TelefoneDTO telefonePrincipalDTO = new TelefoneDTO("067", "98467-8901");
-    
-            TelefoneDTO telefoneOpcionalDTO = new TelefoneDTO("067", "4002-8922");
-    
-            UsuarioDTO usuarioDto = new UsuarioDTO(
-              "Danilo",
-                    "senha1234",
-                    pessoaFisicaDTO,
-                    enderecoDTO,
-                    telefonePrincipalDTO,
-                    telefoneOpcionalDTO);
+
+        TelefoneDTO telefonePrincipalDTO = new TelefoneDTO("067", "98467-8901");
+
+        TelefoneDTO telefoneOpcionalDTO = new TelefoneDTO("067", "4002-8922");
+
+        UsuarioDTO usuarioDto = new UsuarioDTO(
+                "Danilo",
+                "senha1234",
+                pessoaFisicaDTO,
+                enderecoDTO,
+                telefonePrincipalDTO,
+                telefoneOpcionalDTO);
 
         Long idUsuario = usuarioService.insert(usuarioDto).id();
 
@@ -493,36 +562,46 @@ public class UsuarioResourceTest {
         usuarioService.insertListaDesejo(listaDesejoDTO);
         usuarioService.insertListaDesejo(listaDesejoDTO2);
 
+        Usuario usuario = usuarioService.getByLoginAndSenha("Danilo", "senha1234");
+
+        Set<Perfil> perfis = new HashSet<>();
+
+        perfis.add(Perfil.ADMIN);
+
+        usuario.setPerfis(perfis);
+
+        String token = tokenJwtService.generateJwt(usuario);
+
         given()
+                .header("Authorization", "Bearer " + token)
                 .when().get("/usuarios/lista_desejo/" + idUsuario)
                 .then()
                 .statusCode(200);
     }
 
     @Test
-    @TestSecurity(user = "testUser", roles = {"Admin", "User"})
     public void insertListaDesejoTest() {
 
         PessoaFisicaDTO pessoaFisicaDTO = new PessoaFisicaDTO(
-            "Danilo Da Silva",
-            "89076237639",
-            "Danilo123@unitins.br",
-            1);
+                "Danilo Da Silva",
+                "89912376396",
+                "Danilo123@unitins.br",
+                1);
 
         EnderecoDTO enderecoDTO = new EnderecoDTO(
-            "Avenida Tocantins",
-            "Setor Bueno",
-            "8780",
-            "apto 3",
-            "77780-920",
-            4l);
+                "Avenida Tocantins",
+                "Setor Bueno",
+                "8780",
+                "apto 3",
+                "77780-920",
+                4l);
 
         TelefoneDTO telefonePrincipalDTO = new TelefoneDTO("067", "98467-8901");
 
         TelefoneDTO telefoneOpcionalDTO = new TelefoneDTO("067", "4002-8922");
 
         UsuarioDTO usuarioDto = new UsuarioDTO(
-          "Danilo",
+                "Danilo",
                 "senha1234",
                 pessoaFisicaDTO,
                 enderecoDTO,
@@ -533,7 +612,18 @@ public class UsuarioResourceTest {
 
         ListaDesejoDTO listaDesejoDTO = new ListaDesejoDTO(idUsuario, 1l);
 
+        Usuario usuario = usuarioService.getByLoginAndSenha("Danilo", "senha1234");
+
+        Set<Perfil> perfis = new HashSet<>();
+
+        perfis.add(Perfil.ADMIN);
+
+        usuario.setPerfis(perfis);
+
+        String token = tokenJwtService.generateJwt(usuario);
+
         given()
+                .header("Authorization", "Bearer " + token)
                 .contentType(ContentType.JSON)
                 .body(listaDesejoDTO)
                 .when().post("/usuarios/lista_desejo")
@@ -545,27 +635,27 @@ public class UsuarioResourceTest {
         assertThat(listaResponse.usuario().get("id"), is(idUsuario));
         assertThat(listaResponse.usuario().get("login"), is("Danilo"));
         assertThat(listaResponse.usuario().get("email"), is("Danilo123@unitins.br"));
+        assertThat(listaResponse.usuario().get("email"), is("Danilo123@unitins.br"));
         assertThat(listaResponse.produtos().get(0).get("id"), is(1l));
         assertThat(listaResponse.produtos().get(0).get("nome"), is("Ração Pedigree Nutrição Essencial"));
     }
 
     @Test
-    @TestSecurity(user = "testUser", roles = {"Admin", "User"})
     public void deleteProdutoFromListaDesejoTest() {
 
         PessoaFisicaDTO pessoaFisicaDTO = new PessoaFisicaDTO(
-            "Danilo Da Silva",
-            "89012376391",
-            "DaniloDaS@unitins.br",
-            1);
+                "Danilo Da Silva",
+                "89012376391",
+                "DaniloDaS@unitins.br",
+                1);
 
         EnderecoDTO enderecoDTO = new EnderecoDTO(
-            "Avenida Tocantins",
-            "Setor Bueno",
-            "8780",
-            "apto 3",
-            "77780-920",
-            4l);
+                "Avenida Tocantins",
+                "Setor Bueno",
+                "8780",
+                "apto 3",
+                "77780-920",
+                4l);
 
         TelefoneDTO telefonePrincipalDTO = new TelefoneDTO("067", "98467-8901");
 
@@ -587,7 +677,18 @@ public class UsuarioResourceTest {
         usuarioService.insertListaDesejo(listaDesejoDTO);
         usuarioService.insertListaDesejo(listaDesejoDTO2);
 
+        Usuario usuario = usuarioService.getByLoginAndSenha("Danilo", "senha1234");
+
+        Set<Perfil> perfis = new HashSet<>();
+
+        perfis.add(Perfil.ADMIN);
+
+        usuario.setPerfis(perfis);
+
+        String token = tokenJwtService.generateJwt(usuario);
+
         given()
+                .header("Authorization", "Bearer " + token)
                 .pathParam("idUsuario", idUsuario)
                 .pathParam("idProduto", 3l)
                 .when().delete("/usuarios/lista_desejo/{idUsuario}/{idProduto}")
@@ -612,22 +713,21 @@ public class UsuarioResourceTest {
     }
 
     @Test
-    @TestSecurity(user = "testUser", roles = {"Admin", "User"})
     public void countListaDesejoTest() {
 
         PessoaFisicaDTO pessoaFisicaDTO = new PessoaFisicaDTO(
-            "Danilo Da Silva",
-            "89012376491",
-            "Danilo098@unitins.br",
-            1);
+                "Danilo Da Silva",
+                "89012376491",
+                "Danilo098@unitins.br",
+                1);
 
         EnderecoDTO enderecoDTO = new EnderecoDTO(
-            "Avenida Tocantins",
-            "Setor Bueno",
-            "8780",
-            "apto 3",
-            "77780-920",
-            4l);
+                "Avenida Tocantins",
+                "Setor Bueno",
+                "8780",
+                "apto 3",
+                "77780-920",
+                4l);
 
         TelefoneDTO telefonePrincipalDTO = new TelefoneDTO("067", "98467-8901");
 
@@ -643,7 +743,18 @@ public class UsuarioResourceTest {
 
         Long idUsuario = usuarioService.insert(usuarioDto).id();
 
+        Usuario usuario = usuarioService.getByLoginAndSenha("Danilo", "senha1234");
+
+        Set<Perfil> perfis = new HashSet<>();
+
+        perfis.add(Perfil.ADMIN);
+
+        usuario.setPerfis(perfis);
+
+        String token = tokenJwtService.generateJwt(usuario);
+
         given()
+                .header("Authorization", "Bearer " + token)
                 .when().get("/usuarios/lista_desejo/count/" + idUsuario)
                 .then()
                 .statusCode(200);
