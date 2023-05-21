@@ -1,6 +1,5 @@
 package br.unitins.ecommerce.model.usuario;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 
 import br.unitins.ecommerce.model.DefaultEntity;
@@ -8,10 +7,8 @@ import br.unitins.ecommerce.model.DefaultEntity;
 @Entity
 public class Telefone extends DefaultEntity {
 
-    @Column(nullable = false)
     private String codigoArea;
 
-    @Column(nullable = false)
     private String numero;
 
     public String getCodigoArea() {

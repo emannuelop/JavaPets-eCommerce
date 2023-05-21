@@ -11,7 +11,7 @@ public class PessoaFisica extends Pessoa {
     @Column(nullable = false, unique = true, length = 11)
     private String cpf;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String email;
 
     @Column(nullable = false)

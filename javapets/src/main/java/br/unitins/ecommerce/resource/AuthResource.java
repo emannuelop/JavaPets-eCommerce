@@ -1,5 +1,7 @@
 package br.unitins.ecommerce.resource;
 
+import org.eclipse.microprofile.jwt.JsonWebToken;
+
 import br.unitins.ecommerce.dto.usuario.AuthUsuarioDTO;
 import br.unitins.ecommerce.model.usuario.Usuario;
 import br.unitins.ecommerce.service.hash.HashService;
@@ -15,6 +17,8 @@ import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
 
 @Path("/auth")
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.TEXT_PLAIN)
 public class AuthResource {
 
     @Inject
@@ -26,9 +30,10 @@ public class AuthResource {
     @Inject
     TokenJwtService tokenService;
 
+    @Inject
+    JsonWebToken jwt;
+
     @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.TEXT_PLAIN)
     public Response login(AuthUsuarioDTO authDTO) {
         
         String hash = hashService.getHashSenha(authDTO.senha());
@@ -45,3 +50,4 @@ public class AuthResource {
                     .build();
     }
 }
+

@@ -26,14 +26,15 @@ INSERT INTO racao (quantidadeQuilos, sabor, escolhaAnimal, id) VALUES (12, 'Fran
 
 INSERT INTO estado (nome, sigla) VALUES ('Acre', 'AC');
 INSERT INTO estado (nome, sigla) VALUES ('Amazonas', 'AM');
-INSERT INTO estado (nome, sigla) VALUES ('Pará', 'PA');
 INSERT INTO estado (nome, sigla) VALUES ('Goiás', 'GO');
+INSERT INTO estado (nome, sigla) VALUES ('Pará', 'PA');
 INSERT INTO estado (nome, sigla) VALUES ('Tocantins', 'TO');
 
 INSERT INTO municipio (nome, id_estado) VALUES ('Manaus', 2);
 INSERT INTO municipio (nome, id_estado) VALUES ('Palmas', 5);
 INSERT INTO municipio (nome, id_estado) VALUES ('Guaraí', 5);
-INSERT INTO municipio (nome, id_estado) VALUES ('Belém', 3);
+INSERT INTO municipio (nome, id_estado) VALUES ('Belém', 4);
+INSERT INTO municipio (nome, id_estado) VALUES ('Goiânia', 3);
 
 INSERT INTO endereco (logradouro, bairro, numero, cep, id_municipio) VALUES ('alameda 12', 'Quadra 708 Sul', 'lote 10', '77082-012', 2);
 INSERT INTO endereco (logradouro, bairro, numero, cep, id_municipio) VALUES ('avenida Bernado Sayão', 'Setor Aeroporto', 'número 3564', '77700-001', 3);
@@ -65,8 +66,8 @@ INSERT INTO pessoaFisica (cpf, email, sexo, id) VALUES ('92874291092', 'lucas_fe
 INSERT INTO usuario (id_pessoa_fisica, login, senha, id_endereco, id_telefone_principal,
                 id_telefone_opcional) VALUES (1, 'JoaoA', 'ZXChMgzI4VI5Jx+KKCL0AnuRaug9sWorJdV7iCDgWIDNVms7vyhaZeXP+5x26q6uDWKJmyQySZzE8hvoncjgCA==', 1, 2, 1);
 
-INSERT INTO usuario (id_pessoa_fisica, senha, id_endereco, id_telefone_principal)
-            VALUES (2, 'x6JkviFo/CZc/dYoTsn+KjkyXu9rqbOwZ89vC1horO3B+ZT2N9nhquEvkFxm2WZahBpo5wgui91vSF00c1BYPA==', 3, 3);
+INSERT INTO usuario (id_pessoa_fisica, login, senha, id_endereco, id_telefone_principal)
+            VALUES (2, 'maria123', 'x6JkviFo/CZc/dYoTsn+KjkyXu9rqbOwZ89vC1horO3B+ZT2N9nhquEvkFxm2WZahBpo5wgui91vSF00c1BYPA==', 3, 3);
 
 INSERT INTO usuario (id_pessoa_fisica, login, senha, id_endereco, id_telefone_principal,
                 id_telefone_opcional) VALUES (3, 'PauloVitor', 'EDCT26TOqyKJg1i5rpN/tOkmr8RSjKfPP1qdPhjlj+sA3Wd++oZFkG5YChaMMRndKipiyVxfL12CUYWybBk+aA==', 2, 4, 5);
@@ -78,8 +79,8 @@ INSERT INTO usuario (id_pessoa_fisica, login, senha, id_endereco, id_telefone_pr
             VALUES (5, 'LucasFerreira', 'Tv7l6PLjIMgRTG8n32VVbtgHZyUj3L9nbtTz77T96tP52xepJQ25AoczGr8MA89dZ8cOErN3WcuGyOurMPCaOA==', 4, 8);
 
 INSERT INTO perfis (id_usuario, perfil) VALUES (1, 'Admin');
-INSERT INTO perfis (id_usuario, perfil) VALUES (2, 'User');
 INSERT INTO perfis (id_usuario, perfil) VALUES (1, 'User');
+INSERT INTO perfis (id_usuario, perfil) VALUES (2, 'User');
 INSERT INTO perfis (id_usuario, perfil) VALUES (3, 'User');
 INSERT INTO perfis (id_usuario, perfil) VALUES (4, 'User');
 INSERT INTO perfis (id_usuario, perfil) VALUES (5, 'Admin');
@@ -97,6 +98,3 @@ INSERT INTO avaliacao (comentario, data, estrela, id_produto, id_usuario)
 INSERT INTO avaliacao (data, estrela, id_produto, id_usuario) VALUES ('2023-02-08', 1, 2, 3);
 INSERT INTO avaliacao (comentario, data, estrela, id_produto, id_usuario)
                 VALUES ('Ruim', '2023-05-09', 1, 2, 1);
-
-
-                

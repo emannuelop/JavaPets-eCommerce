@@ -2,14 +2,6 @@ package br.unitins.ecommerce.resource;
 
 import java.util.List;
 
-import br.unitins.ecommerce.application.Result;
-import br.unitins.ecommerce.dto.endereco.EnderecoDTO;
-import br.unitins.ecommerce.dto.telefone.TelefoneDTO;
-import br.unitins.ecommerce.dto.usuario.UsuarioDTO;
-import br.unitins.ecommerce.dto.usuario.UsuarioResponseDTO;
-import br.unitins.ecommerce.dto.usuario.listadesejo.ListaDesejoDTO;
-import br.unitins.ecommerce.dto.usuario.listadesejo.ListaDesejoResponseDTO;
-import br.unitins.ecommerce.service.usuario.UsuarioService;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.ConstraintViolationException;
@@ -17,7 +9,6 @@ import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.NotFoundException;
-import jakarta.ws.rs.PATCH;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
@@ -27,16 +18,23 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
 
+import br.unitins.ecommerce.application.Result;
+import br.unitins.ecommerce.dto.usuario.UsuarioDTO;
+import br.unitins.ecommerce.dto.usuario.UsuarioResponseDTO;
+import br.unitins.ecommerce.dto.usuario.listadesejo.ListaDesejoDTO;
+import br.unitins.ecommerce.dto.usuario.listadesejo.ListaDesejoResponseDTO;
+import br.unitins.ecommerce.service.usuario.UsuarioService;
+
 @Path("/usuarios")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class UsuarioResource {
-
+    
     @Inject
     UsuarioService usuarioService;
 
     @GET
-    @RolesAllowed({ "Admin" })
+    @RolesAllowed({"Admin"})
     public List<UsuarioResponseDTO> getAll() {
 
         return usuarioService.getAll();
@@ -44,7 +42,7 @@ public class UsuarioResource {
 
     @GET
     @Path("/{id}")
-    @RolesAllowed({ "Admin" })
+    @RolesAllowed({"Admin"})
     public UsuarioResponseDTO getById(@PathParam("id") Long id) throws NotFoundException {
 
         return usuarioService.getById(id);
@@ -52,14 +50,14 @@ public class UsuarioResource {
 
     @GET
     @Path("/lista_desejo/{idUsuario}")
-    @RolesAllowed({ "Admin", "User" })
+    @RolesAllowed({"Admin","User"})
     public ListaDesejoResponseDTO getListaDesejo(@PathParam("idUsuario") Long idUsuario) {
 
         return usuarioService.getListaDesejo(idUsuario);
     }
 
     @POST
-    @RolesAllowed({ "Admin", "User" })
+    @RolesAllowed({"Admin","User"})
     public Response insert(UsuarioDTO usuarioDto) {
 
         try {
@@ -81,7 +79,7 @@ public class UsuarioResource {
 
     @POST
     @Path("/lista_desejo")
-    @RolesAllowed({ "Admin", "User" })
+    @RolesAllowed({"Admin","User"})
     public Response insertListaDesejo(ListaDesejoDTO listaDto) {
 
         try {
@@ -104,7 +102,7 @@ public class UsuarioResource {
 
     @PUT
     @Path("/{id}")
-    @RolesAllowed({ "Admin", "User" })
+    @RolesAllowed({"Admin","User"})
     public Response update(@PathParam("id") Long id, UsuarioDTO usuarioDto) {
 
         try {
@@ -125,55 +123,9 @@ public class UsuarioResource {
         }
     }
 
-    @PATCH
-    @Path("/update_telefone_principal/{id}")
-    @RolesAllowed({ "Admin", "User" })
-    public Response updateTelefonePrincipal(@PathParam("id") Long id, TelefoneDTO telefoneDTO) {
-
-        try {
-
-            usuarioService.updateTelefone(id, telefoneDTO);
-
-            return Response
-                    .status(Status.NO_CONTENT) // 204
-                    .build();
-        } catch (ConstraintViolationException e) {
-
-            Result result = new Result(e.getConstraintViolations());
-
-            return Response
-                    .status(Status.NOT_FOUND)
-                    .entity(result)
-                    .build();
-        }
-    }
-
-    @PATCH
-    @Path("/update_endereco/{id}")
-    @RolesAllowed({ "Admin", "User" })
-    public Response updateEndereco(@PathParam("id") Long id, EnderecoDTO enderecoDTO) {
-
-        try {
-
-            usuarioService.updateEndereco(id, enderecoDTO);
-
-            return Response
-                    .status(Status.NO_CONTENT) // 204
-                    .build();
-        } catch (ConstraintViolationException e) {
-
-            Result result = new Result(e.getConstraintViolations());
-
-            return Response
-                    .status(Status.NOT_FOUND)
-                    .entity(result)
-                    .build();
-        }
-    }
-
     @DELETE
     @Path("/{id}")
-    @RolesAllowed({ "Admin", "User" })
+    @RolesAllowed({"Admin","User"})
     public Response delete(@PathParam("id") Long id) throws IllegalArgumentException, NotFoundException {
 
         usuarioService.delete(id);
@@ -185,9 +137,8 @@ public class UsuarioResource {
 
     @DELETE
     @Path("/lista_desejo/{idUsuario}/{idProduto}")
-    @RolesAllowed({ "Admin", "User" })
-    public Response deleteProdutoFromListaDesejo(@PathParam("idUsuario") Long idUsuario,
-            @PathParam("idProduto") Long idProdutoListaDesejo) {
+    @RolesAllowed({"Admin","User"})
+    public Response deleteProdutoFromListaDesejo(@PathParam("idUsuario") Long idUsuario, @PathParam("idProduto") Long idProdutoListaDesejo) {
 
         usuarioService.deleteProdutoFromListaDesejo(idUsuario, idProdutoListaDesejo);
 
@@ -198,7 +149,7 @@ public class UsuarioResource {
 
     @GET
     @Path("/count")
-    @RolesAllowed({ "Admin" })
+    @RolesAllowed({"Admin"})
     public Long count() {
 
         return usuarioService.count();
@@ -206,7 +157,7 @@ public class UsuarioResource {
 
     @GET
     @Path("/lista_desejo/count/{id}")
-    @RolesAllowed({ "Admin", "User" })
+    @RolesAllowed({"Admin","User"})
     public Integer countListaDesejo(@PathParam("id") Long id) {
 
         return usuarioService.countListaDesejo(id);
@@ -214,7 +165,7 @@ public class UsuarioResource {
 
     @GET
     @Path("/searchByNome/{nome}")
-    @RolesAllowed({ "Admin" })
+    @RolesAllowed({"Admin"})
     public List<UsuarioResponseDTO> getByNome(@PathParam("nome") String nome) throws NullPointerException {
 
         return usuarioService.getByNome(nome);
