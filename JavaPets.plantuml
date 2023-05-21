@@ -29,6 +29,30 @@ Classes que serão implementadas: Usuario (com Telefone, Endereco e a "listaDese
         - cnpj: String
     }
 
+    abstract class Pessoa {
+
+        - id: Long
+        - nome: String
+    }
+
+    class PessoaFisica {
+
+        - cpf: String
+        - email: String
+    }
+
+    enum Sexo {
+
+        + MASCULINO: int
+        + FEMININO: int
+    }
+
+    enum Perfil {
+
+        + ADMIN: int
+        + USER: int
+    }
+
     class Usuario {
 
         - id: Long
@@ -48,7 +72,7 @@ Classes que serão implementadas: Usuario (com Telefone, Endereco e a "listaDese
     class Compra {
 
         - id: Long
-        - dataDaCompra: Date
+        - dataCompra: Date
         - totalCompra: Double
     }
 
@@ -109,7 +133,7 @@ Classes que serão implementadas: Usuario (com Telefone, Endereco e a "listaDese
 
         - numeroCartao: String
         - nomeImpressoCartao: String
-        - cpfDoTitular: String
+        - cpfTitular: String
     }
 
     enum BandeiraCartao {
@@ -144,6 +168,12 @@ Classes que serão implementadas: Usuario (com Telefone, Endereco e a "listaDese
 
     Endereco "*" --> "1" Municipio
 
+    PessoaFisica "1" --> "*" Sexo
+
+    PessoaFisica -up-|> Pessoa
+
+    Usuario "1" --> "1" PessoaFisica
+    Usuario "*" --> "*" Perfil
     Usuario "*" --> "*" Produto: listaDesejo
     Usuario "1" *--> "1" Telefone: telefonePrincipal
     Usuario "1" *--> "1" Telefone: telefoneOpcional
