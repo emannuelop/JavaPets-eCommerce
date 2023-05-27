@@ -1,7 +1,11 @@
 package br.unitins.ecommerce.resource;
 
-import org.eclipse.microprofile.jwt.JsonWebToken;
+import java.io.IOException;
 
+import org.eclipse.microprofile.jwt.JsonWebToken;
+import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
+
+import br.unitins.ecommerce.application.Result;
 import br.unitins.ecommerce.dto.endereco.EnderecoDTO;
 import br.unitins.ecommerce.dto.endereco.EnderecoResponseDTO;
 import br.unitins.ecommerce.dto.telefone.TelefoneDTO;
@@ -9,7 +13,9 @@ import br.unitins.ecommerce.dto.telefone.TelefonesResponseDTO;
 import br.unitins.ecommerce.dto.usuario.SenhaDTO;
 import br.unitins.ecommerce.dto.usuario.dadospessoais.DadosPessoaisDTO;
 import br.unitins.ecommerce.dto.usuario.dadospessoais.DadosPessoaisResponseDTO;
+import br.unitins.ecommerce.form.ImageForm;
 import br.unitins.ecommerce.model.usuario.Usuario;
+import br.unitins.ecommerce.service.file.FileService;
 import br.unitins.ecommerce.service.usuario.UsuarioService;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
@@ -18,25 +24,30 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.NotAuthorizedException;
 import jakarta.ws.rs.PATCH;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response.ResponseBuilder;
 import jakarta.ws.rs.core.Response.Status;
 
 @Path("/perfil")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class UsuarioLogado {
-    
+public class UsuarioLogadoResource {
+
     @Inject
     UsuarioService usuarioService;
 
     @Inject
     JsonWebToken tokenJwt;
 
+    @Inject
+    FileService fileService;
+
     @GET
     @Path("/dados-pessoais")
-    @RolesAllowed({"User"})
+    @RolesAllowed({ "User" })
     public Response getDadosPessoais() {
 
         String login = tokenJwt.getSubject();
@@ -48,7 +59,7 @@ public class UsuarioLogado {
 
     @GET
     @Path("/telefones")
-    @RolesAllowed({"User"})
+    @RolesAllowed({ "User" })
     public Response getTelefones() {
 
         String login = tokenJwt.getSubject();
@@ -60,7 +71,7 @@ public class UsuarioLogado {
 
     @GET
     @Path("/endereco")
-    @RolesAllowed({"User"})
+    @RolesAllowed({ "User" })
     public Response getEndereco() {
 
         String login = tokenJwt.getSubject();
@@ -70,9 +81,22 @@ public class UsuarioLogado {
         return Response.ok(enderecoUsuario).build();
     }
 
+    @GET
+    @Path("/download/{nomeImagem}")
+    @RolesAllowed({ "Admin", "User" })
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    public Response download(@PathParam("nomeImagem") String nomeImagem) {
+
+        ResponseBuilder response = Response.ok(fileService.download(nomeImagem));
+
+        response.header("Content-Disposition", "attachment;filename=" + nomeImagem);
+
+        return response.build();
+    }
+
     @PATCH
     @Path("/dados-pessoais")
-    @RolesAllowed({"User"})
+    @RolesAllowed({ "User" })
     public Response updateDadosPessoais(DadosPessoaisDTO dadosPessoaisDTO) {
 
         String login = tokenJwt.getSubject();
@@ -86,7 +110,7 @@ public class UsuarioLogado {
 
     @PATCH
     @Path("/senha")
-    @RolesAllowed({"User"})
+    @RolesAllowed({ "User" })
     public Response updateSenha(SenhaDTO senhaDTO) {
 
         String login = tokenJwt.getSubject();
@@ -106,7 +130,7 @@ public class UsuarioLogado {
 
     @PATCH
     @Path("/telefone-principal")
-    @RolesAllowed({"User"})
+    @RolesAllowed({ "User" })
     public Response updateTelefonePrincipal(TelefoneDTO telefonePrincipalDTO) {
 
         String login = tokenJwt.getSubject();
@@ -120,7 +144,7 @@ public class UsuarioLogado {
 
     @PATCH
     @Path("/telefone-opcional")
-    @RolesAllowed({"User"})
+    @RolesAllowed({ "User" })
     public Response updateTelefoneOpcional(TelefoneDTO telefoneOpcionalDTO) {
 
         String login = tokenJwt.getSubject();
@@ -134,7 +158,7 @@ public class UsuarioLogado {
 
     @PATCH
     @Path("/endereco")
-    @RolesAllowed({"User"})
+    @RolesAllowed({ "User" })
     public Response updateEndereco(EnderecoDTO enderecoDTO) {
 
         String login = tokenJwt.getSubject();
@@ -142,6 +166,34 @@ public class UsuarioLogado {
         Usuario usuario = usuarioService.getByLogin(login);
 
         usuarioService.update(usuario.getId(), enderecoDTO);
+
+        return Response.status(Status.NO_CONTENT).build();
+    }
+
+    @PATCH
+    @Path("/atualizar-imagem")
+    @RolesAllowed({ "Admin", "User" })
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    public Response salvarImagem(@MultipartForm ImageForm form) {
+
+        String nomeImagem = "";
+
+        try {
+
+            nomeImagem = fileService.salvarImagemUsuario(form.getImagem(), form.getNomeImagem());
+        } catch (IOException e) {
+
+            Result result = new Result(e.getMessage());
+
+            return Response.status(Status.CONFLICT).entity(result).build();
+        }
+
+        // obtendo o login a partir do token
+        String login = tokenJwt.getSubject();
+
+        Usuario usuario = usuarioService.getByLogin(login);
+
+        usuarioService.update(usuario.getId(), nomeImagem);
 
         return Response.status(Status.NO_CONTENT).build();
     }

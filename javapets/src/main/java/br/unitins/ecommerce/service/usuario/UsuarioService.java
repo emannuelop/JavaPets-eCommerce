@@ -14,11 +14,11 @@ import br.unitins.ecommerce.model.produto.Produto;
 import br.unitins.ecommerce.model.usuario.Usuario;
 
 public interface UsuarioService {
-    
+
     // Metodos basicos
 
     List<UsuarioResponseDTO> getAll();
-    
+
     UsuarioResponseDTO getById(Long id);
 
     UsuarioResponseDTO insert(UsuarioDTO usuarioDto);
@@ -45,11 +45,13 @@ public interface UsuarioService {
 
     Usuario getByLogin(String login);
 
-    void update (Long id, DadosPessoaisDTO dadosPessoaisDTO);
+    void update(Long id, DadosPessoaisDTO dadosPessoaisDTO);
 
-    void update (Long id, SenhaDTO senhaDTO);
+    void update(Long id, SenhaDTO senhaDTO);
 
     void update(Long id, EnderecoDTO enderecoDTO);
+
+    void update(Long id, String nomeImagem);
 
     void updateTelefonePrincipal(Long id, TelefoneDTO telefonePrincipalDTO);
 

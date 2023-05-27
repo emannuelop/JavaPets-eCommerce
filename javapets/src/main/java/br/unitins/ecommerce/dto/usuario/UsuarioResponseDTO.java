@@ -14,6 +14,7 @@ public record UsuarioResponseDTO(
         String login,
         String email,
         String cpf,
+        String nomeImagem,
         Map<String, Object> endereco,
         Map<String, Object> telefonePrincipal,
         Map<String, Object> telefoneOpcional) {
@@ -25,6 +26,7 @@ public record UsuarioResponseDTO(
                 usuario.getLogin(),
                 usuario.getPessoaFisica().getEmail(),
                 usuario.getPessoaFisica().getCpf(),
+                usuario.getNomeImagem(),
                 viewEndereco(usuario.getEndereco().getLogradouro(),
                         usuario.getEndereco().getBairro(),
                         usuario.getEndereco().getNumero(),
