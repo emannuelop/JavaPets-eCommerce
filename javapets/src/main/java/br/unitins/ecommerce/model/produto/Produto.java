@@ -16,6 +16,8 @@ public abstract class Produto extends DefaultEntity {
     @Column(nullable = false)
     private String nome;
 
+    private String nomeImagem;
+
     private String descricao;
 
     @Column(nullable = false)
@@ -60,6 +62,11 @@ public abstract class Produto extends DefaultEntity {
         this.estoque = estoque;
     }
 
+    public void minusEstoque(Integer estoque) {
+
+        this.estoque -= estoque;
+    }
+
     public Marca getMarca() {
         return marca;
     }
@@ -68,4 +75,11 @@ public abstract class Produto extends DefaultEntity {
         this.marca = marca;
     }
 
+    public String getNomeImagem() {
+        return nomeImagem;
+    }
+
+    public void setNomeImagem(String nomeImagem) {
+        this.nomeImagem = nomeImagem;
+    }
 }

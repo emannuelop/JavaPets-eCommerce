@@ -13,9 +13,11 @@ public interface RacaoService {
 
     RacaoResponseDTO getById(Long id);
 
-    RacaoResponseDTO insert(RacaoDTO cafeDto);
+    RacaoResponseDTO insert(RacaoDTO racaoDto);
 
-    RacaoResponseDTO update(Long id, RacaoDTO cafeDto);
+    RacaoResponseDTO update(Long id, RacaoDTO racaoDto);
+
+    void update(Long id, String nomeImagem);
 
     void delete(Long id);
 

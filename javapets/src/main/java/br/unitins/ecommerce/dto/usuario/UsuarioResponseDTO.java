@@ -40,7 +40,7 @@ public record UsuarioResponseDTO(
                         : null);
     }
 
-    private static Map<String, Object> viewEndereco(String logradouro, String bairro, String numero, String complemento,
+    public static Map<String, Object> viewEndereco(String logradouro, String bairro, String numero, String complemento,
             String cep, Municipio municipio) {
 
         Map<String, Object> endereco = new HashMap<>();

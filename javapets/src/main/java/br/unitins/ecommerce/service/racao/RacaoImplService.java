@@ -117,6 +117,18 @@ public class RacaoImplService implements RacaoService {
 
     @Override
     @Transactional
+    public void update(Long id, String nomeImagem) {
+
+        Racao entity = racaoRepository.findById(id);
+
+        if (entity == null)
+            throw new NullPointerException("Nenhum café encontrado");
+
+        entity.setNomeImagem(nomeImagem);
+    }
+
+    @Override
+    @Transactional
     public void delete(Long id) throws IllegalArgumentException, NotFoundException {
 
         if (id == null)
