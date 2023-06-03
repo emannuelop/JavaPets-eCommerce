@@ -57,7 +57,7 @@ public class UsuarioLogadoResource {
         String login = tokenJwt.getSubject();
 
         DadosPessoaisResponseDTO dadosPessoaisUsuario = new DadosPessoaisResponseDTO(usuarioService.getByLogin(login));
-        LOG.infof("Buscando o dados pessoais do usuário: ", login);
+        LOG.infof("Buscando o dados pessoais do usuário");
         LOG.debug("ERRO DE DEBUG.");
 
         return Response.ok(dadosPessoaisUsuario).build();
@@ -71,7 +71,7 @@ public class UsuarioLogadoResource {
         String login = tokenJwt.getSubject();
 
         TelefonesResponseDTO telefonesResponseDTO = new TelefonesResponseDTO(usuarioService.getByLogin(login));
-        LOG.infof("Buscando o telefones do usuário: ", login);
+        LOG.infof("Buscando o telefones do usuário");
         LOG.debug("ERRO DE DEBUG.");
 
         return Response.ok(telefonesResponseDTO).build();
@@ -85,7 +85,7 @@ public class UsuarioLogadoResource {
         String login = tokenJwt.getSubject();
 
         EnderecoResponseDTO enderecoUsuario = new EnderecoResponseDTO(usuarioService.getByLogin(login).getEndereco());
-        LOG.infof("Buscando o endereço do usuário: ", login);
+        LOG.infof("Buscando o endereço do usuário");
         LOG.debug("ERRO DE DEBUG.");
 
         return Response.ok(enderecoUsuario).build();
