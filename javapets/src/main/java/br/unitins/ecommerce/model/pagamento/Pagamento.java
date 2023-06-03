@@ -1,6 +1,6 @@
 package br.unitins.ecommerce.model.pagamento;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -19,7 +19,19 @@ public abstract class Pagamento extends DefaultEntity {
     @Column(nullable = false)
     private Boolean confirmacaoPagamento;
 
-    private Date dataConfirmacaoPagamento;
+    private LocalDate dataConfirmacaoPagamento;
+
+    public Pagamento(Double valor) {
+
+        this.valor = valor;
+        this.confirmacaoPagamento = true;
+        this.dataConfirmacaoPagamento = LocalDate.now();
+    }
+
+    public Pagamento() {
+
+        this.confirmacaoPagamento = false;
+    }
 
     public Boolean getConfirmacaoPagamento() {
         return confirmacaoPagamento;
@@ -27,14 +39,6 @@ public abstract class Pagamento extends DefaultEntity {
 
     public void setConfirmacaoPagamento(Boolean confirmacaoPagamento) {
         this.confirmacaoPagamento = confirmacaoPagamento;
-    }
-
-    public Date getDataDeConfirmacaoPagamento() {
-        return dataConfirmacaoPagamento;
-    }
-
-    public void setDataDeConfirmacaoPagamento(Date dataDeConfirmacaoPagamento) {
-        this.dataConfirmacaoPagamento = dataDeConfirmacaoPagamento;
     }
 
     public Double getValor() {
@@ -45,11 +49,11 @@ public abstract class Pagamento extends DefaultEntity {
         this.valor = valor;
     }
 
-    public Date getDataConfirmacaoPagamento() {
+    public LocalDate getDataConfirmacaoPagamento() {
         return dataConfirmacaoPagamento;
     }
 
-    public void setDataConfirmacaoPagamento(Date dataConfirmacaoPagamento) {
+    public void setDataConfirmacaoPagamento(LocalDate dataConfirmacaoPagamento) {
         this.dataConfirmacaoPagamento = dataConfirmacaoPagamento;
     }
 
