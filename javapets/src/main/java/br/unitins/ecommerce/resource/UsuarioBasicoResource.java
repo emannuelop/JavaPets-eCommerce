@@ -20,7 +20,7 @@ import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
 
 @Path("/usuario-basico")
-public class UsuarioBasicResource {
+public class UsuarioBasicoResource {
 
     @Inject
     UsuarioService usuarioService;
@@ -28,10 +28,9 @@ public class UsuarioBasicResource {
     @Inject
     JsonWebToken tokenJwt;
 
-    private static final Logger LOG = Logger.getLogger(UsuarioBasicResource.class);
+    private static final Logger LOG = Logger.getLogger(UsuarioBasicoResource.class);
 
     @POST
-    @Path("/usuarioBasico/")
     public Response insertBasico(UsuarioBasicoDTO usuarioBasicoDto) {
 
         Result result;
@@ -57,7 +56,6 @@ public class UsuarioBasicResource {
                 .status(Status.NOT_FOUND)
                 .entity(result)
                 .build();
-
     }
 
     @GET

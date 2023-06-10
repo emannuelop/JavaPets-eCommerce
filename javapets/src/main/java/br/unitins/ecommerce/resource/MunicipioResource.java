@@ -84,6 +84,7 @@ public class MunicipioResource {
     }
 
     @PUT
+    @Path("/{id}")
     @RolesAllowed({"Admin"})
     public Response update(@PathParam("id") Long id, MunicipioDTO municipioDto) {
         Result result = null;

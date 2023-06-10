@@ -127,6 +127,14 @@ public class Usuario extends DefaultEntity {
         this.perfis.add(perfil);
     }
 
+    public void removePerfis(Perfil perfil) {
+
+        if (this.perfis == null)
+            throw new NullPointerException();
+        
+        this.perfis.remove(perfil);
+    }
+
     public String getNomeImagem() {
         return nomeImagem;
     }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.jboss.logging.Logger;
 
 import br.unitins.ecommerce.application.Result;
+import br.unitins.ecommerce.dto.usuario.UsuarioBasicoResponseDTO;
 import br.unitins.ecommerce.dto.usuario.UsuarioDTO;
 import br.unitins.ecommerce.dto.usuario.UsuarioResponseDTO;
 import br.unitins.ecommerce.dto.usuario.listadesejo.ListaDesejoDTO;
@@ -39,11 +40,21 @@ public class UsuarioResource {
 
     @GET
     @RolesAllowed({ "Admin" })
-    public List<UsuarioResponseDTO> getAll() {
+    public List<UsuarioResponseDTO> getAllUsuario() {
         LOG.info("Buscando todos os usuários");
         LOG.debug("ERRO DE DEBUG.");
 
-        return usuarioService.getAll();
+        return usuarioService.getAllUsuario();
+    }
+
+    @GET
+    @Path("/usuarios-basicos")
+    @RolesAllowed({ "Admin" })
+    public List<UsuarioBasicoResponseDTO> getAllUsuarioBasico() {
+        LOG.info("Buscando todos os usuários basicos");
+        LOG.debug("ERRO DE DEBUG.");
+
+        return usuarioService.getAllUsuarioBasico();
     }
 
     @GET

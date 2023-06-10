@@ -20,7 +20,9 @@ public interface UsuarioService {
 
     // Metodos basicos
 
-    List<UsuarioResponseDTO> getAll();
+    List<UsuarioResponseDTO> getAllUsuario();
+
+    public List<UsuarioBasicoResponseDTO> getAllUsuarioBasico();
 
     UsuarioResponseDTO getById(Long id);
 

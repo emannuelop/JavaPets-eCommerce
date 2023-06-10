@@ -45,16 +45,20 @@ public class AuthResource {
             Usuario usuario = usuarioService.getByLoginAndSenha(authDTO.login(), hash);
 
             if (usuario == null) {
+
                 LOG.warn("Usuário não encontrado: " + authDTO.login());
-                return Response.status(Status.NO_CONTENT)
+
+                return Response.status(Status.NOT_FOUND)
                         .entity("Usuario não encontrado").build();
             }
+
             LOG.info("Login do usuário bem-sucedido: " + authDTO.login());
 
             return Response.ok()
                     .header("Authorization", tokenService.generateJwt(usuario))
                     .build();
         } catch (Exception e) {
+
             LOG.error("Erro durante o login do usuário: " + authDTO.login(), e);
             throw e;
         }

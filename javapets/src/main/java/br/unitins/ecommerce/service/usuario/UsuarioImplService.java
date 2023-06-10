@@ -67,12 +67,24 @@ public class UsuarioImplService implements UsuarioService {
     PessoaFisicaService pessoaFisicaService;
 
     @Override
-    public List<UsuarioResponseDTO> getAll() {
+    public List<UsuarioResponseDTO> getAllUsuario() {
 
         return usuarioRepository.findAll()
                 .stream()
+                .filter(usuario -> usuario.getPerfis().contains(Perfil.USER)
+                        || usuario.getPerfis().contains(Perfil.ADMIN))
                 .map(UsuarioResponseDTO::new)
-                .collect(Collectors.toList());
+                .toList();
+    }
+
+    @Override
+    public List<UsuarioBasicoResponseDTO> getAllUsuarioBasico() {
+
+        return usuarioRepository.findAll()
+                .stream()
+                .filter(usuario -> usuario.getPerfis().contains(Perfil.USER_BASIC))
+                .map(UsuarioBasicoResponseDTO::new)
+                .toList();
     }
 
     @Override
@@ -235,6 +247,8 @@ public class UsuarioImplService implements UsuarioService {
             entity.setTelefoneOpcional(insertTelefone(usuarioDto.telefoneOpcional()));
 
         entity.addPerfis(Perfil.USER);
+
+        entity.removePerfis(Perfil.USER_BASIC);
 
         return new UsuarioResponseDTO(entity);
     }

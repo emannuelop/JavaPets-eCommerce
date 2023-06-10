@@ -119,6 +119,7 @@ public class UsuarioLogadoResource {
     @Path("/dados-pessoais")
     @RolesAllowed({ "User" })
     public Response updateDadosPessoais(DadosPessoaisDTO dadosPessoaisDTO) {
+        
         try {
             String login = tokenJwt.getSubject();
 
