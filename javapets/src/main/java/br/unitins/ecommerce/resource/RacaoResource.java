@@ -7,6 +7,7 @@ import org.jboss.logging.Logger;
 
 import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
 
+import jakarta.annotation.security.PermitAll;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.ConstraintViolationException;
@@ -83,6 +84,7 @@ public class RacaoResource {
     }
 
     @POST
+    @RolesAllowed({"Admin"})
     public Response insert(RacaoDTO racaoDto) {
 
         LOG.infof("Inserindo um produto: %s", racaoDto.nome());
@@ -112,6 +114,7 @@ public class RacaoResource {
 
     @PUT
     @Path("/{id}")
+    @RolesAllowed({"Admin"})
     public Response update(@PathParam("id") Long id, RacaoDTO racaoDto) {
         Result result = null;
         try {
@@ -166,6 +169,7 @@ public class RacaoResource {
 
     @DELETE
     @Path("/{id}")
+    @RolesAllowed({"Admin"})
     public Response delete(@PathParam("id") Long id) throws IllegalArgumentException {
 
         try {
@@ -184,6 +188,7 @@ public class RacaoResource {
 
     @GET
     @Path("/count")
+    @RolesAllowed({"Admin"})
     public Long count() {
         LOG.info("Contando todos os produtos.");
         LOG.debug("ERRO DE DEBUG.");
@@ -192,6 +197,7 @@ public class RacaoResource {
 
     @GET
     @Path("/searchByNome/{nome}")
+    @PermitAll
     public List<RacaoResponseDTO> getByNome(@PathParam("nome") String nome) {
         LOG.infof("Buscando produto pelo nome. ", nome);
         LOG.debug("ERRO DE DEBUG.");
@@ -200,6 +206,7 @@ public class RacaoResource {
 
     @GET
     @Path("/searchByEscolhaAnimal/{escolha_animal}")
+    @PermitAll
     public List<RacaoResponseDTO> getByEscolhaAnimal(@PathParam("escolha_animal") Integer id)
             throws IndexOutOfBoundsException {
         LOG.infof("Buscando pelo animal. ", id);
@@ -209,6 +216,7 @@ public class RacaoResource {
 
     @GET
     @Path("/searchByMarca/{marca}")
+    @PermitAll
     public List<RacaoResponseDTO> getByMarca(@PathParam("marca") String nomeMarca) {
         LOG.infof("Buscando pelo nome da marca. ", nomeMarca);
         LOG.debug("ERRO DE DEBUG.");
@@ -217,6 +225,7 @@ public class RacaoResource {
 
     @GET
     @Path("/filterByPrecoMin/{precoMin}")
+    @PermitAll
     public List<RacaoResponseDTO> filterByPrecoMin(@PathParam("precoMin") Double preco) {
         LOG.infof("Filtrando pelo preço mínimo. ", preco);
         LOG.debug("ERRO DE DEBUG.");
@@ -225,6 +234,7 @@ public class RacaoResource {
 
     @GET
     @Path("/filterByPrecoMax/{precoMax}")
+    @PermitAll
     public List<RacaoResponseDTO> filterByPrecoMax(@PathParam("precoMax") Double preco) {
         LOG.infof("Filtrando pelo preço máximo. ", preco);
         LOG.debug("ERRO DE DEBUG.");
@@ -233,6 +243,7 @@ public class RacaoResource {
 
     @GET
     @Path("/filterByEntrePreco/{precoMin}/{precoMax}")
+    @PermitAll
     public List<RacaoResponseDTO> filterByEntrePreco(@PathParam("precoMin") Double precoMin,
             @PathParam("precoMax") Double precoMax) {
         LOG.infof("Filtrando entre os preços mínimo e máximo. ", precoMin, " e ", precoMax);

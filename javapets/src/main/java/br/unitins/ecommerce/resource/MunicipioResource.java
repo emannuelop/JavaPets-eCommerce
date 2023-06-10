@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.jboss.logging.Logger;
 
+import jakarta.annotation.security.PermitAll;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.ws.rs.Consumes;
@@ -35,6 +37,7 @@ public class MunicipioResource {
     private static final Logger LOG = Logger.getLogger(MunicipioResource.class);
 
     @GET
+    @PermitAll
     public List<MunicipioResponseDTO> getAll() {
         LOG.info("Buscando todos os municipios.");
         LOG.debug("ERRO DE DEBUG.");
@@ -43,6 +46,7 @@ public class MunicipioResource {
 
     @GET
     @Path("/{id}")
+    @RolesAllowed({"Admin"})
     public MunicipioResponseDTO getById(@PathParam("id") Long id) throws NotFoundException {
         LOG.info("Buscando município por ID: " + id);
         LOG.debug("ERRO DE DEBUG.");
@@ -50,6 +54,7 @@ public class MunicipioResource {
     }
 
     @POST
+    @RolesAllowed({"Admin"})
     public Response insert(MunicipioDTO municipioDto) {
         LOG.infof("Inserindo um municipio: %s", municipioDto.nome());
 
@@ -79,9 +84,10 @@ public class MunicipioResource {
     }
 
     @PUT
+    @RolesAllowed({"Admin"})
     public Response update(@PathParam("id") Long id, MunicipioDTO municipioDto) {
         Result result = null;
-
+        
         try {
             municipioService.update(id, municipioDto);
             LOG.infof("Município (%d) atualizado com sucesso.", id);
@@ -97,13 +103,14 @@ public class MunicipioResource {
         } catch (Exception e) {
             LOG.fatal("Erro ao atualizar o município " + id + ".", e);
             result = new Result(e.getMessage(), false);
-
+    
         }
         return Response.status(Status.NOT_FOUND).entity(result).build();
     }
 
     @DELETE
     @Path("/{id}")
+    @RolesAllowed({"Admin"})
     public Response delete(@PathParam("id") Long id) throws IllegalArgumentException, NotFoundException {
 
         try {
@@ -123,6 +130,7 @@ public class MunicipioResource {
 
     @GET
     @Path("/count")
+    @RolesAllowed({"Admin"})
     public Long count() {
         LOG.info("Contando todos os municipios.");
         LOG.debug("ERRO DE DEBUG.");
@@ -131,6 +139,7 @@ public class MunicipioResource {
 
     @GET
     @Path("/searchByNome/{nome}")
+    @PermitAll
     public List<MunicipioResponseDTO> getByNome(@PathParam("nome") String nome) throws NullPointerException {
         LOG.infof("Pesquisando Município po nome.", nome);
         LOG.debug("ERRO DE DEBUG.");
@@ -139,21 +148,20 @@ public class MunicipioResource {
 
     @GET
     @Path("/searchByNomeEstado/{nomeEstado}")
-    public List<MunicipioResponseDTO> getByNomeEstado(@PathParam("nomeEstado") String nomeEstado)
-            throws NullPointerException {
+    @PermitAll
+    public List<MunicipioResponseDTO> getByNomeEstado(@PathParam("nomeEstado") String nomeEstado) throws NullPointerException {
         LOG.infof("Buscando município por nome do estado.", nomeEstado);
         LOG.debug("ERRO DE DEBUG.");
         return municipioService.getByNomeEstado(nomeEstado);
     }
 
     @GET
+    @PermitAll
     @Path("/searchBySiglaEstado/{siglaEstado}")
     public List<MunicipioResponseDTO> getBySiglaEstado(@PathParam("siglaEstado") String siglaEstado)
             throws NullPointerException {
-        LOG.infof("Buscando município por sigla do estado.", siglaEstado);
-        LOG.debug("ERRO DE DEBUG.");
+                LOG.infof("Buscando município por sigla do estado.", siglaEstado);
+                LOG.debug("ERRO DE DEBUG.");
         return municipioService.getBySiglaEstado(siglaEstado);
     }
 }
-
-/* */

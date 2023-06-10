@@ -1,5 +1,6 @@
 package br.unitins.ecommerce.model.usuario;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -36,16 +37,18 @@ public class Usuario extends DefaultEntity {
     private Set<Perfil> perfis;
 
     @ManyToMany
-    @JoinTable(name = "lista_desejo", joinColumns = @JoinColumn(name = "id_usuario"), inverseJoinColumns = @JoinColumn(name = "id_produto"))
+    @JoinTable(name = "lista_desejo",
+                joinColumns = @JoinColumn(name = "id_usuario"),
+                inverseJoinColumns = @JoinColumn(name = "id_produto"))
     // Criando uma tabela auxiliar
     private List<Produto> produtos;
 
     @ManyToOne
-    @JoinColumn(name = "id_endereco", nullable = false)
+    @JoinColumn(name = "id_endereco")
     private Endereco endereco;
 
     @OneToOne
-    @JoinColumn(name = "id_telefone_principal", unique = true, nullable = false)
+    @JoinColumn(name = "id_telefone_principal", unique = true)
     private Telefone telefonePrincipal;
 
     @OneToOne
@@ -114,6 +117,14 @@ public class Usuario extends DefaultEntity {
 
     public void setPerfis(Set<Perfil> perfis) {
         this.perfis = perfis;
+    }
+
+    public void addPerfis(Perfil perfil) {
+
+        if (this.perfis == null)
+            this.perfis = new HashSet<>();
+        
+        this.perfis.add(perfil);
     }
 
     public String getNomeImagem() {

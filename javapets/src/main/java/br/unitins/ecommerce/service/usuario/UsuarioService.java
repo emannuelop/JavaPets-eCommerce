@@ -5,6 +5,9 @@ import java.util.List;
 import br.unitins.ecommerce.dto.endereco.EnderecoDTO;
 import br.unitins.ecommerce.dto.telefone.TelefoneDTO;
 import br.unitins.ecommerce.dto.usuario.SenhaDTO;
+import br.unitins.ecommerce.dto.usuario.UpgradeUsuarioDTO;
+import br.unitins.ecommerce.dto.usuario.UsuarioBasicoDTO;
+import br.unitins.ecommerce.dto.usuario.UsuarioBasicoResponseDTO;
 import br.unitins.ecommerce.dto.usuario.UsuarioDTO;
 import br.unitins.ecommerce.dto.usuario.UsuarioResponseDTO;
 import br.unitins.ecommerce.dto.usuario.dadospessoais.DadosPessoaisDTO;
@@ -58,4 +61,10 @@ public interface UsuarioService {
     void updateTelefoneOpcional(Long id, TelefoneDTO telefoneOpcionalDTO);
 
     Integer countListaDesejo(Long id);
+
+    // Usuario basico
+
+    UsuarioBasicoResponseDTO insert(UsuarioBasicoDTO usuarioBasicoDto);
+
+    UsuarioResponseDTO upgrade(Long id, UpgradeUsuarioDTO usuarioDto);
 }
