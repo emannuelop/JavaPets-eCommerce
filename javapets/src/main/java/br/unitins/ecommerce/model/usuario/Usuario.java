@@ -1,5 +1,6 @@
 package br.unitins.ecommerce.model.usuario;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -12,11 +13,12 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
 import br.unitins.ecommerce.model.DefaultEntity;
 import br.unitins.ecommerce.model.endereco.Endereco;
-import br.unitins.ecommerce.model.produto.Produto;
+import br.unitins.ecommerce.model.produto.produto.Produto;
 
 @Entity
 public class Usuario extends DefaultEntity {
@@ -47,13 +49,9 @@ public class Usuario extends DefaultEntity {
     @JoinColumn(name = "id_endereco")
     private Endereco endereco;
 
-    @OneToOne
-    @JoinColumn(name = "id_telefone_principal", unique = true)
-    private Telefone telefonePrincipal;
-
-    @OneToOne
-    @JoinColumn(name = "id_telefone_opcional", unique = true)
-    private Telefone telefoneOpcional;
+    @OneToMany
+    @JoinColumn(name = "id_telefone")
+    private List<Telefone> telefones;
 
     public String getSenha() {
         return senha;
@@ -77,22 +75,6 @@ public class Usuario extends DefaultEntity {
 
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
-    }
-
-    public Telefone getTelefonePrincipal() {
-        return telefonePrincipal;
-    }
-
-    public void setTelefonePrincipal(Telefone telefonePrincipal) {
-        this.telefonePrincipal = telefonePrincipal;
-    }
-
-    public Telefone getTelefoneOpcional() {
-        return telefoneOpcional;
-    }
-
-    public void setTelefoneOpcional(Telefone telefoneOpcional) {
-        this.telefoneOpcional = telefoneOpcional;
     }
 
     public PessoaFisica getPessoaFisica() {
@@ -141,6 +123,18 @@ public class Usuario extends DefaultEntity {
 
     public void setNomeImagem(String nomeImagem) {
         this.nomeImagem = nomeImagem;
+    }
+
+    public List<Telefone> getTelefones() {
+        return telefones;
+    }
+
+    public void setTelefones(Telefone telefone) {
+        if(this.telefones == null){
+            this.telefones = new ArrayList<>();
+        }
+
+        this.telefones.add(telefone);
     }
 
 }

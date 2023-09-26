@@ -1,7 +1,7 @@
 package br.unitins.ecommerce.repository;
 
 import br.unitins.ecommerce.model.compra.ItemCompra;
-import br.unitins.ecommerce.model.produto.Produto;
+import br.unitins.ecommerce.model.produto.produto.Produto;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 

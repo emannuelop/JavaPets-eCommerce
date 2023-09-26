@@ -15,7 +15,7 @@ public class EstadoRepository implements PanacheRepository<Estado> {
         if (nome == null)
             return null;
 
-        return find("FROM Estado WHERE UNACCENT(UPPER(nome)) LIKE UNACCENT(?1)", "%" + nome.toUpperCase() + "%").list();
+        return find("FROM Estado WHERE UPPER(nome) LIKE ?1", "%" + nome.toUpperCase() + "%").list();
     }
 
     public List<Estado> findBySigla(String sigla) {
@@ -23,6 +23,6 @@ public class EstadoRepository implements PanacheRepository<Estado> {
         if (sigla == null)
             return null;
 
-        return find("FROM Estado WHERE UNACCENT(UPPER(sigla)) LIKE UNACCENT(?1)", "%" + sigla.toUpperCase() + "%").list();
+        return find("FROM Estado WHERE UPPER(sigla) LIKE ?1", "%" + sigla.toUpperCase() + "%").list();
     }
 }

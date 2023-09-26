@@ -3,9 +3,8 @@ package br.unitins.ecommerce.repository;
 import java.util.List;
 
 import jakarta.enterprise.context.ApplicationScoped;
-
-import br.unitins.ecommerce.model.produto.Produto;
 import br.unitins.ecommerce.model.produto.avaliacao.Avaliacao;
+import br.unitins.ecommerce.model.produto.produto.Produto;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 
 @ApplicationScoped

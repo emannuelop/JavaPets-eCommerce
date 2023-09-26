@@ -16,7 +16,7 @@ public class MunicipioRepository implements PanacheRepository<Municipio> {
         if (nome == null)
             return null;
 
-        return find("FROM Municipio WHERE UNACCENT(UPPER(nome)) LIKE UNACCENT(?1)", "%" + nome.toUpperCase() + "%").list();
+        return find("FROM Municipio WHERE UPPER(nome) LIKE ?1", "%" + nome.toUpperCase() + "%").list();
     }
 
     public List<Municipio> findByEstado (Estado estado) {

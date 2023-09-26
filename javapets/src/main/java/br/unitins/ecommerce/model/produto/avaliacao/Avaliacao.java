@@ -8,7 +8,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 import br.unitins.ecommerce.model.DefaultEntity;
-import br.unitins.ecommerce.model.produto.Produto;
+import br.unitins.ecommerce.model.produto.produto.Produto;
 import br.unitins.ecommerce.model.usuario.Usuario;
 
 @Entity

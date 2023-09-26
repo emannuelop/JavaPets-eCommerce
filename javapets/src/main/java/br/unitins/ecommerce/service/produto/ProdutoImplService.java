@@ -1,4 +1,4 @@
-package br.unitins.ecommerce.service.racao;
+package br.unitins.ecommerce.service.produto;
 
 import java.util.List;
 import java.util.Set;
@@ -11,21 +11,19 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Validator;
 import jakarta.ws.rs.NotFoundException;
-
-import br.unitins.ecommerce.dto.racao.RacaoDTO;
-import br.unitins.ecommerce.dto.racao.RacaoResponseDTO;
-import br.unitins.ecommerce.model.produto.racao.EscolhaAnimal;
-import br.unitins.ecommerce.model.produto.racao.Racao;
+import br.unitins.ecommerce.dto.produto.ProdutoDTO;
+import br.unitins.ecommerce.dto.produto.ProdutoResponseDTO;
+import br.unitins.ecommerce.model.produto.produto.Produto;
 import br.unitins.ecommerce.repository.MarcaRepository;
-import br.unitins.ecommerce.repository.RacaoRepository;
+import br.unitins.ecommerce.repository.ProdutoRepository;
 import br.unitins.ecommerce.service.avaliacao.AvaliacaoService;
 import br.unitins.ecommerce.service.usuario.UsuarioService;
 
 @ApplicationScoped
-public class RacaoImplService implements RacaoService {
+public class ProdutoImplService implements ProdutoService {
 
     @Inject
-    RacaoRepository racaoRepository;
+    ProdutoRepository racaoRepository;
 
     @Inject
     MarcaRepository marcaRepository;
@@ -40,32 +38,32 @@ public class RacaoImplService implements RacaoService {
     Validator validator;
 
     @Override
-    public List<RacaoResponseDTO> getAll() {
+    public List<ProdutoResponseDTO> getAll() {
 
         return racaoRepository.findAll()
                 .stream()
-                .map(RacaoResponseDTO::new)
+                .map(ProdutoResponseDTO::new)
                 .toList();
     }
 
     @Override
-    public RacaoResponseDTO getById(Long id) throws NotFoundException {
+    public ProdutoResponseDTO getById(Long id) throws NotFoundException {
 
-        Racao racao = racaoRepository.findById(id);
+        Produto racao = racaoRepository.findById(id);
 
         if (racao == null)
             throw new NotFoundException("Não encontrado");
 
-        return new RacaoResponseDTO(racao);
+        return new ProdutoResponseDTO(racao);
     }
 
     @Override
     @Transactional
-    public RacaoResponseDTO insert(RacaoDTO racaoDto) throws ConstraintViolationException {
+    public ProdutoResponseDTO insert(ProdutoDTO racaoDto) throws ConstraintViolationException {
 
         validar(racaoDto);
 
-        Racao entity = new Racao();
+        Produto entity = new Produto();
 
         entity.setNome(racaoDto.nome());
 
@@ -76,25 +74,19 @@ public class RacaoImplService implements RacaoService {
         entity.setPreco(racaoDto.preco());
 
         entity.setEstoque(racaoDto.estoque());
-
-        entity.setQuantidadeQuilos(racaoDto.quantidadeQuilos());
-
-        entity.setSabor(racaoDto.sabor());
-
-        entity.setEscolhaAnimal(EscolhaAnimal.valueOf(racaoDto.escolhaAnimal()));
 
         racaoRepository.persist(entity);
 
-        return new RacaoResponseDTO(entity);
+        return new ProdutoResponseDTO(entity);
     }
 
     @Override
     @Transactional
-    public RacaoResponseDTO update(Long id, RacaoDTO racaoDto) throws ConstraintViolationException {
+    public ProdutoResponseDTO update(Long id, ProdutoDTO racaoDto) throws ConstraintViolationException {
 
         validar(racaoDto);
 
-        Racao entity = racaoRepository.findById(id);
+        Produto entity = racaoRepository.findById(id);
 
         entity.setNome(racaoDto.nome());
 
@@ -106,20 +98,14 @@ public class RacaoImplService implements RacaoService {
 
         entity.setEstoque(racaoDto.estoque());
 
-        entity.setQuantidadeQuilos(racaoDto.quantidadeQuilos());
-
-        entity.setSabor(racaoDto.sabor());
-
-        entity.setEscolhaAnimal(EscolhaAnimal.valueOf(racaoDto.escolhaAnimal()));
-
-        return new RacaoResponseDTO(entity);
+        return new ProdutoResponseDTO(entity);
     }
 
     @Override
     @Transactional
     public void update(Long id, String nomeImagem) {
 
-        Racao entity = racaoRepository.findById(id);
+        Produto entity = racaoRepository.findById(id);
 
         if (entity == null)
             throw new NullPointerException("Nenhum café encontrado");
@@ -134,7 +120,7 @@ public class RacaoImplService implements RacaoService {
         if (id == null)
             throw new IllegalArgumentException("Número inválido");
 
-        Racao racao = racaoRepository.findById(id);
+        Produto racao = racaoRepository.findById(id);
         
         avaliacaoService.delete(racao);
 
@@ -154,90 +140,73 @@ public class RacaoImplService implements RacaoService {
     }
 
     @Override
-    public List<RacaoResponseDTO> getByNome(String nome) throws NullPointerException {
+    public List<ProdutoResponseDTO> getByNome(String nome) throws NullPointerException {
 
-        List<Racao> list = racaoRepository.findByNome(nome);
+        List<Produto> list = racaoRepository.findByNome(nome);
 
         if (list == null)
             throw new NullPointerException("nenhum ração encontrado");
 
         return list.stream()
-                .map(RacaoResponseDTO::new)
+                .map(ProdutoResponseDTO::new)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<RacaoResponseDTO> getByEscolhaAnimal(Integer id)
-            throws IndexOutOfBoundsException, NullPointerException {
+    public List<ProdutoResponseDTO> getByMarca(String nome) throws NullPointerException {
 
-        if (id < 1 || id > 2)
-            throw new IndexOutOfBoundsException("número fora das opções");
-
-        List<Racao> list = racaoRepository.findByEscolhaAnimal(EscolhaAnimal.valueOf(id));
-
-        if (list == null)
-            throw new NullPointerException("Nenhum ração encontrada");
-
-        return list.stream()
-                .map(RacaoResponseDTO::new)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<RacaoResponseDTO> getByMarca(String nome) throws NullPointerException {
-
-        List<Racao> list = racaoRepository.findByMarca(marcaRepository.findByNome(nome).get(0));
+        List<Produto> list = racaoRepository.findByMarca(marcaRepository.findByNome(nome).get(0));
 
         if (list == null)
             throw new NullPointerException("Nenhuma marca encontrada");
 
         return list.stream()
-                .map(RacaoResponseDTO::new)
+                .map(ProdutoResponseDTO::new)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<RacaoResponseDTO> filterByPrecoMin(Double preco) throws NullPointerException {
+    public List<ProdutoResponseDTO> filterByPrecoMin(Double preco) throws NullPointerException {
 
-        List<Racao> list = racaoRepository.filterByPrecoMinimo(preco);
+        List<Produto> list = racaoRepository.filterByPrecoMinimo(preco);
 
         if (list == null)
             throw new NullPointerException("Nenhum ração encontrada");
 
         return list.stream()
-                .map(RacaoResponseDTO::new)
+                .map(ProdutoResponseDTO::new)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<RacaoResponseDTO> filterByPrecoMax(Double preco) {
+    public List<ProdutoResponseDTO> filterByPrecoMax(Double preco) {
 
-        List<Racao> list = racaoRepository.filterByPrecoMaximo(preco);
+        List<Produto> list = racaoRepository.filterByPrecoMaximo(preco);
 
         if (list == null)
             throw new NullPointerException("Nenhum ração encontrada");
 
         return list.stream()
-                .map(RacaoResponseDTO::new)
+                .map(ProdutoResponseDTO::new)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<RacaoResponseDTO> filterByEntrePreco(Double precoMin, Double precoMax) {
+    public List<ProdutoResponseDTO> filterByEntrePreco(Double precoMin, Double precoMax) {
 
-        List<Racao> list = racaoRepository.filterByEntrePreco(precoMin, precoMax);
+        List<Produto> list = racaoRepository.filterByEntrePreco(precoMin, precoMax);
 
         if (list == null)
             throw new NullPointerException("Nenhum ração encontrada");
 
         return list.stream()
-                .map(RacaoResponseDTO::new)
+                .map(ProdutoResponseDTO::new)
                 .collect(Collectors.toList());
     }
 
-    private void validar(RacaoDTO racaoDTO) throws ConstraintViolationException {
+    private void validar(ProdutoDTO racaoDTO) throws ConstraintViolationException {
 
-        Set<ConstraintViolation<RacaoDTO>> violations = validator.validate(racaoDTO);
+        Set<ConstraintViolation<ProdutoDTO>> violations = validator.validate(racaoDTO);
 
         if (!violations.isEmpty())
             throw new ConstraintViolationException(violations);

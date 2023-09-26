@@ -1,17 +1,13 @@
-package br.unitins.ecommerce.model.produto;
+package br.unitins.ecommerce.model.produto.produto;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-
 import br.unitins.ecommerce.model.DefaultEntity;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED) // Herança
-public abstract class Produto extends DefaultEntity {
+public class Produto extends DefaultEntity {
 
     @Column(nullable = false)
     private String nome;
@@ -29,6 +25,11 @@ public abstract class Produto extends DefaultEntity {
     @ManyToOne
     @JoinColumn(name = "id_marca", nullable = false)
     private Marca marca;
+
+    
+
+    public Produto() {
+    }
 
     public String getNome() {
         return nome;

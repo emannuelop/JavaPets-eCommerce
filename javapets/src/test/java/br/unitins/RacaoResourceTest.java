@@ -10,9 +10,9 @@ import jakarta.inject.Inject;
 
 import org.junit.jupiter.api.Test;
 
-import br.unitins.ecommerce.dto.racao.RacaoDTO;
-import br.unitins.ecommerce.dto.racao.RacaoResponseDTO;
-import br.unitins.ecommerce.service.racao.RacaoService;
+import br.unitins.ecommerce.dto.produto.ProdutoDTO;
+import br.unitins.ecommerce.dto.produto.ProdutoResponseDTO;
+import br.unitins.ecommerce.service.produto.ProdutoService;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.security.TestSecurity;
 import io.restassured.http.ContentType;
@@ -21,13 +21,13 @@ import io.restassured.http.ContentType;
 public class RacaoResourceTest {
 
     @Inject
-    RacaoService racaoService;
+    ProdutoService racaoService;
 
     @Test
     public void getAllTest() {
 
         given()
-                .when().get("/racoes")
+                .when().get("/produtos")
                 .then()
                 .statusCode(200);
     }
@@ -36,7 +36,7 @@ public class RacaoResourceTest {
     public void getByIdTest() {
 
         given()
-                .when().get("/racoes/" + 1)
+                .when().get("/produtos/" + 1)
                 .then()
                 .statusCode(200);
     }
@@ -45,46 +45,39 @@ public class RacaoResourceTest {
     @TestSecurity(user = "testUser", roles = {"Admin"})
     public void insertTest() {
 
-        RacaoDTO racao = new RacaoDTO(
+        ProdutoDTO racao = new ProdutoDTO(
                 "Ração Pedigree Nutrição Essencial",
                 "Para Cães Adultos de Porte Pequeno",
                 2l,
                 150.00,
-                10,
-                15.00,
-                "Carne",
-                2);
+                10);
 
         given()
                 .contentType(ContentType.JSON)
                 .body(racao)
-                .when().post("/racoes")
+                .when().post("/produtos")
                 .then()
                 .statusCode(201)
                 .body("id", notNullValue(), "nome", is("Ração Pedigree Nutrição Essencial"), "descricao",
                         is("Para Cães Adultos de Porte Pequeno"), "nomeMarca", is("GoldeN"), "preco", is(150.0F),
-                        "estoque", is("Disponível"), "quantidadeQuilos", is(15.0F), "sabor", is("Carne"),
-                        "escolhaAnimal.label", is("Cachorro"));
+                        "estoque", is("Disponível"));
     }
 
     @Test
     @TestSecurity(user = "testUser", roles = {"User"})
     public void insertForbiddenTest() {
 
-        RacaoDTO racao = new RacaoDTO(
+        ProdutoDTO racao = new ProdutoDTO(
                 "Ração Pedigree Nutrição Essencial",
                 "Para Cães Adultos de Porte Pequeno",
                 2l,
                 150.00,
-                10,
-                15.00,
-                "Carne",
-                2);
+                10);
 
         given()
                 .contentType(ContentType.JSON)
                 .body(racao)
-                .when().post("/racoes")
+                .when().post("/produtos")
                 .then()
                 .statusCode(403);
     }
@@ -92,20 +85,17 @@ public class RacaoResourceTest {
     @Test
     public void insertUnauthorizedTest() {
 
-        RacaoDTO racao = new RacaoDTO(
+        ProdutoDTO racao = new ProdutoDTO(
                 "Ração Pedigree Nutrição Essencial",
                 "Para Cães Adultos de Porte Pequeno",
                 2l,
                 150.00,
-                10,
-                15.00,
-                "Carne",
-                2);
+                10);
 
         given()
                 .contentType(ContentType.JSON)
                 .body(racao)
-                .when().post("/racoes")
+                .when().post("/produtos")
                 .then()
                 .statusCode(401);
     }
@@ -114,45 +104,36 @@ public class RacaoResourceTest {
     @TestSecurity(user = "testUser", roles = {"Admin"})
     public void updateTest() {
 
-        RacaoDTO racao = new RacaoDTO(
+        ProdutoDTO racao = new ProdutoDTO(
                 "Ração Pedigree Nutrição Essencial",
                 "Para Cães Adultos de Porte Pequeno",
                 2l,
                 150.00,
-                10,
-                15.00,
-                "Carne",
-                2);
+        10);
 
         Long id = racaoService.insert(racao).id();
 
-        RacaoDTO racaoUpdate = new RacaoDTO(
+        ProdutoDTO racaoUpdate = new ProdutoDTO(
                 "Ração Pedigree Nutrição Essencial",
                 "Para Cães Adultos de Porte Pequeno",
                 1l,
                 150.00,
-                10,
-                15.00,
-                "Frango",
-                2);
+                10);
 
         given()
                 .contentType(ContentType.JSON)
                 .body(racaoUpdate)
-                .when().put("/racoes/" + id)
+                .when().put("/produtos/" + id)
                 .then()
                 .statusCode(204);
 
-        RacaoResponseDTO racaoResponse = racaoService.getById(id);
+        ProdutoResponseDTO racaoResponse = racaoService.getById(id);
 
         assertThat(racaoResponse.nome(), is("Ração Pedigree Nutrição Essencial"));
         assertThat(racaoResponse.descricao(), is("Para Cães Adultos de Porte Pequeno"));
         assertThat(racaoResponse.nomeMarca(), is("Pedigree"));
         assertThat(racaoResponse.preco(), is(150.0));
         assertThat(racaoResponse.estoque(), is("Disponível"));
-        assertThat(racaoResponse.quantidadeQuilos(), is(15.0));
-        assertThat(racaoResponse.sabor(), is("Frango"));
-        assertThat(racaoResponse.escolhaAnimal().getLabel(), is("Cachorro"));
 
     }
 
@@ -160,24 +141,21 @@ public class RacaoResourceTest {
     @TestSecurity(user = "testUser", roles = {"Admin"})
     public void deleteTest() {
 
-        RacaoDTO racao = new RacaoDTO(
+        ProdutoDTO racao = new ProdutoDTO(
                 "Ração Pedigree Nutrição Essencial",
                 "Para Cães Adultos de Porte Pequeno",
                 1l,
                 150.00,
-                10,
-                15.00,
-                "Frango",
-                2);
+                10);
 
         Long id = racaoService.insert(racao).id();
 
         given()
-                .when().delete("/racoes/" + id)
+                .when().delete("/produtos/" + id)
                 .then()
                 .statusCode(204);
 
-        RacaoResponseDTO racaoResponse = null;
+        ProdutoResponseDTO racaoResponse = null;
 
         try {
 
@@ -194,7 +172,7 @@ public class RacaoResourceTest {
     public void countTest() {
 
         given()
-                .when().get("/racoes/count")
+                .when().get("/produtos/count")
                 .then()
                 .statusCode(200);
     }
@@ -203,7 +181,7 @@ public class RacaoResourceTest {
     public void getByNomeTest() {
 
         given()
-                .when().get("/racoes/searchByNome/" + "Ração Whiskas")
+                .when().get("/produtos/searchByNome/" + "Ração Whiskas")
                 .then()
                 .statusCode(200);
     }
@@ -212,16 +190,7 @@ public class RacaoResourceTest {
     public void getByMarcaTest() {
 
         given()
-                .when().get("/racoes/searchByMarca/" + "Pedigree")
-                .then()
-                .statusCode(200);
-    }
-
-    @Test
-    public void getByEscolhaAnimalTest() {
-
-        given()
-                .when().get("/racoes/searchByEscolhaAnimal/" + 1)
+                .when().get("/produtos/searchByMarca/" + "Pedigree")
                 .then()
                 .statusCode(200);
     }
@@ -230,7 +199,7 @@ public class RacaoResourceTest {
     public void filterByPrecoMinTest() {
 
         given()
-                .when().get("/racoes/filterByPrecoMin/" + 60.0)
+                .when().get("/produtos/filterByPrecoMin/" + 60.0)
                 .then()
                 .statusCode(200);
 
@@ -240,7 +209,7 @@ public class RacaoResourceTest {
     public void filterByPrecoMaxTest() {
 
         given()
-                .when().get("/racoes/filterByPrecoMax/" + 160.0)
+                .when().get("/produtos/filterByPrecoMax/" + 160.0)
                 .then()
                 .statusCode(200);
 
@@ -250,7 +219,7 @@ public class RacaoResourceTest {
     public void filterByEntrePrecoTest() {
 
         given()
-                .when().get("/racoes/filterByEntrePreco/" + 160.0 + "/" + 60.0)
+                .when().get("/produtos/filterByEntrePreco/" + 160.0 + "/" + 60.0)
                 .then()
                 .statusCode(200);
 

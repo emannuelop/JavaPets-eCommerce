@@ -1,11 +1,14 @@
 package br.unitins.ecommerce.dto.usuario;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import br.unitins.ecommerce.dto.municipio.MunicipioResponseDTO;
 import br.unitins.ecommerce.model.endereco.Estado;
 import br.unitins.ecommerce.model.endereco.Municipio;
+import br.unitins.ecommerce.model.usuario.Telefone;
 import br.unitins.ecommerce.model.usuario.Usuario;
 
 public record UsuarioResponseDTO(
@@ -16,8 +19,7 @@ public record UsuarioResponseDTO(
         String cpf,
         String nomeImagem,
         Map<String, Object> endereco,
-        Map<String, Object> telefonePrincipal,
-        Map<String, Object> telefoneOpcional) {
+        List<Map<String, Object>> telefones) {
 
     public UsuarioResponseDTO(Usuario usuario) {
 
@@ -33,11 +35,7 @@ public record UsuarioResponseDTO(
                         usuario.getEndereco().getComplemento(),
                         usuario.getEndereco().getCep(),
                         usuario.getEndereco().getMunicipio()),
-                viewTelefone(usuario.getTelefonePrincipal().getCodigoArea(),
-                        usuario.getTelefonePrincipal().getNumero()),
-                usuario.getTelefoneOpcional() != null ? viewTelefone(usuario.getTelefoneOpcional().getCodigoArea(),
-                        usuario.getTelefoneOpcional().getNumero())
-                        : null);
+                        viewItensCompra(usuario.getTelefones()));
     }
 
     public static Map<String, Object> viewEndereco(String logradouro, String bairro, String numero, String complemento,
@@ -73,5 +71,21 @@ public record UsuarioResponseDTO(
         telefone.put("numero", numero);
 
         return telefone;
+    }
+
+    private static List<Map<String, Object>> viewItensCompra (List<Telefone> lista) {
+
+        List<Map<String, Object>> listaitensCompra = new ArrayList<>();
+
+        for (Telefone itensCompra : lista) {
+            
+            Map<String, Object> itemCompra = new HashMap<>();
+
+            itemCompra = viewTelefone(itensCompra.getCodigoArea(), itensCompra.getNumero());
+
+            listaitensCompra.add(itemCompra);
+        }
+
+        return listaitensCompra;
     }
 }

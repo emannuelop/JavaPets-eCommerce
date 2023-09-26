@@ -16,14 +16,6 @@ INSERT INTO produto (nome, descricao, preco, estoque, id_marca) VALUES ('Ração
 INSERT INTO produto (nome, descricao, preco, estoque, id_marca) VALUES ('Ração Whiskas', 'Para Gatos Adultos', 180.00, 15, 3);
 INSERT INTO produto (nome, descricao, preco, estoque, id_marca) VALUES ('Ração GranPlus Choice', 'Para Gatos Filhotes', 150.00, 12, 4);
 
--- Cachorro
-INSERT INTO racao (quantidadeQuilos, sabor, escolhaAnimal, id) VALUES (15, 'Carne', 2, 1);
-INSERT INTO racao (quantidadeQuilos, sabor, escolhaAnimal, id) VALUES (10, 'Frango e Carne', 2, 2);
-
--- Gato
-INSERT INTO racao (quantidadeQuilos, sabor, escolhaAnimal, id) VALUES (10, 'Carne', 1, 3);
-INSERT INTO racao (quantidadeQuilos, sabor, escolhaAnimal, id) VALUES (12, 'Frango', 1, 4);
-
 INSERT INTO estado (nome, sigla) VALUES ('Acre', 'AC');
 INSERT INTO estado (nome, sigla) VALUES ('Amazonas', 'AM');
 INSERT INTO estado (nome, sigla) VALUES ('Goiás', 'GO');
@@ -65,19 +57,17 @@ INSERT INTO pessoaFisica (cpf, email, sexo, id) VALUES ('90819287304', 'julia.ra
 INSERT INTO pessoaFisica (cpf, email, sexo, id) VALUES ('92874291092', 'lucas_ferreira@gmail.com', 1, 5);
 INSERT INTO pessoaFisica (email, id) VALUES ('jubiscreisson@outlook.com', 6);
 
-INSERT INTO usuario (id_pessoa_fisica, login, senha, id_endereco, id_telefone_principal, id_telefone_opcional) VALUES (1, 'JoaoA', 'ZXChMgzI4VI5Jx+KKCL0AnuRaug9sWorJdV7iCDgWIDNVms7vyhaZeXP+5x26q6uDWKJmyQySZzE8hvoncjgCA==', 1, 2, 1);
+INSERT INTO usuario (id_pessoa_fisica, login, senha, id_endereco) VALUES (1, 'JoaoA', 'ZXChMgzI4VI5Jx+KKCL0AnuRaug9sWorJdV7iCDgWIDNVms7vyhaZeXP+5x26q6uDWKJmyQySZzE8hvoncjgCA==', 1);
 
-INSERT INTO usuario (id_pessoa_fisica, login, senha, id_endereco, id_telefone_principal)
-            VALUES (2, 'maria123', 'x6JkviFo/CZc/dYoTsn+KjkyXu9rqbOwZ89vC1horO3B+ZT2N9nhquEvkFxm2WZahBpo5wgui91vSF00c1BYPA==', 3, 3);
+INSERT INTO usuario (id_pessoa_fisica, login, senha, id_endereco)
+            VALUES (2, 'maria123', 'x6JkviFo/CZc/dYoTsn+KjkyXu9rqbOwZ89vC1horO3B+ZT2N9nhquEvkFxm2WZahBpo5wgui91vSF00c1BYPA==', 3);
 
-INSERT INTO usuario (id_pessoa_fisica, login, senha, id_endereco, id_telefone_principal,
-                id_telefone_opcional) VALUES (3, 'PauloVitor', 'EDCT26TOqyKJg1i5rpN/tOkmr8RSjKfPP1qdPhjlj+sA3Wd++oZFkG5YChaMMRndKipiyVxfL12CUYWybBk+aA==', 2, 4, 5);
+INSERT INTO usuario (id_pessoa_fisica, login, senha, id_endereco) VALUES (3, 'PauloVitor', 'EDCT26TOqyKJg1i5rpN/tOkmr8RSjKfPP1qdPhjlj+sA3Wd++oZFkG5YChaMMRndKipiyVxfL12CUYWybBk+aA==', 2);
 
-INSERT INTO usuario (id_pessoa_fisica, login, senha, id_endereco, id_telefone_principal,
-                id_telefone_opcional) VALUES (4, 'Juh', '/t7jPylqAlsn/BU03MiTgXI3m7B49BDsA3B8wBgk6dSj2a3G+1hgWJ+TNanb3cm8/iyX/io6DErKm/HPiwP/SA==', 5, 6, 7);
+INSERT INTO usuario (id_pessoa_fisica, login, senha, id_endereco) VALUES (4, 'Juh', '/t7jPylqAlsn/BU03MiTgXI3m7B49BDsA3B8wBgk6dSj2a3G+1hgWJ+TNanb3cm8/iyX/io6DErKm/HPiwP/SA==', 5);
 
-INSERT INTO usuario (id_pessoa_fisica, login, senha, id_endereco, id_telefone_principal)
-            VALUES (5, 'LucasFerreira', 'Tv7l6PLjIMgRTG8n32VVbtgHZyUj3L9nbtTz77T96tP52xepJQ25AoczGr8MA89dZ8cOErN3WcuGyOurMPCaOA==', 4, 8);
+INSERT INTO usuario (id_pessoa_fisica, login, senha, id_endereco)
+            VALUES (5, 'LucasFerreira', 'Tv7l6PLjIMgRTG8n32VVbtgHZyUj3L9nbtTz77T96tP52xepJQ25AoczGr8MA89dZ8cOErN3WcuGyOurMPCaOA==', 4);
 
 INSERT INTO usuario (id_pessoa_fisica, login, senha)
             VALUES (6, 'Joao_dos_Isekai', '89ud9FUF967ZPp2GxHJ6ITVrXHnVfA0uf1AsYZ0V0SYuA0OCjSKXEgH72aTLeGBaQr3m7WuVsgWlx76WK/gWuA==');

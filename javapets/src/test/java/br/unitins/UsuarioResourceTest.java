@@ -91,17 +91,13 @@ public class UsuarioResourceTest {
             "77780-920",
             4l);
 
-        TelefoneDTO telefonePrincipalDTO = new TelefoneDTO("067", "98467-8901");
-
-        TelefoneDTO telefoneOpcionalDTO = new TelefoneDTO("067", "4002-8922");
+            TelefoneDTO telefoneDTO = new TelefoneDTO("63", "89565423");
 
         UsuarioDTO usuarioDto = new UsuarioDTO(
                 "Danilo",
                 "senha1234",
                 pessoaFisicaDTO,
-                enderecoDTO,
-                telefonePrincipalDTO,
-                telefoneOpcionalDTO);
+                enderecoDTO,telefoneDTO);
 
         given()
                 .contentType(ContentType.JSON)
@@ -120,11 +116,7 @@ public class UsuarioResourceTest {
                     "endereco.cep", is("77780-920"),
                         "endereco.municipio.nome", is("Belém"),
                             "endereco.municipio.estado.nome", is("Pará"),
-                            "endereco.municipio.estado.sigla", is("PA"),
-                    "telefonePrincipal.codigoDeArea", is("067"),
-                    "telefonePrincipal.numero", is("98467-8901"),
-                    "telefoneOpcional.codigoDeArea", is("067"),
-                    "telefoneOpcional.numero", is("4002-8922"));
+                            "endereco.municipio.estado.sigla", is("PA"));
     }
 
     @Test
@@ -145,17 +137,13 @@ public class UsuarioResourceTest {
             "77780-920",
             4l);
 
-        TelefoneDTO telefonePrincipalDTO = new TelefoneDTO("067", "98467-8901");
-
-        TelefoneDTO telefoneOpcionalDTO = new TelefoneDTO("067", "4002-8922");
+            TelefoneDTO telefoneDTO = new TelefoneDTO("63", "4124123");
 
         UsuarioDTO usuarioDto = new UsuarioDTO(
                 "Danilo",
                 "senha1234",
                 pessoaFisicaDTO,
-                enderecoDTO,
-                telefonePrincipalDTO,
-                telefoneOpcionalDTO);
+                enderecoDTO,telefoneDTO);
 
         Long id = usuarioService.insert(usuarioDto).id();
 
@@ -174,17 +162,13 @@ public class UsuarioResourceTest {
             "77572-020",
             4l);
 
-        TelefoneDTO updateTelefonePrincipalDTO = new TelefoneDTO("067", "96821-0293");
-
-        TelefoneDTO updateTelefoneOpcionalDTO = new TelefoneDTO("011", "97202-9313");
+        TelefoneDTO telefoneDTO2 = new TelefoneDTO("62", "12132131");
 
         UsuarioDTO updateUsuarioDto = new UsuarioDTO(
                 "ErickNicolas",
                 "conteudoA2",
                 updatePessoaFisicaDTO,
-                updateEnderecoDTO,
-                updateTelefonePrincipalDTO,
-                updateTelefoneOpcionalDTO);
+                updateEnderecoDTO,telefoneDTO2);
 
         given()
           .contentType(ContentType.JSON)
@@ -210,10 +194,6 @@ public class UsuarioResourceTest {
         assertThat(municipio.get("nome"), is("Belém"));
         assertThat(estado.get("nome"), is("Pará"));
         assertThat(estado.get("sigla"), is("PA"));
-        assertThat(usuarioResponse.telefonePrincipal().get("codigoDeArea"), is("067"));
-        assertThat(usuarioResponse.telefonePrincipal().get("numero"), is("96821-0293"));
-        assertThat(usuarioResponse.telefoneOpcional().get("codigoDeArea"), is("011"));
-        assertThat(usuarioResponse.telefoneOpcional().get("numero"), is("97202-9313"));
     }
 
     @Test
@@ -234,17 +214,16 @@ public class UsuarioResourceTest {
             "77780-920",
             4l);
 
-        TelefoneDTO telefonePrincipalDTO = new TelefoneDTO("067", "98467-8901");
+        // TelefoneDTO telefonePrincipalDTO = new TelefoneDTO("067", "98467-8901");
 
-        TelefoneDTO telefoneOpcionalDTO = new TelefoneDTO("067", "4002-8922");
+        // TelefoneDTO telefoneOpcionalDTO = new TelefoneDTO("067", "4002-8922");
+        TelefoneDTO telefoneDTO = new TelefoneDTO("63", "89565423");
 
         UsuarioDTO usuarioDto = new UsuarioDTO(
           "Danilo",
                 "senha1234",
                 pessoaFisicaDTO,
-                enderecoDTO,
-                telefonePrincipalDTO,
-                telefoneOpcionalDTO);
+                enderecoDTO,telefoneDTO);
 
         Long id = usuarioService.insert(usuarioDto).id();
 

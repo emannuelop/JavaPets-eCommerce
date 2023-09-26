@@ -39,20 +39,20 @@ public class UsuarioLogadoResourceTest {
                 .statusCode(200);
     }
 
-    @Test
-    public void getTelefonesTest() {
+    // @Test
+    // public void getTelefonesTest() {
 
-        Usuario usuario = usuarioService.getByLogin("JoaoA");
+    //     Usuario usuario = usuarioService.getByLogin("JoaoA");
 
-        String token = tokenService.generateJwt(usuario);
+    //     String token = tokenService.generateJwt(usuario);
 
-        given()
-            .header("Authorization", "Bearer " + token)
-            .when()
-                .get("/perfil/telefones")
-            .then()
-                .statusCode(200);
-    }
+    //     given()
+    //         .header("Authorization", "Bearer " + token)
+    //         .when()
+    //             .get("/perfil/telefones")
+    //         .then()
+    //             .statusCode(200);
+    // }
 
     @Test
     public void getEnderecoTest() {
@@ -107,43 +107,43 @@ public class UsuarioLogadoResourceTest {
                 .statusCode(204);
     }
 
-    @Test
-    public void updateTelefonePrincipalTest() {
+    // @Test
+    // public void updateTelefonePrincipalTest() {
 
-        Usuario usuario = usuarioService.getByLogin("JoaoA");
+    //     Usuario usuario = usuarioService.getByLogin("JoaoA");
 
-        String token = tokenService.generateJwt(usuario);
+    //     String token = tokenService.generateJwt(usuario);
 
-        TelefoneDTO telefoneDTO = new TelefoneDTO("087", "98273-0182");
+    //     TelefoneDTO telefoneDTO = new TelefoneDTO("087", "98273-0182");
 
-        given()
-            .header("Authorization", "Bearer " + token)
-            .contentType(ContentType.JSON)
-                .body(telefoneDTO)
-            .when()
-                .patch("/perfil/telefone-principal")
-            .then()
-                .statusCode(204);
-    }
+    //     given()
+    //         .header("Authorization", "Bearer " + token)
+    //         .contentType(ContentType.JSON)
+    //             .body(telefoneDTO)
+    //         .when()
+    //             .patch("/perfil/telefone-principal")
+    //         .then()
+    //             .statusCode(204);
+    // }
 
-    @Test
-    public void updateTelefoneOpcionalTest() {
+    // @Test
+    // public void updateTelefoneOpcionalTest() {
 
-        Usuario usuario = usuarioService.getByLogin("JoaoA");
+    //     Usuario usuario = usuarioService.getByLogin("JoaoA");
 
-        String token = tokenService.generateJwt(usuario);
+    //     String token = tokenService.generateJwt(usuario);
 
-        TelefoneDTO telefoneDTO = new TelefoneDTO("091", "99923-0281");
+    //     TelefoneDTO telefoneDTO = new TelefoneDTO("091", "99923-0281");
 
-        given()
-            .header("Authorization", "Bearer " + token)
-            .contentType(ContentType.JSON)
-                .body(telefoneDTO)
-            .when()
-                .patch("/perfil/telefone-opcional")
-            .then()
-                .statusCode(204);
-    }
+    //     given()
+    //         .header("Authorization", "Bearer " + token)
+    //         .contentType(ContentType.JSON)
+    //             .body(telefoneDTO)
+    //         .when()
+    //             .patch("/perfil/telefone-opcional")
+    //         .then()
+    //             .statusCode(204);
+    // }
 
     @Test
     public void updateEnderecoTest() {

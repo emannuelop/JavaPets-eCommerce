@@ -27,27 +27,27 @@ import jakarta.ws.rs.core.Response.ResponseBuilder;
 import jakarta.ws.rs.core.Response.Status;
 
 import br.unitins.ecommerce.application.Result;
-import br.unitins.ecommerce.dto.racao.RacaoDTO;
-import br.unitins.ecommerce.dto.racao.RacaoResponseDTO;
+import br.unitins.ecommerce.dto.produto.ProdutoDTO;
+import br.unitins.ecommerce.dto.produto.ProdutoResponseDTO;
 import br.unitins.ecommerce.form.ImageForm;
 import br.unitins.ecommerce.service.file.FileService;
-import br.unitins.ecommerce.service.racao.RacaoService;
+import br.unitins.ecommerce.service.produto.ProdutoService;
 
-@Path("/racoes")
+@Path("/produtos")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class RacaoResource {
+public class ProdutoResource {
 
     @Inject
-    RacaoService racaoService;
+    ProdutoService racaoService;
 
     @Inject
     FileService fileService;
 
-    private static final Logger LOG = Logger.getLogger(RacaoResource.class);
+    private static final Logger LOG = Logger.getLogger(ProdutoResource.class);
 
     @GET
-    public List<RacaoResponseDTO> getAll() {
+    public List<ProdutoResponseDTO> getAll() {
         LOG.info("Buscando todas os produtos");
         LOG.debug("ERRO DE DEBUG.");
         return racaoService.getAll();
@@ -55,7 +55,7 @@ public class RacaoResource {
 
     @GET
     @Path("/{id}")
-    public RacaoResponseDTO getById(@PathParam("id") Long id) throws NotFoundException {
+    public ProdutoResponseDTO getById(@PathParam("id") Long id) throws NotFoundException {
         LOG.infof("Buscando produtos por ID. ", id);
         LOG.debug("ERRO DE DEBUG.");
         return racaoService.getById(id);
@@ -85,7 +85,7 @@ public class RacaoResource {
 
     @POST
     @RolesAllowed({"Admin"})
-    public Response insert(RacaoDTO racaoDto) {
+    public Response insert(ProdutoDTO racaoDto) {
 
         LOG.infof("Inserindo um produto: %s", racaoDto.nome());
         Result result = null;
@@ -115,7 +115,7 @@ public class RacaoResource {
     @PUT
     @Path("/{id}")
     @RolesAllowed({"Admin"})
-    public Response update(@PathParam("id") Long id, RacaoDTO racaoDto) {
+    public Response update(@PathParam("id") Long id, ProdutoDTO racaoDto) {
         Result result = null;
         try {
             racaoService.update(id, racaoDto);
@@ -198,26 +198,16 @@ public class RacaoResource {
     @GET
     @Path("/searchByNome/{nome}")
     @PermitAll
-    public List<RacaoResponseDTO> getByNome(@PathParam("nome") String nome) {
+    public List<ProdutoResponseDTO> getByNome(@PathParam("nome") String nome) {
         LOG.infof("Buscando produto pelo nome. ", nome);
         LOG.debug("ERRO DE DEBUG.");
         return racaoService.getByNome(nome);
     }
 
     @GET
-    @Path("/searchByEscolhaAnimal/{escolha_animal}")
-    @PermitAll
-    public List<RacaoResponseDTO> getByEscolhaAnimal(@PathParam("escolha_animal") Integer id)
-            throws IndexOutOfBoundsException {
-        LOG.infof("Buscando pelo animal. ", id);
-        LOG.debug("ERRO DE DEBUG.");
-        return racaoService.getByEscolhaAnimal(id);
-    }
-
-    @GET
     @Path("/searchByMarca/{marca}")
     @PermitAll
-    public List<RacaoResponseDTO> getByMarca(@PathParam("marca") String nomeMarca) {
+    public List<ProdutoResponseDTO> getByMarca(@PathParam("marca") String nomeMarca) {
         LOG.infof("Buscando pelo nome da marca. ", nomeMarca);
         LOG.debug("ERRO DE DEBUG.");
         return racaoService.getByMarca(nomeMarca);
@@ -226,7 +216,7 @@ public class RacaoResource {
     @GET
     @Path("/filterByPrecoMin/{precoMin}")
     @PermitAll
-    public List<RacaoResponseDTO> filterByPrecoMin(@PathParam("precoMin") Double preco) {
+    public List<ProdutoResponseDTO> filterByPrecoMin(@PathParam("precoMin") Double preco) {
         LOG.infof("Filtrando pelo preço mínimo. ", preco);
         LOG.debug("ERRO DE DEBUG.");
         return racaoService.filterByPrecoMin(preco);
@@ -235,7 +225,7 @@ public class RacaoResource {
     @GET
     @Path("/filterByPrecoMax/{precoMax}")
     @PermitAll
-    public List<RacaoResponseDTO> filterByPrecoMax(@PathParam("precoMax") Double preco) {
+    public List<ProdutoResponseDTO> filterByPrecoMax(@PathParam("precoMax") Double preco) {
         LOG.infof("Filtrando pelo preço máximo. ", preco);
         LOG.debug("ERRO DE DEBUG.");
         return racaoService.filterByPrecoMax(preco);
@@ -244,7 +234,7 @@ public class RacaoResource {
     @GET
     @Path("/filterByEntrePreco/{precoMin}/{precoMax}")
     @PermitAll
-    public List<RacaoResponseDTO> filterByEntrePreco(@PathParam("precoMin") Double precoMin,
+    public List<ProdutoResponseDTO> filterByEntrePreco(@PathParam("precoMin") Double precoMin,
             @PathParam("precoMax") Double precoMax) {
         LOG.infof("Filtrando entre os preços mínimo e máximo. ", precoMin, " e ", precoMax);
         LOG.debug("ERRO DE DEBUG.");

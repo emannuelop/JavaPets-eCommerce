@@ -5,11 +5,15 @@ import java.util.List;
 import org.jboss.logging.Logger;
 
 import br.unitins.ecommerce.application.Result;
+import br.unitins.ecommerce.dto.compra.ItemCompraDTO;
+import br.unitins.ecommerce.dto.telefone.AdicionarTelDTO;
+import br.unitins.ecommerce.dto.telefone.TelefoneDTO;
 import br.unitins.ecommerce.dto.usuario.UsuarioBasicoResponseDTO;
 import br.unitins.ecommerce.dto.usuario.UsuarioDTO;
 import br.unitins.ecommerce.dto.usuario.UsuarioResponseDTO;
 import br.unitins.ecommerce.dto.usuario.listadesejo.ListaDesejoDTO;
 import br.unitins.ecommerce.dto.usuario.listadesejo.ListaDesejoResponseDTO;
+import br.unitins.ecommerce.model.usuario.Usuario;
 import br.unitins.ecommerce.service.usuario.UsuarioService;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
@@ -230,4 +234,25 @@ public class UsuarioResource {
         return usuarioService.getByNome(nome);
     }
 
+    @POST
+    @Path("/telefone/adiconartelefone")
+    @RolesAllowed({ "Admin", "User", "User_Basic" })
+    public Response insertIntoCarrrinho(AdicionarTelDTO telefone) {
+        Result result = null;
+
+        TelefoneDTO tel = new TelefoneDTO(telefone.codigoArea(), telefone.numero());
+
+        try{
+            usuarioService.insertTelefone(telefone.idUsu(), tel);
+
+            LOG.info("Telefone inserido no com sucesso.");
+            return Response.status(Status.CREATED).build();
+        } catch (NullPointerException e) {
+            LOG.error("Erro ao adicionar telefone.", e);
+
+            result = new Result(e.getMessage(), false);
+
+            return Response.status(Status.NOT_FOUND).entity(result).build();
+        }
+    }
 }

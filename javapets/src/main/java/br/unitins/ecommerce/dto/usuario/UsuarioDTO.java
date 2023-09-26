@@ -21,9 +21,7 @@ public record UsuarioDTO(
     EnderecoDTO endereco,
 
     @NotNull
-    TelefoneDTO telefonePrincipal,
-
-    TelefoneDTO telefoneOpcional
+    TelefoneDTO telefone
 ) {
     
 }

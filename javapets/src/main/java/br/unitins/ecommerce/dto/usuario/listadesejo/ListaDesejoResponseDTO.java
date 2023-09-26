@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import br.unitins.ecommerce.dto.avaliacao.AvaliacaoResponseDTO;
-import br.unitins.ecommerce.model.produto.Produto;
+import br.unitins.ecommerce.model.produto.produto.Produto;
 import br.unitins.ecommerce.model.usuario.Usuario;
 
 public record ListaDesejoResponseDTO(

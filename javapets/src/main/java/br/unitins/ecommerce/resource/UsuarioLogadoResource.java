@@ -10,8 +10,6 @@ import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
 import br.unitins.ecommerce.application.Result;
 import br.unitins.ecommerce.dto.endereco.EnderecoDTO;
 import br.unitins.ecommerce.dto.endereco.EnderecoResponseDTO;
-import br.unitins.ecommerce.dto.telefone.TelefoneDTO;
-import br.unitins.ecommerce.dto.telefone.TelefonesResponseDTO;
 import br.unitins.ecommerce.dto.usuario.SenhaDTO;
 import br.unitins.ecommerce.dto.usuario.dadospessoais.DadosPessoaisDTO;
 import br.unitins.ecommerce.dto.usuario.dadospessoais.DadosPessoaisResponseDTO;
@@ -61,20 +59,6 @@ public class UsuarioLogadoResource {
         LOG.debug("ERRO DE DEBUG.");
 
         return Response.ok(dadosPessoaisUsuario).build();
-    }
-
-    @GET
-    @Path("/telefones")
-    @RolesAllowed({ "User" })
-    public Response getTelefones() {
-
-        String login = tokenJwt.getSubject();
-
-        TelefonesResponseDTO telefonesResponseDTO = new TelefonesResponseDTO(usuarioService.getByLogin(login));
-        LOG.infof("Buscando o telefones do usuário: ", login);
-        LOG.debug("ERRO DE DEBUG.");
-
-        return Response.ok(telefonesResponseDTO).build();
     }
 
     @GET
@@ -162,46 +146,6 @@ public class UsuarioLogadoResource {
                     .status(Status.FORBIDDEN)
                     .entity(e.getChallenges())
                     .build();
-        }
-    }
-
-    @PATCH
-    @Path("/telefone-principal")
-    @RolesAllowed({ "User" })
-    public Response updateTelefonePrincipal(TelefoneDTO telefonePrincipalDTO) {
-        try {
-            String login = tokenJwt.getSubject();
-
-            Usuario usuario = usuarioService.getByLogin(login);
-
-            usuarioService.updateTelefonePrincipal(usuario.getId(), telefonePrincipalDTO);
-            LOG.info("Telefone principal atualizado com sucesso.");
-
-            return Response.status(Status.NO_CONTENT).build();
-
-        } catch (Exception e) {
-            LOG.error("Erro ao atualizar o telefone do usuário.", e);
-            return Response.status(Status.INTERNAL_SERVER_ERROR).build();
-        }
-    }
-
-    @PATCH
-    @Path("/telefone-opcional")
-    @RolesAllowed({ "User" })
-    public Response updateTelefoneOpcional(TelefoneDTO telefoneOpcionalDTO) {
-        try {
-            String login = tokenJwt.getSubject();
-
-            Usuario usuario = usuarioService.getByLogin(login);
-
-            usuarioService.updateTelefoneOpcional(usuario.getId(), telefoneOpcionalDTO);
-            LOG.info("Telefone opcional atualizado com sucesso.");
-
-            return Response.status(Status.NO_CONTENT).build();
-
-        } catch (Exception e) {
-            LOG.error("Erro ao atualizar o telefone opcional do usuário.", e);
-            return Response.status(Status.INTERNAL_SERVER_ERROR).build();
         }
     }
 

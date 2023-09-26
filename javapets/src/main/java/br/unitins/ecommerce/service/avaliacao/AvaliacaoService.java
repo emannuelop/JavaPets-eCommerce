@@ -4,7 +4,7 @@ import java.util.List;
 
 import br.unitins.ecommerce.dto.avaliacao.AvaliacaoDTO;
 import br.unitins.ecommerce.dto.avaliacao.AvaliacaoResponseDTO;
-import br.unitins.ecommerce.model.produto.Produto;
+import br.unitins.ecommerce.model.produto.produto.Produto;
 
 public interface AvaliacaoService {
     

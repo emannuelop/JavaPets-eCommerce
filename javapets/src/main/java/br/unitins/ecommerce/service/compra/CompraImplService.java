@@ -12,7 +12,7 @@ import br.unitins.ecommerce.model.pagamento.BandeiraCartao;
 import br.unitins.ecommerce.model.pagamento.BoletoBancario;
 import br.unitins.ecommerce.model.pagamento.CartaoCredito;
 import br.unitins.ecommerce.model.pagamento.Pix;
-import br.unitins.ecommerce.model.produto.Produto;
+import br.unitins.ecommerce.model.produto.produto.Produto;
 import br.unitins.ecommerce.model.usuario.Usuario;
 import br.unitins.ecommerce.repository.BoletoBancarioRepository;
 import br.unitins.ecommerce.repository.CartaoCreditoRepository;

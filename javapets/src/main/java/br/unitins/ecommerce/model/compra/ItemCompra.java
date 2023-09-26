@@ -6,7 +6,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 import br.unitins.ecommerce.model.DefaultEntity;
-import br.unitins.ecommerce.model.produto.Produto;
+import br.unitins.ecommerce.model.produto.produto.Produto;
 
 @Entity
 public class ItemCompra extends DefaultEntity {

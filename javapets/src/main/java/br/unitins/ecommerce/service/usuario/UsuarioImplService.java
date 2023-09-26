@@ -17,7 +17,7 @@ import br.unitins.ecommerce.dto.usuario.dadospessoais.DadosPessoaisDTO;
 import br.unitins.ecommerce.dto.usuario.listadesejo.ListaDesejoDTO;
 import br.unitins.ecommerce.dto.usuario.listadesejo.ListaDesejoResponseDTO;
 import br.unitins.ecommerce.model.endereco.Endereco;
-import br.unitins.ecommerce.model.produto.Produto;
+import br.unitins.ecommerce.model.produto.produto.Produto;
 import br.unitins.ecommerce.model.usuario.Perfil;
 import br.unitins.ecommerce.model.usuario.PessoaFisica;
 import br.unitins.ecommerce.model.usuario.Sexo;
@@ -25,7 +25,7 @@ import br.unitins.ecommerce.model.usuario.Telefone;
 import br.unitins.ecommerce.model.usuario.Usuario;
 import br.unitins.ecommerce.repository.EnderecoRepository;
 import br.unitins.ecommerce.repository.MunicipioRepository;
-import br.unitins.ecommerce.repository.RacaoRepository;
+import br.unitins.ecommerce.repository.ProdutoRepository;
 import br.unitins.ecommerce.repository.TelefoneRepository;
 import br.unitins.ecommerce.repository.UsuarioRepository;
 import br.unitins.ecommerce.service.hash.HashService;
@@ -61,7 +61,7 @@ public class UsuarioImplService implements UsuarioService {
     MunicipioRepository municipioRepository;
 
     @Inject
-    RacaoRepository racaoRepository;
+    ProdutoRepository racaoRepository;
 
     @Inject
     PessoaFisicaService pessoaFisicaService;
@@ -117,6 +117,13 @@ public class UsuarioImplService implements UsuarioService {
 
         Usuario entity = new Usuario();
 
+        Telefone telefone = new Telefone();
+
+        telefone.setCodigoArea(usuarioDto.telefone().codigoArea());
+        telefone.setNumero(usuarioDto.telefone().numero());
+
+        telefoneRepository.persist(telefone);
+
         entity.setPessoaFisica(insertPessoaFisica(usuarioDto.pessoaFisicaDto()));
 
         entity.setLogin(usuarioDto.login());
@@ -125,10 +132,9 @@ public class UsuarioImplService implements UsuarioService {
 
         entity.setEndereco(insertEndereco(usuarioDto.endereco()));
 
-        entity.setTelefonePrincipal(insertTelefone(usuarioDto.telefonePrincipal()));
+        entity.setTelefones(telefone);
 
-        if (usuarioDto.telefoneOpcional() != null)
-            entity.setTelefoneOpcional(insertTelefone(usuarioDto.telefoneOpcional()));
+        entity.addPerfis(Perfil.USER);
 
         usuarioRepository.persist(entity);
 
@@ -195,35 +201,6 @@ public class UsuarioImplService implements UsuarioService {
 
         deleteEndereco(idEndereco);
 
-        Long idTelefone = entity.getTelefonePrincipal().getId();
-
-        entity.setTelefonePrincipal(insertTelefone(usuarioDto.telefonePrincipal()));
-
-        deleteTelefone(idTelefone);
-
-        if (usuarioDto.telefoneOpcional() != null && entity.getTelefoneOpcional() != null) {
-
-            idTelefone = entity.getTelefoneOpcional().getId();
-
-            entity.setTelefoneOpcional(insertTelefone(usuarioDto.telefoneOpcional()));
-
-            deleteTelefone(idTelefone);
-        }
-
-        else if (usuarioDto.telefoneOpcional() != null && entity.getTelefoneOpcional() == null) {
-
-            entity.setTelefoneOpcional(insertTelefone(usuarioDto.telefoneOpcional()));
-        }
-
-        else if (entity.getTelefoneOpcional() != null) {
-
-            idTelefone = entity.getTelefoneOpcional().getId();
-
-            entity.setTelefoneOpcional(null);
-
-            deleteTelefone(idTelefone);
-        }
-
         return new UsuarioResponseDTO(entity);
     }
 
@@ -240,11 +217,6 @@ public class UsuarioImplService implements UsuarioService {
         entity.getPessoaFisica().setSexo(Sexo.valueOf(usuarioDto.sexo()));
 
         entity.setEndereco(insertEndereco(usuarioDto.endereco()));
-
-        entity.setTelefonePrincipal(insertTelefone(usuarioDto.telefonePrincipal()));
-
-        if (usuarioDto.telefoneOpcional() != null)
-            entity.setTelefoneOpcional(insertTelefone(usuarioDto.telefoneOpcional()));
 
         entity.addPerfis(Perfil.USER);
 
@@ -400,86 +372,9 @@ public class UsuarioImplService implements UsuarioService {
         entity.setNomeImagem(nomeImagem);
     }
 
-    @Override
-    @Transactional
-    public void updateTelefonePrincipal(Long id, TelefoneDTO telefonePrincipalDTO) {
-
-        validar(telefonePrincipalDTO);
-
-        Usuario entity = usuarioRepository.findById(id);
-
-        Long idTelefone = entity.getTelefonePrincipal().getId();
-
-        entity.setTelefonePrincipal(insertTelefone(telefonePrincipalDTO));
-
-        deleteTelefone(idTelefone);
-    }
-
-    @Override
-    @Transactional
-    public void updateTelefoneOpcional(Long id, TelefoneDTO telefoneOpcionalDTO) {
-
-        validar(telefoneOpcionalDTO);
-
-        Long idTelefone;
-
-        Usuario entity = usuarioRepository.findById(id);
-
-        if (telefoneOpcionalDTO != null && entity.getTelefoneOpcional() != null) {
-
-            idTelefone = entity.getTelefoneOpcional().getId();
-
-            entity.setTelefoneOpcional(insertTelefone(telefoneOpcionalDTO));
-
-            deleteTelefone(idTelefone);
-        }
-
-        else if (telefoneOpcionalDTO != null && entity.getTelefoneOpcional() == null) {
-
-            entity.setTelefoneOpcional(insertTelefone(telefoneOpcionalDTO));
-        }
-
-        else if (entity.getTelefoneOpcional() != null) {
-
-            idTelefone = entity.getTelefoneOpcional().getId();
-
-            entity.setTelefoneOpcional(null);
-
-            deleteTelefone(idTelefone);
-        }
-    }
-
     private PessoaFisica insertPessoaFisica(PessoaFisicaDTO pessoaFisicaDTO) throws ConstraintViolationException {
 
         return pessoaFisicaService.insertPessoaFisica(pessoaFisicaDTO);
-    }
-
-    private Telefone insertTelefone(TelefoneDTO telefoneDTO) throws ConstraintViolationException {
-
-        validar(telefoneDTO);
-
-        Telefone telefone = new Telefone();
-
-        telefone.setCodigoArea(telefoneDTO.codigoArea());
-        telefone.setNumero(telefoneDTO.numero());
-
-        telefoneRepository.persist(telefone);
-
-        return telefone;
-    }
-
-    private void deleteTelefone(Long id) throws NotFoundException, IllegalArgumentException {
-
-        if (id == null)
-            throw new IllegalArgumentException("Número inválido");
-
-        Telefone telefone = telefoneRepository.findById(id);
-
-        if (telefoneRepository.isPersistent(telefone))
-            telefoneRepository.delete(telefone);
-
-        else
-            throw new NotFoundException("Nenhum Telefone encontrado");
     }
 
     private Endereco insertEndereco(EnderecoDTO enderecoDto) throws ConstraintViolationException {
@@ -589,5 +484,29 @@ public class UsuarioImplService implements UsuarioService {
         if (!violations.isEmpty())
             throw new ConstraintViolationException(violations);
 
+    }
+
+@Override
+    @Transactional
+    public void insertTelefone(Long idUsuario, TelefoneDTO telefoneDTO) throws NullPointerException {
+
+        validar(telefoneDTO);
+
+        Telefone telefone = new Telefone();
+
+        telefone.setCodigoArea(telefoneDTO.codigoArea());
+        telefone.setNumero(telefoneDTO.numero());
+
+        // usuarioRepository.findById(idUsuario).setTelefones(telefone);
+         Usuario entity = usuarioRepository.findById(idUsuario);
+         telefoneRepository.persist(telefone);
+         entity.setTelefones(telefone);
+
+    }
+
+    @Override
+    public void removeTelefone(Long idUsuario, Long idTelefone) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'removeTelefone'");
     }
 }

@@ -9,17 +9,6 @@
         - estoque: Integer
     }
 
-    class Racao {
-
-        - quantidadeQuilos: Double
-        - sabor: String
-    }
-
-    enum EscolhaAnimal {
-        + GATO: int
-        + CACHORRO: int
-    }
-
     class Marca {
 
         - id: Long
@@ -161,10 +150,37 @@
         - nome: String
     }
 
+    class Fornecedor{
+        - id: Long
+        - nome: String
+        - telefone: Telefone
+    }
+
+    class Categoria{
+        - id: Long
+        - nome: String
+        - descricao: String
+    }
+
+    class CupomDesconto{
+        - id: Long
+        - codigoCupom: String
+        - porcentagemDesconto: int
+        - quantidadeDisponivel: int
+    }
+
+    class Pet{
+        - id: Long
+        - nome: String
+        - espécie: String
+        - raca: String
+        - idade: int
+    }
+
     Produto "*" o--> "1" Marca
 
-    Racao -up-|> Produto
-    Racao "*" o--> "1" EscolhaAnimal
+    Produto "*" o--> "1" Fornecedor
+    Produto "*" o--> "1" Categoria
 
     Municipio "*" *--> "1" Estado
 
@@ -176,6 +192,7 @@
 
     Usuario "1" --> "1" PessoaFisica
     Usuario "*" --> "*" Perfil
+    Usuario "1" --> "*" Pet
     Usuario "*" --> "*" Produto: listaDesejo
     Usuario "1" *--> "1" Telefone: telefonePrincipal
     Usuario "1" *--> "1" Telefone: telefoneOpcional
@@ -191,6 +208,7 @@
     CartaoCredito "*" --> "1" BandeiraCartao
 
     Compra "*" --> "1" Usuario
+    Compra "*" --> "1" CupomDesconto
     Compra "1" *--> "*" ItemCompra
     Compra "*" --> "1" Endereco
     Compra "1" *--> "1" Pagamento

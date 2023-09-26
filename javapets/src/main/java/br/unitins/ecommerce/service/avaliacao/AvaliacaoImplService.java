@@ -15,11 +15,11 @@ import jakarta.ws.rs.NotFoundException;
 
 import br.unitins.ecommerce.dto.avaliacao.AvaliacaoDTO;
 import br.unitins.ecommerce.dto.avaliacao.AvaliacaoResponseDTO;
-import br.unitins.ecommerce.model.produto.Produto;
 import br.unitins.ecommerce.model.produto.avaliacao.Avaliacao;
 import br.unitins.ecommerce.model.produto.avaliacao.Estrela;
+import br.unitins.ecommerce.model.produto.produto.Produto;
 import br.unitins.ecommerce.repository.AvaliacaoRepository;
-import br.unitins.ecommerce.repository.RacaoRepository;
+import br.unitins.ecommerce.repository.ProdutoRepository;
 import br.unitins.ecommerce.repository.UsuarioRepository;
 
 @ApplicationScoped
@@ -32,7 +32,7 @@ public class AvaliacaoImplService implements AvaliacaoService {
     UsuarioRepository usuarioRepository;
 
     @Inject
-    RacaoRepository racaoRepository;
+    ProdutoRepository racaoRepository;
 
     @Inject
     Validator validator;
