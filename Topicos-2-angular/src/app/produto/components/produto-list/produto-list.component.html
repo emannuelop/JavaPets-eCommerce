@@ -1,0 +1,101 @@
+<mat-toolbar>
+  <div class="flex-container">
+    <span class="toolbar-title"> Controle de Produtos </span>
+    <button mat-fab color="accent" routerLink="/produtos/new">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+</mat-toolbar>
+<div class="container">
+  <div class="input-container">
+    <mat-form-field appearance="outline" class="input-field">
+      <mat-label>Pesquisar</mat-label>
+      <input [(ngModel)]="filtro" matInput placeholder="Ex. Tocantins" #input>
+    </mat-form-field>
+    <button mat-icon-button color="primary" 
+            class="search-button"
+            (click)="aplicarFiltro()">
+      <mat-icon>search</mat-icon>
+    </button>
+  </div>
+</div>
+
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="produtos" matSort>
+
+    <!-- Id Column -->
+    <ng-container matColumnDef="id-column">
+      <th mat-header-cell *matHeaderCellDef> Id </th>
+      <td mat-cell *matCellDef="let produto"> {{produto.id}} </td>
+    </ng-container>
+
+    <!-- Nome Column -->
+    <ng-container matColumnDef="nome-column">
+      <th mat-header-cell *matHeaderCellDef> Nome </th>
+      <td mat-cell *matCellDef="let produto"> {{produto.nome}} </td>
+    </ng-container>
+
+    <!-- Sigla Column -->
+    <ng-container matColumnDef="descricao-column">
+      <th mat-header-cell *matHeaderCellDef> Descricao </th>
+      <td mat-cell *matCellDef="let produto"> {{produto.descricao}} </td>
+    </ng-container>
+
+    <!-- Sigla Column -->
+    <ng-container matColumnDef="marca-column">
+      <th mat-header-cell *matHeaderCellDef> Marca </th>
+      <td mat-cell *matCellDef="let produto"> {{produto.marca.nome}} </td>
+    </ng-container>
+
+    <!-- Sigla Column -->
+    <ng-container matColumnDef="fornecedor-column">
+      <th mat-header-cell *matHeaderCellDef> Fornecedor </th>
+      <td mat-cell *matCellDef="let produto"> {{produto.fornecedor.nome}} </td>
+    </ng-container>
+
+    <!-- Sigla Column -->
+    <ng-container matColumnDef="categoria-column">
+      <th mat-header-cell *matHeaderCellDef> Categoria </th>
+      <td mat-cell *matCellDef="let produto"> {{produto.categoria.nome}} </td>
+    </ng-container>
+
+    <!-- Sigla Column -->
+    <ng-container matColumnDef="preco-column">
+      <th mat-header-cell *matHeaderCellDef> Preco </th>
+      <td mat-cell *matCellDef="let produto"> {{produto.preco}} </td>
+    </ng-container>
+
+    <!-- Sigla Column -->
+    <ng-container matColumnDef="estoque-column">
+      <th mat-header-cell *matHeaderCellDef> Estoque </th>
+      <td mat-cell *matCellDef="let produto"> {{produto.estoque}} </td>
+    </ng-container>
+
+    <!-- Ação Column -->
+    <ng-container matColumnDef="acao-column">
+      <th mat-header-cell *matHeaderCellDef> Ação </th>
+      <td mat-cell *matCellDef="let produto">
+        <button mat-icon-button 
+                color="primary" 
+                routerLink="/produtos/edit/{{produto.id}}">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: tableColumns;"></tr>
+
+    <!-- Row shown when there is no matching data. -->
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+    </tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[2, 4, 8, 16]" [pageSize]="pageSize" [length]="totalRegistros"
+    (page)="paginar($event)">
+  </mat-paginator>
+</div>

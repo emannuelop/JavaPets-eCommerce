@@ -1,0 +1,82 @@
+/* Estilos para o contêiner principal */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+/* Estilos para a div que envolve o campo de entrada e o botão */
+.input-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Alinhar elementos à esquerda verticalmente */
+    width: 80%;
+}
+
+/* Estilos para o campo de entrada */
+.input-field {
+    flex: 1;
+    margin-right: 8px;
+}
+
+/* Estilos para o botão de pesquisa */
+.search-button {
+    width: 54px;
+    height: 54px;
+    align-self: flex-start; /* Alinhar o botão verticalmente ao topo */
+}
+
+/* Estilos para o ícone de pesquisa */
+mat-icon {
+    font-size: 24px;
+}
+
+/* Estilos para a tabela que ocupa 100% da largura */
+.full-width-table {
+    width: 100%;
+    border-collapse: collapse;
+    /* Remove espaços entre as células da tabela */
+}
+
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2px;
+    /* Espaço entre a barra de pesquisa e a tabela */
+}
+
+
+.demo-table {
+    width: 100%;
+}
+
+.mat-column-id-column {
+    width: 32px;
+    border-right: 1px solid currentColor;
+    padding-right: 24px;
+    text-align: center;
+}
+
+.mat-column-nome-column {
+    padding-left: 16px;
+    font-size: 20px;
+}
+
+.mat-column-sigla-column {
+    font-style: italic;
+}
+
+.flex-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.toolbar-title {
+    flex: 1;
+    text-align: center;
+}

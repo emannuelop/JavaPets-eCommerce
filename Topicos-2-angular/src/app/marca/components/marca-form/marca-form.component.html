@@ -1,0 +1,46 @@
+<mat-toolbar class="centered-toolbar">Cadastro de Marca</mat-toolbar>
+<div class="form-container">
+    <mat-card>
+        <mat-card-content>
+            <form [formGroup]="formGroup" >
+                <mat-form-field appearance="outline" class="full-width-input">
+                    <mat-label>Nome</mat-label>
+                    <input matInput type="text" formControlName="nome" />
+                    <mat-error *ngIf="formGroup.get('nome') &&
+                formGroup.get('nome')?.invalid &&
+                formGroup.get('nome')?.touched">
+                        Nome é obrigatório.
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="full-width-input">
+                    <mat-label>Cnpj</mat-label>
+                    <input matInput type="text" formControlName="cnpj" />
+                    <mat-error *ngIf="formGroup.get('cnpj') &&
+                formGroup.get('cnpj')?.invalid &&
+                formGroup.get('cnpj')?.touched">
+                        Cnpj é obrigatória.
+                    </mat-error>
+                </mat-form-field>
+            </form>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button 
+                color="primary" 
+                (click)="salvar()"
+                [disabled]="formGroup.invalid">
+                Salvar
+            </button>
+            <button mat-raised-button 
+                *ngIf="formGroup?.get('id')?.value"
+                color="warn" 
+                (click)="excluir()"
+                [disabled]="formGroup.invalid">
+                Excluir
+            </button>
+            <button mat-raised-button 
+                routerLink="/marcas/list">
+                Cancelar
+            </button>
+        </mat-card-actions>
+    </mat-card>
+</div>
