@@ -9,12 +9,17 @@ INSERT INTO marca (nome, cnpj) VALUES ('GoldeN', '07.284.054/0001-75');
 INSERT INTO marca (nome, cnpj) VALUES ('Whiskas', '12.286.796/0001-70');
 INSERT INTO marca (nome, cnpj) VALUES ('GranPlus', '38.850.092/0001-71');
 
-INSERT INTO produto (nome, descricao, preco, estoque, id_marca) VALUES ('Ração Pedigree Nutrição Essencial', 'Para Cães Adultos', 140.00, 30, 1);
+INSERT INTO fornecedor (nome) VALUES ('Bontrato');
 
-INSERT INTO produto (nome, descricao, preco, estoque, id_marca) VALUES ('Ração Golden Fórmula Mini Bits', 'Para Cães Adultos de Porte Pequeno', 110.00, 10, 2);
+INSERT INTO categoria (nome, descricao) VALUES ('Racao', 'Rações para todos os tipos de Pets');
+INSERT INTO categoria (nome, descricao) VALUES ('Sla', 'Sla');
 
-INSERT INTO produto (nome, descricao, preco, estoque, id_marca) VALUES ('Ração Whiskas', 'Para Gatos Adultos', 180.00, 15, 3);
-INSERT INTO produto (nome, descricao, preco, estoque, id_marca) VALUES ('Ração GranPlus Choice', 'Para Gatos Filhotes', 150.00, 12, 4);
+INSERT INTO produto (nome, descricao, preco, estoque, id_marca, id_fornecedor, id_categoria) VALUES ('Ração Pedigree Nutrição Essencial', 'Para Cães Adultos', 140.00, 30, 1,1,1);
+
+INSERT INTO produto (nome, descricao, preco, estoque, id_marca, id_fornecedor, id_categoria) VALUES ('Ração Golden Fórmula Mini Bits', 'Para Cães Adultos de Porte Pequeno', 110.00, 10, 2,1,2);
+
+INSERT INTO produto (nome, descricao, preco, estoque, id_marca, id_fornecedor, id_categoria) VALUES ('Ração Whiskas', 'Para Gatos Adultos', 180.00, 15, 3,1,1);
+INSERT INTO produto (nome, descricao, preco, estoque, id_marca, id_fornecedor, id_categoria) VALUES ('Ração GranPlus Choice', 'Para Gatos Filhotes', 150.00, 12, 4,1,2);
 
 INSERT INTO estado (nome, sigla) VALUES ('Acre', 'AC');
 INSERT INTO estado (nome, sigla) VALUES ('Amazonas', 'AM');
@@ -22,17 +27,17 @@ INSERT INTO estado (nome, sigla) VALUES ('Goiás', 'GO');
 INSERT INTO estado (nome, sigla) VALUES ('Pará', 'PA');
 INSERT INTO estado (nome, sigla) VALUES ('Tocantins', 'TO');
 
-INSERT INTO municipio (nome, id_estado) VALUES ('Manaus', 2);
-INSERT INTO municipio (nome, id_estado) VALUES ('Palmas', 5);
-INSERT INTO municipio (nome, id_estado) VALUES ('Guaraí', 5);
-INSERT INTO municipio (nome, id_estado) VALUES ('Belém', 4);
-INSERT INTO municipio (nome, id_estado) VALUES ('Goiânia', 3);
+INSERT INTO cidade (nome, id_estado) VALUES ('Manaus', 2);
+INSERT INTO cidade (nome, id_estado) VALUES ('Palmas', 5);
+INSERT INTO cidade (nome, id_estado) VALUES ('Guaraí', 5);
+INSERT INTO cidade (nome, id_estado) VALUES ('Belém', 4);
+INSERT INTO cidade (nome, id_estado) VALUES ('Goiânia', 3);
 
-INSERT INTO endereco (logradouro, bairro, numero, cep, id_municipio) VALUES ('alameda 12', 'Quadra 708 Sul', 'lote 10', '77082-012', 2);
-INSERT INTO endereco (logradouro, bairro, numero, cep, id_municipio) VALUES ('avenida Bernado Sayão', 'Setor Aeroporto', 'número 3564', '77700-001', 3);
-INSERT INTO endereco (logradouro, bairro, numero, cep, id_municipio) VALUES ('rua Piauí', 'Quadra 301 Norte', 'numero 102', '77030-030', 1);
-INSERT INTO endereco (logradouro, bairro, numero, cep, id_municipio) VALUES ('alameda 08', 'Quadra 1200 Sul', 'numero 092', '77092-839', 3);
-INSERT INTO endereco (logradouro, bairro, numero, cep, id_municipio) VALUES ('alameda 13', 'Setor Bueno', 'lote 18', '77903-029', 1);
+INSERT INTO endereco (logradouro, bairro, numero, cep, id_cidade) VALUES ('alameda 12', 'Quadra 708 Sul', 'lote 10', '77082-012', 2);
+INSERT INTO endereco (logradouro, bairro, numero, cep, id_cidade) VALUES ('avenida Bernado Sayão', 'Setor Aeroporto', 'número 3564', '77700-001', 3);
+INSERT INTO endereco (logradouro, bairro, numero, cep, id_cidade) VALUES ('rua Piauí', 'Quadra 301 Norte', 'numero 102', '77030-030', 1);
+INSERT INTO endereco (logradouro, bairro, numero, cep, id_cidade) VALUES ('alameda 08', 'Quadra 1200 Sul', 'numero 092', '77092-839', 3);
+INSERT INTO endereco (logradouro, bairro, numero, cep, id_cidade) VALUES ('alameda 13', 'Setor Bueno', 'lote 18', '77903-029', 1);
 
 INSERT INTO telefone (codigoarea, numero) VALUES ('011', '98456-7812');
 INSERT INTO telefone (codigoarea, numero) VALUES ('061', '99901-5842');

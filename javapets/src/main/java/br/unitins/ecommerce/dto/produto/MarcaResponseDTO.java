@@ -6,7 +6,7 @@ import br.unitins.ecommerce.model.produto.produto.Marca;
 public record MarcaResponseDTO (
     Long id,
     String nome,
-    String cnp
+    String cnpj
 ) {
 
     public MarcaResponseDTO(Marca marca) {

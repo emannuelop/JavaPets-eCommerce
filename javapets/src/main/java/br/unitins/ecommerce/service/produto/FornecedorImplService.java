@@ -31,9 +31,9 @@ public class FornecedorImplService implements FornecedorService {
     EstadoRepository estadoRepository;
 
     @Override
-    public List<FornecedorResponseDTO> getAll() {
+    public List<FornecedorResponseDTO> getAll(int page, int pageSize) {
         
-        return fornecedorRepository.findAll()
+        return fornecedorRepository.findAll().page(page, pageSize).list()
                                     .stream()
                                     .map(FornecedorResponseDTO::new)
                                     .toList();
@@ -104,9 +104,15 @@ public class FornecedorImplService implements FornecedorService {
     }
 
     @Override
-    public List<FornecedorResponseDTO> getByNome(String nome) throws NullPointerException {
+    public Long countByNome(String nome) {
+
+        return fornecedorRepository.findByNome(nome).count();
+    }
+
+    @Override
+    public List<FornecedorResponseDTO> getByNome(String nome, int page, int pageSize) throws NullPointerException {
         
-        List<Fornecedor> list = fornecedorRepository.findByNome(nome);
+        List<Fornecedor> list = fornecedorRepository.findByNome(nome).page(page, pageSize).list();
 
         if (list == null)
             throw new NullPointerException("nenhum fornecedor encontrado");

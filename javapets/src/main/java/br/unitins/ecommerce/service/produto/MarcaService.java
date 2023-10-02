@@ -9,7 +9,7 @@ public interface MarcaService {
     
     // Metodos basicos
 
-    List<MarcaResponseDTO> getAll();
+    List<MarcaResponseDTO> getAll(int page, int pageSize);
     
     MarcaResponseDTO getById(Long id);
 
@@ -23,5 +23,7 @@ public interface MarcaService {
 
     Long count();
 
-    List<MarcaResponseDTO> getByNome(String nome);
+    Long countByNome(String nome);
+
+    List<MarcaResponseDTO> getByNome(String nome, int page, int pageSize);
 }

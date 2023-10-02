@@ -9,7 +9,7 @@ public interface FornecedorService {
     
     // Metodos basicos
 
-    List<FornecedorResponseDTO> getAll();
+    List<FornecedorResponseDTO> getAll(int page, int pageSize);
     
     FornecedorResponseDTO getById(Long id);
 
@@ -23,5 +23,7 @@ public interface FornecedorService {
 
     Long count();
 
-    List<FornecedorResponseDTO> getByNome(String nome);
+    Long countByNome(String nome);
+
+    List<FornecedorResponseDTO> getByNome(String nome, int page , int pageSize);
 }

@@ -10,6 +10,7 @@ import jakarta.inject.Inject;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
+import jakarta.ws.rs.DefaultValue;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.NotFoundException;
 import jakarta.ws.rs.POST;
@@ -17,6 +18,7 @@ import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
@@ -38,15 +40,17 @@ public class CategoriaResource {
 
     @GET
     @PermitAll
-    public List<CategoriaResponseDTO> getAll() {
+    public List<CategoriaResponseDTO> getAll(
+        @QueryParam("page") @DefaultValue("0") int page,
+        @QueryParam("pageSize") @DefaultValue("2") int pageSize) {
         LOG.info("Buscando todos os categoria.");
         LOG.debug("ERRO DE DEBUG.");
-        return categoriaService.getAll();
+        return categoriaService.getAll(page, pageSize);
     }
 
     @GET
     @Path("/{id}")
-    @RolesAllowed({"Admin"})
+    // @RolesAllowed({"Admin"})
     public CategoriaResponseDTO getById(@PathParam("id") Long id) throws NotFoundException {
         LOG.info("Buscando município por ID: " + id);
         LOG.debug("ERRO DE DEBUG.");
@@ -54,7 +58,7 @@ public class CategoriaResource {
     }
 
     @POST
-    @RolesAllowed({"Admin"})
+    // @RolesAllowed({"Admin"})
     public Response insert(CategoriaDTO categoriaDto) {
         LOG.infof("Inserindo um categoria: %s", categoriaDto.nome());
 
@@ -85,7 +89,7 @@ public class CategoriaResource {
 
     @PUT
     @Path("/{id}")
-    @RolesAllowed({"Admin"})
+    // @RolesAllowed({"Admin"})
     public Response update(@PathParam("id") Long id, CategoriaDTO categoriaDto) {
         Result result = null;
         
@@ -111,7 +115,7 @@ public class CategoriaResource {
 
     @DELETE
     @Path("/{id}")
-    @RolesAllowed({"Admin"})
+    // @RolesAllowed({"Admin"})
     public Response delete(@PathParam("id") Long id) throws IllegalArgumentException, NotFoundException {
 
         try {
@@ -131,7 +135,7 @@ public class CategoriaResource {
 
     @GET
     @Path("/count")
-    @RolesAllowed({"Admin"})
+    // @RolesAllowed({"Admin"})
     public Long count() {
         LOG.info("Contando todos os categorias.");
         LOG.debug("ERRO DE DEBUG.");
@@ -139,11 +143,22 @@ public class CategoriaResource {
     }
 
     @GET
+    @Path("/count/search/{nome}")
+    // @RolesAllowed({"Admin"})
+    public Long count (@PathParam("nome") String nome) {
+        LOG.infof("Contando todos os categorias");
+        LOG.debug("ERRO DE DEBUG.");
+        return categoriaService.countByNome(nome);
+    }
+
+    @GET
     @Path("/searchByNome/{nome}")
     @PermitAll
-    public List<CategoriaResponseDTO> getByNome(@PathParam("nome") String nome) throws NullPointerException {
-        LOG.infof("Pesquisando Município po nome.", nome);
+    public List<CategoriaResponseDTO> getByNome(@PathParam("nome") String nome,
+    @QueryParam("page") @DefaultValue("0") int page,
+        @QueryParam("pageSize") @DefaultValue("2") int pageSize) throws NullPointerException {
+        LOG.infof("Pesquisando Categoria por nome.", nome);
         LOG.debug("ERRO DE DEBUG.");
-        return categoriaService.getByNome(nome);
+        return categoriaService.getByNome(nome, page, pageSize);
     }
 }

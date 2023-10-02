@@ -1,26 +1,31 @@
 package br.unitins.ecommerce.dto.produto;
 
+import br.unitins.ecommerce.model.produto.produto.Categoria;
+import br.unitins.ecommerce.model.produto.produto.Fornecedor;
+import br.unitins.ecommerce.model.produto.produto.Marca;
 import br.unitins.ecommerce.model.produto.produto.Produto;
 
 public record ProdutoResponseDTO(
     Long id,
     String nome,
     String descricao,
-    String nomeImagem,
+    Marca marca,
+    Fornecedor fornecedor,
+    Categoria categoria,
     Double preco,
-    String estoque,
-    String nomeMarca
+    int estoque
 ) {
     
-    public ProdutoResponseDTO(Produto produto) {
+    public static ProdutoResponseDTO valueOf(Produto produto) {
 
-        this(produto.getId(),
+        return new ProdutoResponseDTO(produto.getId(),
             produto.getNome(),
             produto.getDescricao(),
-            produto.getNomeImagem(),
+            produto.getMarca(),
+            produto.getFornecedor(),
+            produto.getCategoria(),
             produto.getPreco(),
-            produto.getEstoque() > 0? "Disponível" : "Estoque esgotado",
-            produto.getMarca().getNome()
+            produto.getEstoque()
             );
     }
 }

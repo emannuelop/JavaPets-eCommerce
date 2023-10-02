@@ -26,6 +26,14 @@ public class Produto extends DefaultEntity {
     @JoinColumn(name = "id_marca", nullable = false)
     private Marca marca;
 
+    @ManyToOne
+    @JoinColumn(name = "id_fornecedor", nullable = false)
+    private Fornecedor fornecedor;
+
+    @ManyToOne
+    @JoinColumn(name = "id_categoria", nullable = false)
+    private Categoria categoria;
+
     
 
     public Produto() {
@@ -83,4 +91,21 @@ public class Produto extends DefaultEntity {
     public void setNomeImagem(String nomeImagem) {
         this.nomeImagem = nomeImagem;
     }
+
+    public Fornecedor getFornecedor() {
+        return fornecedor;
+    }
+
+    public void setFornecedor(Fornecedor fornecedor) {
+        this.fornecedor = fornecedor;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+    
 }

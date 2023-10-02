@@ -9,7 +9,7 @@ public interface ProdutoService {
 
     // Metodos basicos
 
-    List<ProdutoResponseDTO> getAll();
+    List<ProdutoResponseDTO> getAll(int page, int pageSize);
 
     ProdutoResponseDTO getById(Long id);
 
@@ -25,16 +25,18 @@ public interface ProdutoService {
 
     Long count();
 
-    List<ProdutoResponseDTO> getByNome(String nome);
+    Long countByNome(String nome);
 
-    List<ProdutoResponseDTO> getByMarca(String nome);
+    List<ProdutoResponseDTO> getByNome(String nome, int page, int pageSize);
+
+    // List<ProdutoResponseDTO> getByMarca(String nome);
 
     // metodos de filtragem
 
-    List<ProdutoResponseDTO> filterByPrecoMin(Double preco);
+    // List<ProdutoResponseDTO> filterByPrecoMin(Double preco);
 
-    List<ProdutoResponseDTO> filterByPrecoMax(Double preco);
+    // List<ProdutoResponseDTO> filterByPrecoMax(Double preco);
 
-    List<ProdutoResponseDTO> filterByEntrePreco(Double precoMin, Double precoMax);
+    // List<ProdutoResponseDTO> filterByEntrePreco(Double precoMin, Double precoMax);
 
 }

@@ -7,7 +7,7 @@ import br.unitins.ecommerce.dto.estado.EstadoResponseDTO;
 
 public interface EstadoService {
     
-    List<EstadoResponseDTO> getAll();
+    List<EstadoResponseDTO> getAll(int page, int pageSize);
     
     EstadoResponseDTO getById(Long id);
 
@@ -19,9 +19,11 @@ public interface EstadoService {
 
     // Metodos extras
 
-    List<EstadoResponseDTO> getByNome(String nome);
+    List<EstadoResponseDTO> getByNome(String nome, int page, int pageSize);
 
     List<EstadoResponseDTO> getBySigla(String sigla);
 
     Long count();
+
+    Long countByNome(String nome);
 }

@@ -9,7 +9,7 @@ public interface CategoriaService {
     
     // Metodos basicos
 
-    List<CategoriaResponseDTO> getAll();
+    List<CategoriaResponseDTO> getAll(int page, int pageSize);
     
     CategoriaResponseDTO getById(Long id);
 
@@ -23,5 +23,7 @@ public interface CategoriaService {
 
     Long count();
 
-    List<CategoriaResponseDTO> getByNome(String nome);
+    Long countByNome(String nome);
+
+    List<CategoriaResponseDTO> getByNome(String nome, int page, int pageSize);
 }

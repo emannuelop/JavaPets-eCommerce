@@ -33,7 +33,7 @@ public record CompraResponseDTO(
                                         compra.getEndereco().getNumero(),
                                         compra.getEndereco().getComplemento(),
                                         compra.getEndereco().getCep(),
-                                        compra.getEndereco().getMunicipio()) :
+                                        compra.getEndereco().getCidade()) :
                 null,
                 compra.getPagamento() != null?
                     compra.getPagamento().getConfirmacaoPagamento() == true?

@@ -15,6 +15,14 @@ public record ProdutoDTO(
     @Min(1)
     Long idMarca,
 
+    @NotNull(message = "Campo idfornecedor não pode estar vazio")
+    @Min(1)
+    Long idFornecedor,
+
+    @NotNull(message = "Campo idcategoria não pode estar vazio")
+    @Min(1)
+    Long idCategoria,
+
     @NotNull(message = "Campo preço não pode estar vazio")
     @Min(1)
     Double preco,

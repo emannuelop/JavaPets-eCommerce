@@ -10,6 +10,7 @@ import jakarta.inject.Inject;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
+import jakarta.ws.rs.DefaultValue;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.NotFoundException;
 import jakarta.ws.rs.POST;
@@ -17,6 +18,7 @@ import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
@@ -38,15 +40,18 @@ public class FornecedorResource {
 
     @GET
     @PermitAll
-    public List<FornecedorResponseDTO> getAll() {
+    public List<FornecedorResponseDTO> getAll(
+        @QueryParam("page") @DefaultValue("0") int page,
+        @QueryParam("pageSize") @DefaultValue("2") int pageSize
+    ) {
         LOG.info("Buscando todos os fornecedor.");
         LOG.debug("ERRO DE DEBUG.");
-        return fornecedorService.getAll();
+        return fornecedorService.getAll(page , pageSize);
     }
 
     @GET
     @Path("/{id}")
-    @RolesAllowed({"Admin"})
+    // @RolesAllowed({"Admin"})
     public FornecedorResponseDTO getById(@PathParam("id") Long id) throws NotFoundException {
         LOG.info("Buscando município por ID: " + id);
         LOG.debug("ERRO DE DEBUG.");
@@ -54,7 +59,7 @@ public class FornecedorResource {
     }
 
     @POST
-    @RolesAllowed({"Admin"})
+    // @RolesAllowed({"Admin"})
     public Response insert(FornecedorDTO fornecedorDto) {
         LOG.infof("Inserindo um fornecedor: %s", fornecedorDto.nome());
 
@@ -85,7 +90,7 @@ public class FornecedorResource {
 
     @PUT
     @Path("/{id}")
-    @RolesAllowed({"Admin"})
+    // @RolesAllowed({"Admin"})
     public Response update(@PathParam("id") Long id, FornecedorDTO fornecedorDto) {
         Result result = null;
         
@@ -111,7 +116,7 @@ public class FornecedorResource {
 
     @DELETE
     @Path("/{id}")
-    @RolesAllowed({"Admin"})
+    // @RolesAllowed({"Admin"})
     public Response delete(@PathParam("id") Long id) throws IllegalArgumentException, NotFoundException {
 
         try {
@@ -131,7 +136,7 @@ public class FornecedorResource {
 
     @GET
     @Path("/count")
-    @RolesAllowed({"Admin"})
+    // @RolesAllowed({"Admin"})
     public Long count() {
         LOG.info("Contando todos os fornecedors.");
         LOG.debug("ERRO DE DEBUG.");
@@ -139,11 +144,22 @@ public class FornecedorResource {
     }
 
     @GET
+    @Path("/count/search/{nome}")
+    // @RolesAllowed({"Admin"})
+    public Long count (@PathParam("nome") String nome) {
+        LOG.infof("Contando todos os fornecedores");
+        LOG.debug("ERRO DE DEBUG.");
+        return fornecedorService.countByNome(nome);
+    }
+
+    @GET
     @Path("/searchByNome/{nome}")
     @PermitAll
-    public List<FornecedorResponseDTO> getByNome(@PathParam("nome") String nome) throws NullPointerException {
+    public List<FornecedorResponseDTO> getByNome(@PathParam("nome") String nome,
+    @QueryParam("page") @DefaultValue("0") int page,
+        @QueryParam("pageSize") @DefaultValue("2") int pageSize) throws NullPointerException {
         LOG.infof("Pesquisando Município po nome.", nome);
         LOG.debug("ERRO DE DEBUG.");
-        return fornecedorService.getByNome(nome);
+        return fornecedorService.getByNome(nome, page , pageSize);
     }
 }

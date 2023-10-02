@@ -27,9 +27,11 @@ public class EstadoImplService implements EstadoService {
     Validator validator;
 
     @Override
-    public List<EstadoResponseDTO> getAll() {
+    public List<EstadoResponseDTO> getAll(int page, int pageSize) {
 
-        return estadoRepository.findAll()
+        //estadoRepository.findAll().page(page, pageSize).list();
+
+        return estadoRepository.findAll().page(page, pageSize).list()
                                 .stream()
                                 .map(EstadoResponseDTO::new)
                                 .collect(Collectors.toList());
@@ -95,9 +97,9 @@ public class EstadoImplService implements EstadoService {
     }
 
     @Override
-    public List<EstadoResponseDTO> getByNome(String nome) throws NullPointerException {
+    public List<EstadoResponseDTO> getByNome(String nome, int page, int pageSize) throws NullPointerException {
 
-        List<Estado> list = estadoRepository.findByNome(nome);
+        List<Estado> list = estadoRepository.findByNome(nome).page(page, pageSize).list();
 
         if (list == null)
             throw new NullPointerException("nenhum Estado encontrado");
@@ -124,6 +126,12 @@ public class EstadoImplService implements EstadoService {
     public Long count() {
 
         return estadoRepository.count();
+    }
+
+    @Override
+    public Long countByNome(String nome) {
+
+        return estadoRepository.findByNome(nome).count();
     }
 
     private void validar(EstadoDTO estadoDTO) throws ConstraintViolationException {

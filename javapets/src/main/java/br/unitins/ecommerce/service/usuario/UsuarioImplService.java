@@ -24,7 +24,7 @@ import br.unitins.ecommerce.model.usuario.Sexo;
 import br.unitins.ecommerce.model.usuario.Telefone;
 import br.unitins.ecommerce.model.usuario.Usuario;
 import br.unitins.ecommerce.repository.EnderecoRepository;
-import br.unitins.ecommerce.repository.MunicipioRepository;
+import br.unitins.ecommerce.repository.CidadeRepository;
 import br.unitins.ecommerce.repository.ProdutoRepository;
 import br.unitins.ecommerce.repository.TelefoneRepository;
 import br.unitins.ecommerce.repository.UsuarioRepository;
@@ -58,7 +58,7 @@ public class UsuarioImplService implements UsuarioService {
     EnderecoRepository enderecoRepository;
 
     @Inject
-    MunicipioRepository municipioRepository;
+    CidadeRepository municipioRepository;
 
     @Inject
     ProdutoRepository racaoRepository;
@@ -393,7 +393,7 @@ public class UsuarioImplService implements UsuarioService {
 
         endereco.setCep(enderecoDto.cep());
 
-        endereco.setMunicipio(municipioRepository.findById(enderecoDto.idMunicipio()));
+        endereco.setCidade(municipioRepository.findById(enderecoDto.idMunicipio()));
 
         enderecoRepository.persist(endereco);
 

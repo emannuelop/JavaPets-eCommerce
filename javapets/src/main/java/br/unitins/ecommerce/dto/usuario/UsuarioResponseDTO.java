@@ -5,9 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import br.unitins.ecommerce.dto.municipio.MunicipioResponseDTO;
+import br.unitins.ecommerce.dto.municipio.CidadeResponseDTO;
 import br.unitins.ecommerce.model.endereco.Estado;
-import br.unitins.ecommerce.model.endereco.Municipio;
+import br.unitins.ecommerce.model.endereco.Cidade;
 import br.unitins.ecommerce.model.usuario.Telefone;
 import br.unitins.ecommerce.model.usuario.Usuario;
 
@@ -34,12 +34,12 @@ public record UsuarioResponseDTO(
                         usuario.getEndereco().getNumero(),
                         usuario.getEndereco().getComplemento(),
                         usuario.getEndereco().getCep(),
-                        usuario.getEndereco().getMunicipio()),
+                        usuario.getEndereco().getCidade()),
                         viewItensCompra(usuario.getTelefones()));
     }
 
     public static Map<String, Object> viewEndereco(String logradouro, String bairro, String numero, String complemento,
-            String cep, Municipio municipio) {
+            String cep, Cidade municipio) {
 
         Map<String, Object> endereco = new HashMap<>();
 
@@ -48,17 +48,17 @@ public record UsuarioResponseDTO(
         endereco.put("numero", numero);
         endereco.put("complemento", complemento);
         endereco.put("cep", cep);
-        endereco.put("municipio", viewMunicipio(municipio.getNome(), municipio.getEstado()));
+        endereco.put("municipio", viewCidade(municipio.getNome(), municipio.getEstado()));
 
         return endereco;
     }
 
-    public static Map<String, Object> viewMunicipio(String nome, Estado estado) {
+    public static Map<String, Object> viewCidade(String nome, Estado estado) {
 
         Map<String, Object> municipio = new HashMap<>();
 
         municipio.put("nome", nome);
-        municipio.put("estado", MunicipioResponseDTO.viewEstado(estado.getNome(), estado.getSigla()));
+        municipio.put("estado", CidadeResponseDTO.viewEstado(estado.getNome(), estado.getSigla()));
 
         return municipio;
     }

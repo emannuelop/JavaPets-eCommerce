@@ -14,6 +14,8 @@ import jakarta.ws.rs.NotFoundException;
 import br.unitins.ecommerce.dto.produto.ProdutoDTO;
 import br.unitins.ecommerce.dto.produto.ProdutoResponseDTO;
 import br.unitins.ecommerce.model.produto.produto.Produto;
+import br.unitins.ecommerce.repository.CategoriaRepository;
+import br.unitins.ecommerce.repository.FornecedorRepository;
 import br.unitins.ecommerce.repository.MarcaRepository;
 import br.unitins.ecommerce.repository.ProdutoRepository;
 import br.unitins.ecommerce.service.avaliacao.AvaliacaoService;
@@ -23,10 +25,16 @@ import br.unitins.ecommerce.service.usuario.UsuarioService;
 public class ProdutoImplService implements ProdutoService {
 
     @Inject
-    ProdutoRepository racaoRepository;
+    ProdutoRepository produtoRepository;
 
     @Inject
     MarcaRepository marcaRepository;
+
+    @Inject
+    FornecedorRepository fornecedorRepository;
+
+    @Inject
+    CategoriaRepository categoriaRepository;
 
     @Inject
     AvaliacaoService avaliacaoService;
@@ -37,75 +45,90 @@ public class ProdutoImplService implements ProdutoService {
     @Inject
     Validator validator;
 
-    @Override
-    public List<ProdutoResponseDTO> getAll() {
+    // @Override
+    // public List<ProdutoResponseDTO> getAll() {
 
-        return racaoRepository.findAll()
-                .stream()
-                .map(ProdutoResponseDTO::new)
-                .toList();
+    //     return produtoRepository.findAll()
+    //             .stream()
+    //             .map(ProdutoResponseDTO::new)
+    //             .toList();
+    // }
+
+     @Override
+    public List<ProdutoResponseDTO> getAll(int page, int pageSize) {
+        List<Produto> list = produtoRepository.findAll().page(page, pageSize).list();
+
+        return list.stream().map(e -> ProdutoResponseDTO.valueOf(e)).collect(Collectors.toList());
     }
 
     @Override
     public ProdutoResponseDTO getById(Long id) throws NotFoundException {
 
-        Produto racao = racaoRepository.findById(id);
+        Produto produto = produtoRepository.findById(id);
 
-        if (racao == null)
+        if (produto == null)
             throw new NotFoundException("Não encontrado");
 
-        return new ProdutoResponseDTO(racao);
+        return ProdutoResponseDTO.valueOf(produto);
     }
 
     @Override
     @Transactional
-    public ProdutoResponseDTO insert(ProdutoDTO racaoDto) throws ConstraintViolationException {
+    public ProdutoResponseDTO insert(ProdutoDTO produtoDto) throws ConstraintViolationException {
 
-        validar(racaoDto);
+        validar(produtoDto);
 
         Produto entity = new Produto();
 
-        entity.setNome(racaoDto.nome());
+        entity.setNome(produtoDto.nome());
 
-        entity.setDescricao(racaoDto.descricao());
+        entity.setDescricao(produtoDto.descricao());
 
-        entity.setMarca(marcaRepository.findById(racaoDto.idMarca()));
+        entity.setMarca(marcaRepository.findById(produtoDto.idMarca()));
 
-        entity.setPreco(racaoDto.preco());
+        entity.setFornecedor(fornecedorRepository.findById(produtoDto.idFornecedor()));
 
-        entity.setEstoque(racaoDto.estoque());
+        entity.setCategoria(categoriaRepository.findById(produtoDto.idCategoria()));
 
-        racaoRepository.persist(entity);
+        entity.setPreco(produtoDto.preco());
 
-        return new ProdutoResponseDTO(entity);
+        entity.setEstoque(produtoDto.estoque());
+
+        produtoRepository.persist(entity);
+
+        return ProdutoResponseDTO.valueOf(entity);
     }
 
     @Override
     @Transactional
-    public ProdutoResponseDTO update(Long id, ProdutoDTO racaoDto) throws ConstraintViolationException {
+    public ProdutoResponseDTO update(Long id, ProdutoDTO produtoDto) throws ConstraintViolationException {
 
-        validar(racaoDto);
+        validar(produtoDto);
 
-        Produto entity = racaoRepository.findById(id);
+        Produto entity = produtoRepository.findById(id);
 
-        entity.setNome(racaoDto.nome());
+        entity.setNome(produtoDto.nome());
 
-        entity.setDescricao(racaoDto.descricao());
+        entity.setDescricao(produtoDto.descricao());
 
-        entity.setMarca(marcaRepository.findById(racaoDto.idMarca()));
+        entity.setMarca(marcaRepository.findById(produtoDto.idMarca()));
 
-        entity.setPreco(racaoDto.preco());
+        entity.setFornecedor(fornecedorRepository.findById(produtoDto.idFornecedor()));
 
-        entity.setEstoque(racaoDto.estoque());
+        entity.setCategoria(categoriaRepository.findById(produtoDto.idCategoria()));
 
-        return new ProdutoResponseDTO(entity);
+        entity.setPreco(produtoDto.preco());
+
+        entity.setEstoque(produtoDto.estoque());
+
+        return ProdutoResponseDTO.valueOf(entity);
     }
 
     @Override
     @Transactional
     public void update(Long id, String nomeImagem) {
 
-        Produto entity = racaoRepository.findById(id);
+        Produto entity = produtoRepository.findById(id);
 
         if (entity == null)
             throw new NullPointerException("Nenhum café encontrado");
@@ -120,14 +143,14 @@ public class ProdutoImplService implements ProdutoService {
         if (id == null)
             throw new IllegalArgumentException("Número inválido");
 
-        Produto racao = racaoRepository.findById(id);
+        Produto produto = produtoRepository.findById(id);
         
-        avaliacaoService.delete(racao);
+        avaliacaoService.delete(produto);
 
-        usuarioService.deleteProdutoFromListaDesejo(racao);
+        usuarioService.deleteProdutoFromListaDesejo(produto);
 
-        if (racaoRepository.isPersistent(racao))
-            racaoRepository.delete(racao);
+        if (produtoRepository.isPersistent(produto))
+            produtoRepository.delete(produto);
 
         else
             throw new NotFoundException("Nenhum ração encontrado");
@@ -136,77 +159,81 @@ public class ProdutoImplService implements ProdutoService {
     @Override
     public Long count() {
 
-        return racaoRepository.count();
+        return produtoRepository.count();
     }
 
     @Override
-    public List<ProdutoResponseDTO> getByNome(String nome) throws NullPointerException {
+    public Long countByNome(String nome) {
 
-        List<Produto> list = racaoRepository.findByNome(nome);
+        return produtoRepository.findByNome(nome).count();
+    }
+
+    @Override
+    public List<ProdutoResponseDTO> getByNome(String nome, int page, int pageSize) throws NullPointerException {
+
+        List<Produto> list = produtoRepository.findByNome(nome).page(page, pageSize).list();
 
         if (list == null)
             throw new NullPointerException("nenhum ração encontrado");
 
-        return list.stream()
-                .map(ProdutoResponseDTO::new)
-                .collect(Collectors.toList());
+        return list.stream().map(e -> ProdutoResponseDTO.valueOf(e)).collect(Collectors.toList());
     }
 
-    @Override
-    public List<ProdutoResponseDTO> getByMarca(String nome) throws NullPointerException {
+    // @Override
+    // public List<ProdutoResponseDTO> getByMarca(String nome) throws NullPointerException {
 
-        List<Produto> list = racaoRepository.findByMarca(marcaRepository.findByNome(nome).get(0));
+    //     List<Produto> list = produtoRepository.findByMarca(marcaRepository.findByNome(nome).get(0));
 
-        if (list == null)
-            throw new NullPointerException("Nenhuma marca encontrada");
+    //     if (list == null)
+    //         throw new NullPointerException("Nenhuma marca encontrada");
 
-        return list.stream()
-                .map(ProdutoResponseDTO::new)
-                .collect(Collectors.toList());
-    }
+    //     return list.stream()
+    //             .map(ProdutoResponseDTO::new)
+    //             .collect(Collectors.toList());
+    // }
 
-    @Override
-    public List<ProdutoResponseDTO> filterByPrecoMin(Double preco) throws NullPointerException {
+    // @Override
+    // public List<ProdutoResponseDTO> filterByPrecoMin(Double preco) throws NullPointerException {
 
-        List<Produto> list = racaoRepository.filterByPrecoMinimo(preco);
+    //     List<Produto> list = produtoRepository.filterByPrecoMinimo(preco);
 
-        if (list == null)
-            throw new NullPointerException("Nenhum ração encontrada");
+    //     if (list == null)
+    //         throw new NullPointerException("Nenhum ração encontrada");
 
-        return list.stream()
-                .map(ProdutoResponseDTO::new)
-                .collect(Collectors.toList());
-    }
+    //     return list.stream()
+    //             .map(ProdutoResponseDTO::new)
+    //             .collect(Collectors.toList());
+    // }
 
-    @Override
-    public List<ProdutoResponseDTO> filterByPrecoMax(Double preco) {
+    // @Override
+    // public List<ProdutoResponseDTO> filterByPrecoMax(Double preco) {
 
-        List<Produto> list = racaoRepository.filterByPrecoMaximo(preco);
+    //     List<Produto> list = produtoRepository.filterByPrecoMaximo(preco);
 
-        if (list == null)
-            throw new NullPointerException("Nenhum ração encontrada");
+    //     if (list == null)
+    //         throw new NullPointerException("Nenhum ração encontrada");
 
-        return list.stream()
-                .map(ProdutoResponseDTO::new)
-                .collect(Collectors.toList());
-    }
+    //     return list.stream()
+    //             .map(ProdutoResponseDTO::new)
+    //             .collect(Collectors.toList());
+    // }
 
-    @Override
-    public List<ProdutoResponseDTO> filterByEntrePreco(Double precoMin, Double precoMax) {
+    // @Override
+    // public List<ProdutoResponseDTO> filterByEntrePreco(Double precoMin, Double precoMax) {
 
-        List<Produto> list = racaoRepository.filterByEntrePreco(precoMin, precoMax);
+    //     List<Produto> list = produtoRepository.filterByEntrePreco(precoMin, precoMax);
 
-        if (list == null)
-            throw new NullPointerException("Nenhum ração encontrada");
+    //     if (list == null)
+    //         throw new NullPointerException("Nenhum ração encontrada");
 
-        return list.stream()
-                .map(ProdutoResponseDTO::new)
-                .collect(Collectors.toList());
-    }
+    //     return list.stream()
+    //             .map(ProdutoResponseDTO::new)
+    //             .collect(Collectors.toList());
+    // }
 
-    private void validar(ProdutoDTO racaoDTO) throws ConstraintViolationException {
+    private void validar(ProdutoDTO produtoDTO) throws ConstraintViolationException {
 
-        Set<ConstraintViolation<ProdutoDTO>> violations = validator.validate(racaoDTO);
+        Set<ConstraintViolation<ProdutoDTO>> violations = validator.validate(produtoDTO);
 
         if (!violations.isEmpty())
             throw new ConstraintViolationException(violations);

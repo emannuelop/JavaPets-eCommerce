@@ -5,17 +5,18 @@ import java.util.List;
 import jakarta.enterprise.context.ApplicationScoped;
 import br.unitins.ecommerce.model.produto.produto.Marca;
 import br.unitins.ecommerce.model.produto.produto.Produto;
+import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 
 @ApplicationScoped
 public class ProdutoRepository implements PanacheRepository<Produto> {
 
-    public List<Produto> findByNome(String nome) {
+    public PanacheQuery findByNome(String nome) {
 
         if (nome == null)
             return null;
 
-        return find("FROM Produto WHERE UPPER(nome) LIKE ?1", "%" + nome.toUpperCase() + "%").list();
+        return find("FROM Produto WHERE UPPER(nome) LIKE ?1", "%" + nome.toUpperCase() + "%");
     }
 
     public List<Produto> findByMarca(Marca marca) {
