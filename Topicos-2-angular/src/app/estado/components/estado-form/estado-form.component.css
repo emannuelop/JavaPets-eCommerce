@@ -16,6 +16,10 @@ mat-card-actions {
     justify-content: flex-end;
 }
 
+mat-toolbar{
+    background-color: #FFF8DC;
+}
+
 /* para a div */
 .form-container {
     padding: 2rem;

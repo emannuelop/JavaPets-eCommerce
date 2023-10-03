@@ -7,6 +7,10 @@
     width: 100%;
 }
 
+mat-toolbar{
+    background-color: #FFF8DC;
+}
+
 /* Estilos para a div que envolve o campo de entrada e o botão */
 .input-container {
     display: flex;

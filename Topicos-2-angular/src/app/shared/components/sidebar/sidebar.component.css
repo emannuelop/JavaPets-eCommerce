@@ -1,3 +1,13 @@
 .container {
-    height: 78%;
+    height: 87%;
+    background-color: #FFFAF0;
+}
+mat-drawer{
+    background-color: #F5F5DC;
+}
+mat-toolbar{
+    background-color: #F0E68C;
+}
+mat-list-item:hover{
+    background-color: #F0E68C;
 }

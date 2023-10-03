@@ -21,6 +21,10 @@
     margin-right: 8px;
 }
 
+mat-toolbar{
+    background-color: #FFF8DC;
+}
+
 /* Estilos para o botão de pesquisa */
 .search-button {
     width: 54px;

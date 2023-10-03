@@ -4,6 +4,9 @@
     width: 100%;
     margin-bottom: 20px;
 }
+mat-toolbar{
+    background-color: #FFF8DC;
+}
 
 mat-card {
     max-width: 800px;

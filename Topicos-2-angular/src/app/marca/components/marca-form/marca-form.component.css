@@ -21,6 +21,10 @@ mat-card-actions {
     padding: 2rem;
 }
 
+mat-toolbar{
+    background-color: #FFF8DC;
+}
+
 .centered-toolbar {
     display: flex;
     justify-content: center;

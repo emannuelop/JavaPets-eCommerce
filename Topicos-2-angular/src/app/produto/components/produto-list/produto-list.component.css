@@ -28,6 +28,10 @@
     align-self: flex-start; /* Alinhar o botão verticalmente ao topo */
 }
 
+mat-toolbar{
+    background-color: #FFF8DC;
+}
+
 /* Estilos para o ícone de pesquisa */
 mat-icon {
     font-size: 24px;

@@ -11,6 +11,10 @@ mat-card {
     /* Centraliza horizontalmente */
 }
 
+mat-toolbar{
+    background-color: #FFF8DC;
+}
+
 mat-card-actions {
     display: flex;
     justify-content: flex-end;

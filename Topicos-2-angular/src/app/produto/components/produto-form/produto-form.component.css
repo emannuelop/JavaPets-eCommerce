@@ -27,6 +27,10 @@ mat-card-actions {
     font-size:x-large;
 }
 
+mat-toolbar{
+    background-color: #FFF8DC;
+}
+
 button[mat-raised-button] {
     width: 120px;
     /* tamanho do botao */

@@ -15,6 +15,10 @@
     width: 80%;
 }
 
+mat-toolbar{
+    background-color: #FFF8DC;
+}
+
 /* Estilos para o campo de entrada */
 .input-field {
     flex: 1;
