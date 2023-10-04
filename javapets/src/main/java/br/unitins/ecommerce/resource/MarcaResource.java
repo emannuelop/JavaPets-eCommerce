@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.jboss.logging.Logger;
 
-import jakarta.annotation.security.PermitAll;
-import jakarta.annotation.security.RolesAllowed;
+import br.unitins.ecommerce.application.Result;
+import br.unitins.ecommerce.dto.produto.MarcaDTO;
+import br.unitins.ecommerce.dto.produto.MarcaResponseDTO;
+import br.unitins.ecommerce.service.produto.MarcaService;
 import jakarta.inject.Inject;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.ws.rs.Consumes;
@@ -22,11 +24,6 @@ import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
-
-import br.unitins.ecommerce.application.Result;
-import br.unitins.ecommerce.dto.produto.MarcaDTO;
-import br.unitins.ecommerce.dto.produto.MarcaResponseDTO;
-import br.unitins.ecommerce.service.produto.MarcaService;
 
 @Path("/marcas")
 @Produces(MediaType.APPLICATION_JSON)

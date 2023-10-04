@@ -4,6 +4,11 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import br.unitins.ecommerce.dto.produto.FornecedorDTO;
+import br.unitins.ecommerce.dto.produto.FornecedorResponseDTO;
+import br.unitins.ecommerce.model.produto.produto.Fornecedor;
+import br.unitins.ecommerce.repository.EstadoRepository;
+import br.unitins.ecommerce.repository.FornecedorRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -11,12 +16,6 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Validator;
 import jakarta.ws.rs.NotFoundException;
-
-import br.unitins.ecommerce.dto.produto.FornecedorDTO;
-import br.unitins.ecommerce.dto.produto.FornecedorResponseDTO;
-import br.unitins.ecommerce.model.produto.produto.Fornecedor;
-import br.unitins.ecommerce.repository.EstadoRepository;
-import br.unitins.ecommerce.repository.FornecedorRepository;
 
 @ApplicationScoped
 public class FornecedorImplService implements FornecedorService {

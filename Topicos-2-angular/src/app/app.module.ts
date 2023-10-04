@@ -7,10 +7,12 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared.module';
+import { CupomDescontoListComponent } from './cupomDesconto/components/cupom-desconto-list/cupom-desconto-list.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CupomDescontoListComponent
   ],
   imports: [
     BrowserModule,

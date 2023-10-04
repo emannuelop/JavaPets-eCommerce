@@ -9,7 +9,7 @@ public interface CupomDescontoService {
     
     // Metodos basicos
 
-    List<CupomDescontoResponseDTO> getAll();
+    List<CupomDescontoResponseDTO> getAll(int page, int pageSize);
     
     CupomDescontoResponseDTO getById(Long id);
 
@@ -21,7 +21,7 @@ public interface CupomDescontoService {
 
     // Metodos extras
 
-    Long count();
-
     List<CupomDescontoResponseDTO> getByNome(String nome);
+
+    Long count();
 }

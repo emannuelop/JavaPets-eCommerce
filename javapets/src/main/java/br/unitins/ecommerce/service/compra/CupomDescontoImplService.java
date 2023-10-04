@@ -15,28 +15,24 @@ import jakarta.ws.rs.NotFoundException;
 import br.unitins.ecommerce.dto.compra.CupomDescontoDTO;
 import br.unitins.ecommerce.dto.compra.CupomDescontoResponseDTO;
 import br.unitins.ecommerce.model.compra.CupomDesconto;
-import br.unitins.ecommerce.repository.EstadoRepository;
 import br.unitins.ecommerce.repository.CupomDescontoRepository;
 
 @ApplicationScoped
 public class CupomDescontoImplService implements CupomDescontoService {
 
     @Inject
-    Validator validator;
-
-    @Inject
     CupomDescontoRepository cupomDescontoRepository;
 
     @Inject
-    EstadoRepository estadoRepository;
+    Validator validator;
 
     @Override
-    public List<CupomDescontoResponseDTO> getAll() {
-        
-        return cupomDescontoRepository.findAll()
-                                    .stream()
-                                    .map(CupomDescontoResponseDTO::new)
-                                    .toList();
+    public List<CupomDescontoResponseDTO> getAll(int page, int pageSize) {
+
+        return cupomDescontoRepository.findAll().page(page, pageSize).list()
+                                .stream()
+                                .map(CupomDescontoResponseDTO::new)
+                                .collect(Collectors.toList());
     }
 
     @Override
@@ -77,9 +73,6 @@ public class CupomDescontoImplService implements CupomDescontoService {
 
         CupomDesconto entity = cupomDescontoRepository.findById(id);
 
-        if (entity == null)
-            throw new NotFoundException("Número fora das opções disponíveis");
-
         entity.setCodigoCupom(cupomDescontoDto.codigoCupom());
 
         entity.setQuantidadeDisponivel(cupomDescontoDto.quantidadeDisponivel());
@@ -106,12 +99,6 @@ public class CupomDescontoImplService implements CupomDescontoService {
     }
 
     @Override
-    public Long count() {
-
-        return cupomDescontoRepository.count();
-    }
-
-    @Override
     public List<CupomDescontoResponseDTO> getByNome(String nome) throws NullPointerException {
         
         List<CupomDesconto> list = cupomDescontoRepository.findByNome(nome);
@@ -122,6 +109,12 @@ public class CupomDescontoImplService implements CupomDescontoService {
         return list.stream()
                     .map(CupomDescontoResponseDTO::new)
                     .collect(Collectors.toList());
+    }
+
+    @Override
+    public Long count() {
+
+        return cupomDescontoRepository.count();
     }
     
     private void validar(CupomDescontoDTO cupomDescontoDTO) throws ConstraintViolationException {

@@ -15,6 +15,12 @@ const routes: Routes = [
   },
 
   {
+    path: 'cupomDescontos', loadChildren:
+      () => import('./cupomDesconto/cupomDesconto.module')
+        .then(m => m.EstadoModule)
+  },
+
+  {
     path: 'marcas', loadChildren:
       () => import('./marca/marca.module')
         .then(m => m.MarcaModule)

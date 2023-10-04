@@ -11,8 +11,10 @@ public class CupomDesconto extends DefaultEntity {
     @Column(nullable = false)
     private String codigoCupom;
 
+    @Column(nullable = false)
     private int quantidadeDisponivel;
 
+    @Column(nullable = false)
     private int porcentagemDesconto;
 
     public String getCodigoCupom() {
@@ -38,7 +40,5 @@ public class CupomDesconto extends DefaultEntity {
     public void setPorcentagemDesconto(int porcentagemDesconto) {
         this.porcentagemDesconto = porcentagemDesconto;
     }
-
-    
 
 }

@@ -4,11 +4,15 @@ import java.io.IOException;
 import java.util.List;
 
 import org.jboss.logging.Logger;
-
 import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
 
+import br.unitins.ecommerce.application.Result;
+import br.unitins.ecommerce.dto.produto.ProdutoDTO;
+import br.unitins.ecommerce.dto.produto.ProdutoResponseDTO;
+import br.unitins.ecommerce.form.ImageForm;
+import br.unitins.ecommerce.service.file.FileService;
+import br.unitins.ecommerce.service.produto.ProdutoService;
 import jakarta.annotation.security.PermitAll;
-import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.ws.rs.Consumes;
@@ -27,13 +31,6 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.ResponseBuilder;
 import jakarta.ws.rs.core.Response.Status;
-
-import br.unitins.ecommerce.application.Result;
-import br.unitins.ecommerce.dto.produto.ProdutoDTO;
-import br.unitins.ecommerce.dto.produto.ProdutoResponseDTO;
-import br.unitins.ecommerce.form.ImageForm;
-import br.unitins.ecommerce.service.file.FileService;
-import br.unitins.ecommerce.service.produto.ProdutoService;
 
 @Path("/produtos")
 @Produces(MediaType.APPLICATION_JSON)
