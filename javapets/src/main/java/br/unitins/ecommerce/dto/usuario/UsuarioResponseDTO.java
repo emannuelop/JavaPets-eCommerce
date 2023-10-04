@@ -8,6 +8,7 @@ import java.util.Map;
 import br.unitins.ecommerce.dto.municipio.CidadeResponseDTO;
 import br.unitins.ecommerce.model.endereco.Estado;
 import br.unitins.ecommerce.model.endereco.Cidade;
+import br.unitins.ecommerce.model.usuario.Sexo;
 import br.unitins.ecommerce.model.usuario.Telefone;
 import br.unitins.ecommerce.model.usuario.Usuario;
 
@@ -16,6 +17,7 @@ public record UsuarioResponseDTO(
         String nome,
         String login,
         String email,
+        String sexo,
         String cpf,
         String nomeImagem,
         Map<String, Object> endereco,
@@ -27,6 +29,7 @@ public record UsuarioResponseDTO(
                 usuario.getPessoaFisica().getNome(),
                 usuario.getLogin(),
                 usuario.getPessoaFisica().getEmail(),
+               getSexoLabel(usuario.getPessoaFisica().getSexo()),
                 usuario.getPessoaFisica().getCpf(),
                 usuario.getNomeImagem(),
                 viewEndereco(usuario.getEndereco().getLogradouro(),
@@ -36,6 +39,10 @@ public record UsuarioResponseDTO(
                         usuario.getEndereco().getCep(),
                         usuario.getEndereco().getCidade()),
                         viewItensCompra(usuario.getTelefones()));
+    }
+
+     private static String getSexoLabel(Sexo sexo) {
+        return (sexo != null) ? sexo.getLabel() : "Não especificado"; // Ou outro valor padrão adequado
     }
 
     public static Map<String, Object> viewEndereco(String logradouro, String bairro, String numero, String complemento,
@@ -52,6 +59,8 @@ public record UsuarioResponseDTO(
 
         return endereco;
     }
+    
+
 
     public static Map<String, Object> viewCidade(String nome, Estado estado) {
 

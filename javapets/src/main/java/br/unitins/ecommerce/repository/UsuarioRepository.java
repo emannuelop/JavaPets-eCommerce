@@ -5,17 +5,18 @@ import java.util.List;
 import jakarta.enterprise.context.ApplicationScoped;
 
 import br.unitins.ecommerce.model.usuario.Usuario;
+import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 
 @ApplicationScoped
 public class UsuarioRepository implements PanacheRepository<Usuario> {
     
-    public List<Usuario> findByNome (String nomePessoaFisica) {
+    public PanacheQuery findByNome (String nomePessoaFisica) {
 
         if (nomePessoaFisica == null)
             return null;
 
-        return find("FROM Usuario WHERE UPPER(pessoaFisica.nome) LIKE ?1", "%" + nomePessoaFisica.toUpperCase() + "%").list();
+        return find("FROM Usuario WHERE UPPER(pessoaFisica.nome) LIKE ?1", "%" + nomePessoaFisica.toUpperCase() + "%");
     }
 
     public Usuario findByLoginAndSenha(String login, String senha) {

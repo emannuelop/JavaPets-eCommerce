@@ -67,9 +67,9 @@ public class UsuarioImplService implements UsuarioService {
     PessoaFisicaService pessoaFisicaService;
 
     @Override
-    public List<UsuarioResponseDTO> getAllUsuario() {
+    public List<UsuarioResponseDTO> getAllUsuario(int page, int pageSize) {
 
-        return usuarioRepository.findAll()
+        return usuarioRepository.findAll().page(page, pageSize)
                 .stream()
                 .filter(usuario -> usuario.getPerfis().contains(Perfil.USER)
                         || usuario.getPerfis().contains(Perfil.ADMIN))
@@ -289,9 +289,9 @@ public class UsuarioImplService implements UsuarioService {
     }
 
     @Override
-    public List<UsuarioResponseDTO> getByNome(String nome) throws NullPointerException {
+    public List<UsuarioResponseDTO> getByNome(String nome, int page, int pageSize) throws NullPointerException {
 
-        List<Usuario> list = usuarioRepository.findByNome(nome);
+        List<Usuario> list = usuarioRepository.findByNome(nome).page(page, pageSize).list();
 
         if (list == null)
             throw new NullPointerException("nenhum usuario encontrado");
@@ -299,6 +299,12 @@ public class UsuarioImplService implements UsuarioService {
         return list.stream()
                 .map(UsuarioResponseDTO::new)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Long countByNome(String nome) {
+
+        return usuarioRepository.findByNome(nome).count();
     }
 
     @Override

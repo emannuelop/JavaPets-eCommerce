@@ -20,6 +20,7 @@ import jakarta.inject.Inject;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
+import jakarta.ws.rs.DefaultValue;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.NotFoundException;
 import jakarta.ws.rs.PATCH;
@@ -28,6 +29,7 @@ import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
@@ -43,17 +45,18 @@ public class UsuarioResource {
     private static final Logger LOG = Logger.getLogger(UsuarioResource.class);
 
     @GET
-    @RolesAllowed({ "Admin" })
-    public List<UsuarioResponseDTO> getAllUsuario() {
+   // @RolesAllowed({ "Admin" })
+    public List<UsuarioResponseDTO> getAllUsuario( @QueryParam("page") @DefaultValue("0") int page,
+        @QueryParam("pageSize") @DefaultValue("2") int pageSize) {
         LOG.info("Buscando todos os usuários");
         LOG.debug("ERRO DE DEBUG.");
 
-        return usuarioService.getAllUsuario();
+        return usuarioService.getAllUsuario(page, pageSize);
     }
 
     @GET
     @Path("/usuarios-basicos")
-    @RolesAllowed({ "Admin" })
+    //@RolesAllowed({ "Admin" })
     public List<UsuarioBasicoResponseDTO> getAllUsuarioBasico() {
         LOG.info("Buscando todos os usuários basicos");
         LOG.debug("ERRO DE DEBUG.");
@@ -63,7 +66,7 @@ public class UsuarioResource {
 
     @GET
     @Path("/{id}")
-    @RolesAllowed({ "Admin" })
+   // @RolesAllowed({ "Admin" })
     public UsuarioResponseDTO getById(@PathParam("id") Long id) throws NotFoundException {
         LOG.info("Buscando usuário por nome");
         LOG.debug("ERRO DE DEBUG.");
@@ -82,7 +85,7 @@ public class UsuarioResource {
     }
 
     @POST
-    @RolesAllowed({ "Admin" })
+   // @RolesAllowed({ "Admin" })
     public Response insert(UsuarioDTO usuarioDto) {
         Result result = null;
         try {
@@ -139,7 +142,7 @@ public class UsuarioResource {
 
     @PUT
     @Path("/{id}")
-    @RolesAllowed({ "Admin" })
+   // @RolesAllowed({ "Admin" })
     public Response update(@PathParam("id") Long id, UsuarioDTO usuarioDto) {
         Result result = null;
         try {
@@ -168,7 +171,7 @@ public class UsuarioResource {
 
     @DELETE
     @Path("/{id}")
-    @RolesAllowed({ "Admin" })
+   // @RolesAllowed({ "Admin" })
     public Response delete(@PathParam("id") Long id) throws IllegalArgumentException, NotFoundException {
         try {
             usuarioService.delete(id);
@@ -207,7 +210,7 @@ public class UsuarioResource {
 
     @GET
     @Path("/count")
-    @RolesAllowed({ "Admin" })
+  //  @RolesAllowed({ "Admin" })
     public Long count() {
         LOG.infof("Contando os usuários");
         LOG.debug("ERRO DE DEBUG.");
@@ -226,17 +229,27 @@ public class UsuarioResource {
 
     @GET
     @Path("/searchByNome/{nome}")
-    @RolesAllowed({ "Admin" })
-    public List<UsuarioResponseDTO> getByNome(@PathParam("nome") String nome) throws NullPointerException {
+  //  @RolesAllowed({ "Admin" })
+    public List<UsuarioResponseDTO> getByNome(@PathParam("nome") String nome, @QueryParam("page") @DefaultValue("0") int page,
+    @QueryParam("pageSize") @DefaultValue("2") int pageSize) throws NullPointerException {
         LOG.info("Buscando usuário por nome");
         LOG.debug("ERRO DE DEBUG.");
 
-        return usuarioService.getByNome(nome);
+        return usuarioService.getByNome(nome, page, pageSize);
+    }
+
+    @GET
+    @Path("/count/search/{nome}")
+    // @RolesAllowed({"Admin"})
+    public Long count (@PathParam("nome") String nome) {
+        LOG.infof("Contando todos os usuários");
+        LOG.debug("ERRO DE DEBUG.");
+        return usuarioService.countByNome(nome);
     }
 
     @POST
     @Path("/telefone/adiconartelefone")
-    @RolesAllowed({ "Admin", "User", "User_Basic" })
+   // @RolesAllowed({ "Admin", "User", "User_Basic" })
     public Response insertIntoCarrrinho(AdicionarTelDTO telefone) {
         Result result = null;
 

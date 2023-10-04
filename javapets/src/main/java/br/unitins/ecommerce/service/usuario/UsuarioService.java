@@ -20,7 +20,7 @@ public interface UsuarioService {
 
     // Metodos basicos
 
-    List<UsuarioResponseDTO> getAllUsuario();
+    List<UsuarioResponseDTO> getAllUsuario(int page, int pageSize);
 
     public List<UsuarioBasicoResponseDTO> getAllUsuarioBasico();
 
@@ -44,7 +44,9 @@ public interface UsuarioService {
 
     Long count();
 
-    List<UsuarioResponseDTO> getByNome(String nome);
+    List<UsuarioResponseDTO> getByNome(String nome, int page, int pageSize);
+
+    Long countByNome(String nome);
 
     Usuario getByLoginAndSenha(String login, String senha);
 
