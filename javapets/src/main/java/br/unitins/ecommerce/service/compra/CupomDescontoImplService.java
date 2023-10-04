@@ -99,9 +99,9 @@ public class CupomDescontoImplService implements CupomDescontoService {
     }
 
     @Override
-    public List<CupomDescontoResponseDTO> getByNome(String nome) throws NullPointerException {
+    public List<CupomDescontoResponseDTO> getByNome(String nome, int page, int pageSize) throws NullPointerException {
         
-        List<CupomDesconto> list = cupomDescontoRepository.findByNome(nome);
+        List<CupomDesconto> list = cupomDescontoRepository.findByNome(nome).page(page, pageSize).list();
 
         if (list == null)
             throw new NullPointerException("nenhum cupomDesconto encontrado");

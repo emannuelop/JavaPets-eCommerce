@@ -21,7 +21,7 @@ public interface CupomDescontoService {
 
     // Metodos extras
 
-    List<CupomDescontoResponseDTO> getByNome(String nome);
+    List<CupomDescontoResponseDTO> getByNome(String nome, int page, int pageSize);
 
     Long count();
 }

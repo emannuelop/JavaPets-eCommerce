@@ -12,10 +12,10 @@ public class CupomDesconto extends DefaultEntity {
     private String codigoCupom;
 
     @Column(nullable = false)
-    private int quantidadeDisponivel;
+    private Integer quantidadeDisponivel;
 
     @Column(nullable = false)
-    private int porcentagemDesconto;
+    private Integer porcentagemDesconto;
 
     public String getCodigoCupom() {
         return codigoCupom;
@@ -25,20 +25,22 @@ public class CupomDesconto extends DefaultEntity {
         this.codigoCupom = codigoCupom;
     }
 
-    public int getQuantidadeDisponivel() {
+    public Integer getQuantidadeDisponivel() {
         return quantidadeDisponivel;
     }
 
-    public void setQuantidadeDisponivel(int quantidadeDisponivel) {
+    public void setQuantidadeDisponivel(Integer quantidadeDisponivel) {
         this.quantidadeDisponivel = quantidadeDisponivel;
     }
 
-    public int getPorcentagemDesconto() {
+    public Integer getPorcentagemDesconto() {
         return porcentagemDesconto;
     }
 
-    public void setPorcentagemDesconto(int porcentagemDesconto) {
+    public void setPorcentagemDesconto(Integer porcentagemDesconto) {
         this.porcentagemDesconto = porcentagemDesconto;
     }
+
+
 
 }

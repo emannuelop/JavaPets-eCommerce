@@ -39,7 +39,7 @@ public class CupomDescontoResource {
     private static final Logger LOG = Logger.getLogger(CupomDescontoResource.class);
 
     @GET
-    @PermitAll
+    // @PermitAll
     public List<CupomDescontoResponseDTO> getAll(
         @QueryParam("page") @DefaultValue("0") int page,
         @QueryParam("pageSize") @DefaultValue("2") int pageSize) 
@@ -145,10 +145,14 @@ public class CupomDescontoResource {
 
     @GET
     @Path("/searchByNome/{nome}")
-    @PermitAll
-    public List<CupomDescontoResponseDTO> getByNome(@PathParam("nome") String nome) throws NullPointerException {
+    // @PermitAll
+    public List<CupomDescontoResponseDTO> getByNome(@PathParam("nome") String nome,
+        @QueryParam("page") @DefaultValue("0") int page,
+        @QueryParam("pageSize") @DefaultValue("2") int pageSize
+        ) throws NullPointerException 
+        {
         LOG.infof("Pesquisando cupomDesconto pelo nome.", nome);
         LOG.debug("ERRO DE DEBUG.");
-        return cupomDescontoService.getByNome(nome);
+        return cupomDescontoService.getByNome(nome, page, pageSize);
     }
 }
