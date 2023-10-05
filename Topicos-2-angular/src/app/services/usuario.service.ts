@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Usuario } from '../models/usuario.model';
 
@@ -8,24 +8,24 @@ import { Usuario } from '../models/usuario.model';
   providedIn: 'root'
 })
 export class UsuarioService {
-  private baseURL: string =  'http://localhost:8080';
+  private baseURL: string = 'http://localhost:8080';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  findAll(pagina:number, tamanhoPagina:number): Observable<Usuario[]> {
+  findAll(pagina: number, tamanhoPagina: number): Observable<Usuario[]> {
     const params = {
       page: pagina.toString(),
       pageSize: tamanhoPagina.toString()
     }
-    return this.http.get<Usuario[]>(`${this.baseURL}/usuarios`,{params});
+    return this.http.get<Usuario[]>(`${this.baseURL}/usuarios`, { params });
   }
 
-  findByNome(nome: string,pagina:number, tamanhoPagina:number): Observable<Usuario[]> {
+  findByNome(nome: string, pagina: number, tamanhoPagina: number): Observable<Usuario[]> {
     const params = {
       page: pagina.toString(),
       pageSize: tamanhoPagina.toString()
     }
-    return this.http.get<Usuario[]>(`${this.baseURL}/usuarios/searchByNome/${nome}`, {params});
+    return this.http.get<Usuario[]>(`${this.baseURL}/usuarios/searchByNome/${nome}`, { params });
   }
 
   findById(id: string): Observable<Usuario> {
@@ -36,10 +36,12 @@ export class UsuarioService {
     const obj = {
       login: usuario.login,
       senha: usuario.senha,
-      nome: usuario.nome,
-      cpf: usuario.cpf,
-      email: usuario.email,
-      sexo: usuario.sexo,
+      pessoaFisicaDto: {
+        nome: usuario.pessoaFisicaDto.nome,
+        cpf: usuario.pessoaFisicaDto.cpf,
+        email: usuario.pessoaFisicaDto.email,
+        sexo: usuario.pessoaFisicaDto.sexo
+      },
       endereco: {
         logradouro: usuario.endereco.logradouro,
         bairro: usuario.endereco.bairro,
@@ -48,10 +50,10 @@ export class UsuarioService {
         cep: usuario.endereco.cep,
         idMunicipio: usuario.endereco.idMunicipio
       },
-      telefones: usuario.telefones.map(telefone =>({
-        codigoArea: telefone.codigoDeArea,
-        numero: telefone.numero
-      }))
+       telefones: usuario.telefones.map(telefone =>({
+         codigoArea: telefone.codigoDeArea,
+         numero: telefone.numero
+       }))
     }
     return this.http.post<Usuario>(`${this.baseURL}/usuarios`, obj);
   }
@@ -60,10 +62,14 @@ export class UsuarioService {
     const obj = {
       login: usuario.login,
       senha: usuario.senha,
-      nome: usuario.nome,
-      cpf: usuario.cpf,
-      email: usuario.email,
-      sexo: usuario.sexo,
+
+      pessoaFisicaDto: {
+        nome: usuario.pessoaFisicaDto.nome,
+        cpf: usuario.pessoaFisicaDto.cpf,
+        email: usuario.pessoaFisicaDto.email,
+        sexo: usuario.pessoaFisicaDto.sexo
+      },
+
       endereco: {
         logradouro: usuario.endereco.logradouro,
         bairro: usuario.endereco.bairro,
@@ -72,12 +78,12 @@ export class UsuarioService {
         cep: usuario.endereco.cep,
         idMunicipio: usuario.endereco.idMunicipio
       },
-      telefones: usuario.telefones.map(telefone =>({
+      telefones: usuario.telefones.map(telefone => ({
         codigoArea: telefone.codigoDeArea,
         numero: telefone.numero
       }))
     }
-    return this.http.put<Usuario>(`${this.baseURL}/usuarios/${usuario.id}`, obj );
+    return this.http.put<Usuario>(`${this.baseURL}/usuarios/${usuario.id}`, obj);
   }
 
   delete(usuario: Usuario): Observable<any> {

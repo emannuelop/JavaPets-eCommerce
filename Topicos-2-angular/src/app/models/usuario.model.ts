@@ -3,12 +3,15 @@ export class Usuario {
   id!: number;
   login!: string;
   senha!: string;
-  nome!: string; // Nome da pessoa física
-  cpf!: string; // CPF da pessoa física
-  email!: string;
-  sexo!: number;
+  pessoaFisicaDto!:PessoaFisicaDto
   endereco!: Endereco;
   telefones!: Telefone[]; // Agora é uma lista de telefones
+}
+export class PessoaFisicaDto {
+  nome!: string;
+  cpf!: string;
+  email!: string;
+  sexo!: number;
 }
 
 export class Endereco {
