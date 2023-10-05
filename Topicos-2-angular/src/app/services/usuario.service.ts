@@ -49,7 +49,7 @@ export class UsuarioService {
         idMunicipio: usuario.endereco.idMunicipio
       },
       telefones: usuario.telefones.map(telefone =>({
-        codigoArea: telefone.codigoArea,
+        codigoArea: telefone.codigoDeArea,
         numero: telefone.numero
       }))
     }
@@ -73,7 +73,7 @@ export class UsuarioService {
         idMunicipio: usuario.endereco.idMunicipio
       },
       telefones: usuario.telefones.map(telefone =>({
-        codigoArea: telefone.codigoArea,
+        codigoArea: telefone.codigoDeArea,
         numero: telefone.numero
       }))
     }

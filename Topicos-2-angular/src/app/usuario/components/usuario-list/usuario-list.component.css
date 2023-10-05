@@ -80,3 +80,7 @@ mat-icon {
   flex: 1;
   text-align: center;
 }
+
+.telefone{
+  white-space: nowrap;
+}

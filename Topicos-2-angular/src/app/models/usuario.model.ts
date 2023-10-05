@@ -21,6 +21,6 @@ export class Endereco {
 }
 
 export class Telefone {
-  codigoArea!: string;
+  codigoDeArea!: string;
   numero!: string;
 }

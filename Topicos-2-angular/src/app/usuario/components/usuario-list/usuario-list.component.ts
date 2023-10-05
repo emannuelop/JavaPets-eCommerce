@@ -9,16 +9,16 @@ import { UsuarioService } from 'src/app/services/usuario.service'; // Importe o 
   styleUrls: ['./usuario-list.component.css']
 })
 export class UsuarioListComponent {
-  
+
   tableColumns: string[] = ['login-column', 'nome-column', 'cpf-column', 'email-column', 'sexo-column', 'endereco-column', 'telefone-column', 'acao-column'];
-   
+
   usuarios: Usuario[] = [];
   totalRegistros = 0;
   pageSize = 2;
   pagina = 0;
   filtro: string = "";
 
-  constructor(private usuarioService: UsuarioService) {}
+  constructor(private usuarioService: UsuarioService) { }
 
   ngOnInit(): void {
     this.carregarUsuarios();
@@ -58,7 +58,15 @@ export class UsuarioListComponent {
 
   aplicarFiltro() {
     this.carregarUsuarios();
-  this.carregarTotalRegistros();
+    this.carregarTotalRegistros();
+  }
+
+  formatarCodigoDeArea(codigoDeArea: string): string {
+
+    if (codigoDeArea.startsWith('0') && codigoDeArea.length > 1) {
+      return `(${codigoDeArea.slice(1)})`;
+    }
+    return codigoDeArea;
   }
 }
 
