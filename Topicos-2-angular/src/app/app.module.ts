@@ -7,10 +7,12 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared.module';
+import { ConfimationDialogComponent } from './confimation-dialog/confimation-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    ConfimationDialogComponent,
   ],
   imports: [
     BrowserModule,

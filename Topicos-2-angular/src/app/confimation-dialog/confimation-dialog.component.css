@@ -1,0 +1,57 @@
+
+
+.custom-dialog {
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centraliza verticalmente */
+  align-items: center; /* Centraliza horizontalmente */
+}
+
+/* Estilo para o título do diálogo */
+.custom-dialog-title {
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  color: rgb(233, 87, 87); /* Cor do título */
+}
+
+/* Estilo para o contêiner de ações do diálogo */
+.custom-dialog-actions {
+  display: flex;
+  justify-content: space-between; /* Coloca os botões em lados opostos */
+}
+
+/* Estilo para os botões */
+.custom-button {
+  flex: 1; /* Distribui o espaço igualmente entre os botões */
+  margin: 10px;
+  padding: 10px 20px;
+  font-size: 13px;
+  text-transform: uppercase;
+  border-radius: 3px;
+  transition: 0.3s;
+}
+
+/* Estilo para o botão "Cancelar" */
+.cancel-button {
+  background-color: #f5f5f5; /* Cor de fundo */
+  color: #333; /* Cor do texto */
+  border: none;
+}
+
+/* Estilo para o botão "Sim" */
+.confirm-button {
+  background-color: rgb(233, 87, 87); /* Cor de fundo */
+  color: #fff; /* Cor do texto */
+  border: none;
+}
+
+/* Efeitos de hover para os botões */
+.custom-button:hover { 
+  opacity: 0.8;
+  cursor: pointer;
+}
+p{
+  color:rgb(78, 61, 61);
+}
