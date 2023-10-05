@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
+import { ConfimationDialogComponent } from 'src/app/confimation-dialog/confimation-dialog.component';
 import { Usuario } from 'src/app/models/usuario.model'; // Importe a classe Usuario
 import { UsuarioService } from 'src/app/services/usuario.service'; // Importe o serviço de usuário
 
@@ -18,7 +20,7 @@ export class UsuarioListComponent {
   pagina = 0;
   filtro: string = "";
 
-  constructor(private usuarioService: UsuarioService) { }
+  constructor(private usuarioService: UsuarioService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.carregarUsuarios();
@@ -68,5 +70,34 @@ export class UsuarioListComponent {
     }
     return codigoDeArea;
   }
+
+  // Função para abrir o diálogo de confirmação
+  openConfirmationDialog(usuario: Usuario): void {
+    const dialogRef = this.dialog.open(ConfimationDialogComponent, {
+      width: '400px',
+      data: { message: 'Tem certeza de que deseja excluir este usuário?' }
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // Assine o Observable retornado pelo serviço
+        this.usuarioService.delete(usuario).subscribe(
+          () => {
+            // Executa esta parte após a exclusão bem-sucedida
+            this.usuarios = this.usuarios.filter(u => u !== usuario)
+            this.carregarTotalRegistros()
+           this.carregarUsuarios()
+            console.log('Usuário excluído com sucesso');
+            // Adicione aqui a lógica para atualizar a lista de usuários após a exclusão
+          },
+          (error) => {
+            // Trate os erros aqui
+            console.error('Erro ao excluir usuário:', error);
+          }
+        );
+      }
+    });
+  }
+  
 }
 
