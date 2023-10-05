@@ -1,6 +1,5 @@
 package br.unitins.ecommerce.repository;
 
-
 import br.unitins.ecommerce.model.produto.produto.Categoria;
 import jakarta.enterprise.context.ApplicationScoped;
 import io.quarkus.hibernate.orm.panache.PanacheQuery;

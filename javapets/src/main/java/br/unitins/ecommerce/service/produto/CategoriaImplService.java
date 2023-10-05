@@ -8,7 +8,6 @@ import br.unitins.ecommerce.dto.produto.CategoriaDTO;
 import br.unitins.ecommerce.dto.produto.CategoriaResponseDTO;
 import br.unitins.ecommerce.model.produto.produto.Categoria;
 import br.unitins.ecommerce.repository.CategoriaRepository;
-import br.unitins.ecommerce.repository.EstadoRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -25,9 +24,6 @@ public class CategoriaImplService implements CategoriaService {
 
     @Inject
     CategoriaRepository categoriaRepository;
-
-    @Inject
-    EstadoRepository estadoRepository;
 
     @Override
     public List<CategoriaResponseDTO> getAll(int page, int pageSize) {
