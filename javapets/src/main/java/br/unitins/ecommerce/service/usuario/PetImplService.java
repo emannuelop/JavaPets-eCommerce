@@ -1,4 +1,4 @@
-package br.unitins.ecommerce.service.produto;
+package br.unitins.ecommerce.service.usuario;
 
 import java.util.List;
 import java.util.Set;
@@ -11,10 +11,10 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Validator;
 import jakarta.ws.rs.NotFoundException;
-
-import br.unitins.ecommerce.dto.produto.PetDTO;
-import br.unitins.ecommerce.dto.produto.PetResponseDTO;
-import br.unitins.ecommerce.model.produto.produto.Pet;
+import br.unitins.ecommerce.dto.compra.CupomDescontoResponseDTO;
+import br.unitins.ecommerce.dto.usuario.PetDTO;
+import br.unitins.ecommerce.dto.usuario.PetResponseDTO;
+import br.unitins.ecommerce.model.usuario.Pet;
 import br.unitins.ecommerce.repository.EstadoRepository;
 import br.unitins.ecommerce.repository.PetRepository;
 
@@ -22,21 +22,18 @@ import br.unitins.ecommerce.repository.PetRepository;
 public class PetImplService implements PetService {
 
     @Inject
-    Validator validator;
-
-    @Inject
     PetRepository petRepository;
 
     @Inject
-    EstadoRepository estadoRepository;
+    Validator validator;
 
     @Override
-    public List<PetResponseDTO> getAll() {
+    public List<PetResponseDTO> getAll(int page, int pageSize) {
         
-        return petRepository.findAll()
-                                    .stream()
-                                    .map(PetResponseDTO::new)
-                                    .toList();
+        return petRepository.findAll().page(page, pageSize).list()
+                                .stream()
+                                .map(PetResponseDTO::new)
+                                .collect(Collectors.toList());
     }
 
     @Override
@@ -110,15 +107,9 @@ public class PetImplService implements PetService {
     }
 
     @Override
-    public Long count() {
-
-        return petRepository.count();
-    }
-
-    @Override
-    public List<PetResponseDTO> getByNome(String nome) throws NullPointerException {
+    public List<PetResponseDTO> getByNome(String nome, int page, int pageSize) throws NullPointerException {
         
-        List<Pet> list = petRepository.findByNome(nome);
+        List<Pet> list = petRepository.findByNome(nome).page(page, pageSize).list();
 
         if (list == null)
             throw new NullPointerException("nenhum pet encontrado");
@@ -126,6 +117,12 @@ public class PetImplService implements PetService {
         return list.stream()
                     .map(PetResponseDTO::new)
                     .collect(Collectors.toList());
+    }
+
+    @Override
+    public Long count() {
+
+        return petRepository.count();
     }
     
     private void validar(PetDTO petDTO) throws ConstraintViolationException {

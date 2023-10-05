@@ -10,6 +10,7 @@ import jakarta.inject.Inject;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
+import jakarta.ws.rs.DefaultValue;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.NotFoundException;
 import jakarta.ws.rs.POST;
@@ -17,14 +18,15 @@ import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
 
 import br.unitins.ecommerce.application.Result;
-import br.unitins.ecommerce.dto.produto.PetDTO;
-import br.unitins.ecommerce.dto.produto.PetResponseDTO;
-import br.unitins.ecommerce.service.produto.PetService;
+import br.unitins.ecommerce.dto.usuario.PetDTO;
+import br.unitins.ecommerce.dto.usuario.PetResponseDTO;
+import br.unitins.ecommerce.service.usuario.PetService;
 
 @Path("/pets")
 @Produces(MediaType.APPLICATION_JSON)
@@ -37,24 +39,27 @@ public class PetResource {
     private static final Logger LOG = Logger.getLogger(PetResource.class);
 
     @GET
-    @PermitAll
-    public List<PetResponseDTO> getAll() {
+    // @PermitAll
+    public List<PetResponseDTO> getAll(
+        @QueryParam("page") @DefaultValue("0") int page,
+        @QueryParam("pageSize") @DefaultValue("2") int pageSize) 
+        {
         LOG.info("Buscando todos os pet.");
         LOG.debug("ERRO DE DEBUG.");
-        return petService.getAll();
+        return petService.getAll(page, pageSize);
     }
 
     @GET
     @Path("/{id}")
-    @RolesAllowed({"Admin"})
+    // @RolesAllowed({"Admin"})
     public PetResponseDTO getById(@PathParam("id") Long id) throws NotFoundException {
-        LOG.info("Buscando município por ID: " + id);
+        LOG.info("Buscando pet por ID: " + id);
         LOG.debug("ERRO DE DEBUG.");
         return petService.getById(id);
     }
 
     @POST
-    @RolesAllowed({"Admin"})
+    // @RolesAllowed({"Admin"})
     public Response insert(PetDTO petDto) {
         LOG.infof("Inserindo um pet: %s", petDto.nome());
 
@@ -85,24 +90,24 @@ public class PetResource {
 
     @PUT
     @Path("/{id}")
-    @RolesAllowed({"Admin"})
+    // @RolesAllowed({"Admin"})
     public Response update(@PathParam("id") Long id, PetDTO petDto) {
         Result result = null;
         
         try {
             petService.update(id, petDto);
-            LOG.infof("Município (%d) atualizado com sucesso.", id);
+            LOG.infof("Pet (%d) atualizado com sucesso.", id);
             return Response
                     .status(Status.NO_CONTENT) // 204
                     .build();
         } catch (ConstraintViolationException e) {
-            LOG.error("Erro de validação ao atualizar o município.", e);
+            LOG.error("Erro de validação ao atualizar o pet.", e);
             LOG.debug(e.getMessage());
 
             result = new Result(e.getConstraintViolations());
 
         } catch (Exception e) {
-            LOG.fatal("Erro ao atualizar o município " + id + ".", e);
+            LOG.fatal("Erro ao atualizar o pet " + id + ".", e);
             result = new Result(e.getMessage(), false);
     
         }
@@ -111,39 +116,43 @@ public class PetResource {
 
     @DELETE
     @Path("/{id}")
-    @RolesAllowed({"Admin"})
+    // @RolesAllowed({"Admin"})
     public Response delete(@PathParam("id") Long id) throws IllegalArgumentException, NotFoundException {
 
         try {
             petService.delete(id);
-            LOG.infof("Município (%d) excluído com sucesso.", id);
+            LOG.infof("Pet (%d) excluído com sucesso.", id);
             return Response
                     .status(Status.NO_CONTENT)
                     .build();
         } catch (IllegalArgumentException e) {
-            LOG.error("Erro ao deletar município: parâmetros inválidos.", e);
+            LOG.error("Erro ao deletar pet: parâmetros inválidos.", e);
             throw e;
         } catch (NotFoundException e) {
-            LOG.errorf("Município (%d) não encontrado.", id);
+            LOG.errorf("Pet (%d) não encontrado.", id);
             throw e;
         }
     }
 
     @GET
+    @Path("/searchByNome/{nome}")
+    // @PermitAll
+    public List<PetResponseDTO> getByNome(@PathParam("nome") String nome,
+        @QueryParam("page") @DefaultValue("0") int page,
+        @QueryParam("pageSize") @DefaultValue("2") int pageSize
+        ) throws NullPointerException 
+        {   
+        LOG.infof("Pesquisando pet pelo nome.", nome);
+        LOG.debug("ERRO DE DEBUG.");
+        return petService.getByNome(nome, page, pageSize);
+    }
+
+    @GET
     @Path("/count")
-    @RolesAllowed({"Admin"})
+    // @RolesAllowed({"Admin"})
     public Long count() {
         LOG.info("Contando todos os pets.");
         LOG.debug("ERRO DE DEBUG.");
         return petService.count();
-    }
-
-    @GET
-    @Path("/searchByNome/{nome}")
-    @PermitAll
-    public List<PetResponseDTO> getByNome(@PathParam("nome") String nome) throws NullPointerException {
-        LOG.infof("Pesquisando Município po nome.", nome);
-        LOG.debug("ERRO DE DEBUG.");
-        return petService.getByNome(nome);
     }
 }

@@ -1,22 +1,21 @@
-package br.unitins.ecommerce.dto.produto;
+package br.unitins.ecommerce.dto.usuario;
 
-import br.unitins.ecommerce.model.produto.produto.Pet;
-
+import br.unitins.ecommerce.model.usuario.Pet;
 
 public record PetResponseDTO (
     Long id,
     String nome,
     String especie,
     String raca,
-    int idadeEmMeses
+    Integer idadeEmMeses
 ) {
 
     public PetResponseDTO(Pet pet) {
         
         this(pet.getId(),
             pet.getNome(),
-            pet.getEspecie()
-            ,pet.getRaca(),
+            pet.getEspecie(),
+            pet.getRaca(),
             pet.getIdadeEmMeses());
     }
 

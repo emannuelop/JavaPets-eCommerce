@@ -48,6 +48,12 @@ const routes: Routes = [
     path:'usuarios', loadChildren:
     () => import('./usuario/usuario.module')
     .then(m => m.UsuarioModule)
+  },
+
+  {
+    path:'pets', loadChildren:
+    () => import('./pet/pet.module')
+    .then(m => m.PetModule)
   }
 ];
 

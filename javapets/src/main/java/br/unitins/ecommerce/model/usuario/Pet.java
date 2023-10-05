@@ -1,4 +1,4 @@
-package br.unitins.ecommerce.model.produto.produto;
+package br.unitins.ecommerce.model.usuario;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,14 +11,14 @@ public class Pet extends DefaultEntity {
     @Column(nullable = false)
     private String nome;
 
-    @Column(nullable = false, unique = true, length = 18)
+    @Column(nullable = false, length = 18)
     private String especie;
 
-    @Column(nullable = false, unique = true, length = 18)
+    @Column(nullable = false, length = 18)
     private String raca;
 
-    @Column(nullable = false, unique = true, length = 18)
-    private int idadeEmMeses;
+    @Column(nullable = false, length = 18)
+    private Integer idadeEmMeses;
 
     public String getNome() {
         return nome;
@@ -44,14 +44,12 @@ public class Pet extends DefaultEntity {
         this.raca = raca;
     }
 
-    public int getIdadeEmMeses() {
+    public Integer getIdadeEmMeses() {
         return idadeEmMeses;
     }
 
-    public void setIdadeEmMeses(int idadeEmMeses) {
+    public void setIdadeEmMeses(Integer idadeEmMeses) {
         this.idadeEmMeses = idadeEmMeses;
     }
-
-    
 
 }

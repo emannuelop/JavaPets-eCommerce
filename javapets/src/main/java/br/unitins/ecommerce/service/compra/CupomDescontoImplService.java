@@ -73,6 +73,9 @@ public class CupomDescontoImplService implements CupomDescontoService {
 
         CupomDesconto entity = cupomDescontoRepository.findById(id);
 
+        if (entity == null)
+            throw new NotFoundException("Número fora das opções disponíveis");
+
         entity.setCodigoCupom(cupomDescontoDto.codigoCupom());
 
         entity.setQuantidadeDisponivel(cupomDescontoDto.quantidadeDisponivel());

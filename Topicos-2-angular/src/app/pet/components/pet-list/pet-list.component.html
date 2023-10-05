@@ -1,7 +1,7 @@
 <mat-toolbar>
   <div class="flex-container">
-    <span class="toolbar-title"> Controle de Cupom descontos </span>
-    <button mat-fab color="accent" routerLink="/cupomDescontos/new">
+    <span class="toolbar-title"> Controle de Pets </span>
+    <button mat-fab color="accent" routerLink="/pets/new">
       <mat-icon>add</mat-icon>
     </button>
   </div>
@@ -10,7 +10,7 @@
   <div class="input-container">
     <mat-form-field appearance="outline" class="input-field">
       <mat-label>Pesquisar</mat-label>
-      <input [(ngModel)]="filtro" matInput placeholder="Ex. Desconto" #input>
+      <input [(ngModel)]="filtro" matInput placeholder="Ex. Bob" #input>
     </mat-form-field>
     <button mat-icon-button color="primary" 
             class="search-button"
@@ -21,39 +21,45 @@
 </div>
 
 <div class="mat-elevation-z8">
-  <table mat-table [dataSource]="cupomDescontos" matSort>
+  <table mat-table [dataSource]="pets" matSort>
 
     <!-- Id Column -->
     <ng-container matColumnDef="id-column">
       <th mat-header-cell *matHeaderCellDef> Id </th>
-      <td mat-cell *matCellDef="let cupomDesconto"> {{cupomDesconto.id}} </td>
+      <td mat-cell *matCellDef="let pet"> {{pet.id}} </td>
     </ng-container>
 
-    <!-- codigoCupom Column -->
-    <ng-container matColumnDef="codigoCupom-column">
-      <th mat-header-cell *matHeaderCellDef> codigo cupom </th>
-      <td mat-cell *matCellDef="let cupomDesconto"> {{cupomDesconto.codigoCupom}} </td>
+    <!-- nome Column -->
+    <ng-container matColumnDef="nome-column">
+      <th mat-header-cell *matHeaderCellDef> Nome </th>
+      <td mat-cell *matCellDef="let pet"> {{pet.nome}} </td>
     </ng-container>
 
-    <!-- quantidadeDisponivel Column -->
-    <ng-container matColumnDef="quantidadeDisponivel-column">
-      <th mat-header-cell *matHeaderCellDef> Quantidade disponivel </th>
-      <td mat-cell *matCellDef="let cupomDesconto"> {{cupomDesconto.quantidadeDisponivel}} </td>
+    <!-- especie Column -->
+    <ng-container matColumnDef="especie-column">
+      <th mat-header-cell *matHeaderCellDef> Especie </th>
+      <td mat-cell *matCellDef="let pet"> {{pet.especie}} </td>
     </ng-container>
 
-    <!-- porcentagemDesconto Column -->
-    <ng-container matColumnDef="porcentagemDesconto-column">
-      <th mat-header-cell *matHeaderCellDef> Porcentagem desconto </th>
-      <td mat-cell *matCellDef="let cupomDesconto"> {{cupomDesconto.porcentagemDesconto}} </td>
+    <!-- raca Column -->
+    <ng-container matColumnDef="raca-column">
+      <th mat-header-cell *matHeaderCellDef> Raça </th>
+      <td mat-cell *matCellDef="let pet"> {{pet.raca}} </td>
+    </ng-container>
+
+    <!-- idadeEmMeses Column -->
+    <ng-container matColumnDef="idadeEmMeses-column">
+      <th mat-header-cell *matHeaderCellDef> Idade em meses </th>
+      <td mat-cell *matCellDef="let pet"> {{pet.idadeEmMeses}} </td>
     </ng-container>
 
     <!-- Ação Column -->
     <ng-container matColumnDef="acao-column">
       <th mat-header-cell *matHeaderCellDef> Ação </th>
-      <td mat-cell *matCellDef="let cupomDesconto">
+      <td mat-cell *matCellDef="let pet">
         <button mat-icon-button 
                 color="primary" 
-                routerLink="/cupomDescontos/edit/{{cupomDesconto.id}}">
+                routerLink="/pets/edit/{{pet.id}}">
           <mat-icon>edit</mat-icon>
         </button>
         <button mat-icon-button color="warn" >

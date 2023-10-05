@@ -10,10 +10,11 @@ public record CupomDescontoDTO (
 
     @NotNull(message = "Campo quantidadeDisponivel não pode estar vazio.")
     @Min(1)
-    int quantidadeDisponivel,
+    Integer quantidadeDisponivel,
 
     @NotNull(message = "Campo porcentagemDesconto não pode estar vazio.")
-    int porcentagemDesconto
+    @Min(1)
+    Integer porcentagemDesconto
 ) {
 
 }

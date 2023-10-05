@@ -16,8 +16,8 @@
                     <mat-label>Sigla</mat-label>
                     <input matInput type="text" formControlName="sigla" />
                     <mat-error *ngIf="formGroup.get('sigla') &&
-                formGroup.get('sigla')?.invalid &&
-                formGroup.get('sigla')?.touched">
+                        formGroup.get('sigla')?.invalid &&
+                        formGroup.get('sigla')?.touched">
                         Sigla é obrigatória.
                     </mat-error>
                 </mat-form-field>

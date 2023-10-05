@@ -1,7 +1,5 @@
 package br.unitins.ecommerce.repository;
 
-import java.util.List;
-
 import br.unitins.ecommerce.model.compra.CupomDesconto;
 import jakarta.enterprise.context.ApplicationScoped;
 import io.quarkus.hibernate.orm.panache.PanacheQuery;

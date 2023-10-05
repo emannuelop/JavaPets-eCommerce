@@ -135,15 +135,6 @@ public class CupomDescontoResource {
     }
 
     @GET
-    @Path("/count")
-    // @RolesAllowed({"Admin"})
-    public Long count() {
-        LOG.info("Contando todos os cupomDescontos.");
-        LOG.debug("ERRO DE DEBUG.");
-        return cupomDescontoService.count();
-    }
-
-    @GET
     @Path("/searchByNome/{nome}")
     // @PermitAll
     public List<CupomDescontoResponseDTO> getByNome(@PathParam("nome") String nome,
@@ -154,5 +145,14 @@ public class CupomDescontoResource {
         LOG.infof("Pesquisando cupomDesconto pelo nome.", nome);
         LOG.debug("ERRO DE DEBUG.");
         return cupomDescontoService.getByNome(nome, page, pageSize);
+    }
+
+    @GET
+    @Path("/count")
+    // @RolesAllowed({"Admin"})
+    public Long count() {
+        LOG.info("Contando todos os cupomDescontos.");
+        LOG.debug("ERRO DE DEBUG.");
+        return cupomDescontoService.count();
     }
 }
