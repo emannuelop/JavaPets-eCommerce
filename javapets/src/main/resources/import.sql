@@ -39,15 +39,6 @@ INSERT INTO endereco (logradouro, bairro, numero, cep, id_cidade) VALUES ('rua P
 INSERT INTO endereco (logradouro, bairro, numero, cep, id_cidade) VALUES ('alameda 08', 'Quadra 1200 Sul', 'numero 092', '77092-839', 3);
 INSERT INTO endereco (logradouro, bairro, numero, cep, id_cidade) VALUES ('alameda 13', 'Setor Bueno', 'lote 18', '77903-029', 1);
 
-INSERT INTO telefone (codigoarea, numero) VALUES ('011', '98456-7812');
-INSERT INTO telefone (codigoarea, numero) VALUES ('061', '99901-5842');
-INSERT INTO telefone (codigoarea, numero) VALUES ('061', '99933-0572');
-INSERT INTO telefone (codigoarea, numero) VALUES ('063', '99933-0572');
-INSERT INTO telefone (codigoarea, numero) VALUES ('078', '98203-3301');
-INSERT INTO telefone (codigoarea, numero) VALUES ('092', '98382-0912');
-INSERT INTO telefone (codigoarea, numero) VALUES ('012', '99928-0912');
-INSERT INTO telefone (codigoarea, numero) VALUES ('071', '99283-8723');
-
 INSERT INTO pessoa (nome) VALUES ('João Aguiar');
 INSERT INTO pessoa (nome) VALUES ('Maria Fernanda');
 INSERT INTO pessoa (nome) VALUES ('Paulo Vitor');
@@ -60,7 +51,7 @@ INSERT INTO pessoaFisica (cpf, email, sexo, id) VALUES ('89114182345', 'mariaF@g
 INSERT INTO pessoaFisica (cpf, email, sexo, id) VALUES ('19429301284', 'paulo_gaymer@gmail.com', 1, 3);
 INSERT INTO pessoaFisica (cpf, email, sexo, id) VALUES ('90819287304', 'julia.ra@gmail.com', 2, 4);
 INSERT INTO pessoaFisica (cpf, email, sexo, id) VALUES ('92874291092', 'lucas_ferreira@gmail.com', 1, 5);
-INSERT INTO pessoaFisica (email, id) VALUES ('jubiscreisson@outlook.com', 6);
+--INSERT INTO pessoaFisica (email, id) VALUES ('jubiscreisson@outlook.com', 6);
 
 INSERT INTO usuario (id_pessoa_fisica, login, senha, id_endereco) VALUES (1, 'JoaoA', 'ZXChMgzI4VI5Jx+KKCL0AnuRaug9sWorJdV7iCDgWIDNVms7vyhaZeXP+5x26q6uDWKJmyQySZzE8hvoncjgCA==', 1);
 
@@ -74,8 +65,8 @@ INSERT INTO usuario (id_pessoa_fisica, login, senha, id_endereco) VALUES (4, 'Ju
 INSERT INTO usuario (id_pessoa_fisica, login, senha, id_endereco)
             VALUES (5, 'LucasFerreira', 'Tv7l6PLjIMgRTG8n32VVbtgHZyUj3L9nbtTz77T96tP52xepJQ25AoczGr8MA89dZ8cOErN3WcuGyOurMPCaOA==', 4);
 
-INSERT INTO usuario (id_pessoa_fisica, login, senha)
-            VALUES (6, 'Joao_dos_Isekai', '89ud9FUF967ZPp2GxHJ6ITVrXHnVfA0uf1AsYZ0V0SYuA0OCjSKXEgH72aTLeGBaQr3m7WuVsgWlx76WK/gWuA==');
+--INSERT INTO usuario (id_pessoa_fisica, login, senha)
+           -- VALUES (6, 'Joao_dos_Isekai', '89ud9FUF967ZPp2GxHJ6ITVrXHnVfA0uf1AsYZ0V0SYuA0OCjSKXEgH72aTLeGBaQr3m7WuVsgWlx76WK/gWuA==');
 
 INSERT INTO perfis (id_usuario, perfil) VALUES (1, 'Admin');
 INSERT INTO perfis (id_usuario, perfil) VALUES (1, 'User');
@@ -83,7 +74,17 @@ INSERT INTO perfis (id_usuario, perfil) VALUES (2, 'User');
 INSERT INTO perfis (id_usuario, perfil) VALUES (3, 'User');
 INSERT INTO perfis (id_usuario, perfil) VALUES (4, 'User');
 INSERT INTO perfis (id_usuario, perfil) VALUES (5, 'Admin');
-INSERT INTO perfis (id_usuario, perfil) VALUES (6, 'User_Basic');
+--INSERT INTO perfis (id_usuario, perfil) VALUES (6, 'User_Basic');
+
+INSERT INTO telefone (codigoarea, numero, id_usuario) VALUES ('071', '99283-8723',1);
+INSERT INTO telefone (codigoarea, numero, id_usuario) VALUES ('012', '99928-0912',1);
+INSERT INTO telefone (codigoarea, numero, id_usuario) VALUES ('011', '98456-7812',2);
+INSERT INTO telefone (codigoarea, numero, id_usuario) VALUES ('061', '99901-5842',3);
+INSERT INTO telefone (codigoarea, numero, id_usuario) VALUES ('061', '99933-0572',4);
+INSERT INTO telefone (codigoarea, numero, id_usuario) VALUES ('063', '99933-0572',5);
+INSERT INTO telefone (codigoarea, numero, id_usuario) VALUES ('078', '98203-3301',2);
+INSERT INTO telefone (codigoarea, numero, id_usuario) VALUES ('092', '98382-0912',4);
+
 
 INSERT INTO lista_desejo (id_usuario, id_produto) VALUES (1, 3);
 INSERT INTO lista_desejo (id_usuario, id_produto) VALUES (2, 3);

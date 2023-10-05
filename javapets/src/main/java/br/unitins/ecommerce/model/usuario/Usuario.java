@@ -49,8 +49,7 @@ public class Usuario extends DefaultEntity {
     @JoinColumn(name = "id_endereco")
     private Endereco endereco;
 
-    @OneToMany
-    @JoinColumn(name = "id_telefone")
+    @OneToMany(mappedBy = "usuario")
     private List<Telefone> telefones;
 
     public String getSenha() {
