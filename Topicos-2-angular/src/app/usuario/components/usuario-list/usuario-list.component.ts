@@ -71,33 +71,33 @@ export class UsuarioListComponent {
     return codigoDeArea;
   }
 
-  // Função para abrir o diálogo de confirmação
-  openConfirmationDialog(usuario: Usuario): void {
+  
+  openConfirmationDialog(usuario: Usuario) {
     const dialogRef = this.dialog.open(ConfimationDialogComponent, {
       width: '400px',
       data: { message: 'Tem certeza de que deseja excluir este usuário?' }
     });
   
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        // Assine o Observable retornado pelo serviço
-        this.usuarioService.delete(usuario).subscribe(
-          () => {
-            // Executa esta parte após a exclusão bem-sucedida
-            this.usuarios = this.usuarios.filter(u => u !== usuario)
-            this.carregarTotalRegistros()
-           this.carregarUsuarios()
-            console.log('Usuário excluído com sucesso');
-            // Adicione aqui a lógica para atualizar a lista de usuários após a exclusão
-          },
-          (error) => {
-            // Trate os erros aqui
-            console.error('Erro ao excluir usuário:', error);
-          }
-        );
+    dialogRef.afterClosed().subscribe({
+      next: (result) => {
+        if (result) {
+          this.usuarioService.delete(usuario).subscribe({
+            next: () => {
+              this.usuarios = this.usuarios.filter(u => u !== usuario);
+              this.carregarTotalRegistros();
+              this.carregarUsuarios();
+              console.log('Usuário excluído com sucesso');
+            },
+            error: (error) => {
+              console.error('Erro ao excluir usuário:', error);
+            }
+          });
+        }
       }
     });
   }
+  
+  
   
 }
 
