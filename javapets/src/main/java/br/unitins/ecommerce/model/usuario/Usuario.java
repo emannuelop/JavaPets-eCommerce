@@ -128,12 +128,8 @@ public class Usuario extends DefaultEntity {
         return telefones;
     }
 
-    public void setTelefones(Telefone telefone) {
-        if(this.telefones == null){
-            this.telefones = new ArrayList<>();
-        }
-
-        this.telefones.add(telefone);
+    public void setTelefones(List<Telefone> telefones) {
+        this.telefones = telefones;
     }
 
 }

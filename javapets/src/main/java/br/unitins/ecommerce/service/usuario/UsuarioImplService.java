@@ -1,5 +1,6 @@
 package br.unitins.ecommerce.service.usuario;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -122,12 +123,19 @@ public class UsuarioImplService implements UsuarioService {
 
         Usuario entity = new Usuario();
 
+          List<Telefone> telefones = new ArrayList<>();
+
+    for (TelefoneDTO telefoneDto : usuarioDto.telefones()) {
         Telefone telefone = new Telefone();
+        telefone.setCodigoArea(telefoneDto.codigoArea());
+        telefone.setNumero(telefoneDto.numero());
+        telefones.add(telefone);
+    }
 
-        telefone.setCodigoArea(usuarioDto.telefone().codigoArea());
-        telefone.setNumero(usuarioDto.telefone().numero());
-
+    // Persista a lista de telefones
+    for (Telefone telefone : telefones) {
         telefoneRepository.persist(telefone);
+    }
 
         entity.setPessoaFisica(insertPessoaFisica(usuarioDto.pessoaFisicaDto()));
 
@@ -137,7 +145,7 @@ public class UsuarioImplService implements UsuarioService {
 
         entity.setEndereco(insertEndereco(usuarioDto.endereco()));
 
-        entity.setTelefones(telefone);
+        entity.setTelefones(telefones);
 
         entity.addPerfis(Perfil.USER);
 
@@ -523,7 +531,7 @@ public class UsuarioImplService implements UsuarioService {
         // usuarioRepository.findById(idUsuario).setTelefones(telefone);
         Usuario entity = usuarioRepository.findById(idUsuario);
         telefoneRepository.persist(telefone);
-        entity.setTelefones(telefone);
+        entity.setTelefones(telefones);
 
     }
 
