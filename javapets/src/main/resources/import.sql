@@ -92,28 +92,28 @@ INSERT INTO lista_desejo (id_usuario, id_produto) VALUES (1, 1);
 INSERT INTO lista_desejo (id_usuario, id_produto) VALUES (1, 2);
 INSERT INTO lista_desejo (id_usuario, id_produto) VALUES (4, 1);
 
-INSERT INTO avaliacao (data, estrela, id_produto, id_usuario) VALUES ('2023-01-22', 3, 1, 1);
-INSERT INTO avaliacao (comentario, data, estrela, id_produto, id_usuario)
-                VALUES ('muito bão', '2022-11-09', 5, 3, 2);
-INSERT INTO avaliacao (data, estrela, id_produto, id_usuario) VALUES ('2023-02-08', 1, 2, 1);
-INSERT INTO avaliacao (data, estrela, id_produto, id_usuario) VALUES ('2023-03-14', 4, 1, 1);
-INSERT INTO avaliacao (data, estrela, id_produto, id_usuario) VALUES ('2022-10-28', 5, 1, 3);
+--INSERT INTO avaliacao (data, estrela, id_produto, id_usuario) VALUES ('2023-01-22', 3, 1, 1);
+--INSERT INTO avaliacao (comentario, data, estrela, id_produto, id_usuario)
+  --              VALUES ('muito bão', '2022-11-09', 5, 3, 2);
+--INSERT INTO avaliacao (data, estrela, id_produto, id_usuario) VALUES ('2023-02-08', 1, 2, 1);
+--INSERT INTO avaliacao (data, estrela, id_produto, id_usuario) VALUES ('2023-03-14', 4, 1, 1);
+--INSERT INTO avaliacao (data, estrela, id_produto, id_usuario) VALUES ('2022-10-28', 5, 1, 3);
 
-INSERT INTO pagamento (valor, confirmacaoPagamento, dataConfirmacaoPagamento) VALUES (511, true, '2023-06-10');
-INSERT INTO pagamento (valor, confirmacaoPagamento, dataConfirmacaoPagamento) VALUES (1228.25, true, '2023-06-15');
+--INSERT INTO pagamento (valor, confirmacaoPagamento, dataConfirmacaoPagamento) VALUES (511, true, '2023-06-10');
+--INSERT INTO pagamento (valor, confirmacaoPagamento, dataConfirmacaoPagamento) VALUES (1228.25, true, '2023-06-15');
 
-INSERT INTO pix (nome, cpf, dataExpiracaoTokenPix, id) VALUES ('Maria Fernanda', '89114182345', '2023-06-11', 1);
-INSERT INTO boletoBancario (id, nome, cpf, dataGeracaoBoleto, dataVencimento)
-            VALUES (2, 'Maria Fernanda', '89114182345', '2023-06-15', '2023-06-25');
+--INSERT INTO pix (nome, cpf, dataExpiracaoTokenPix, id) VALUES ('Maria Fernanda', '89114182345', '2023-06-11', 1);
+--INSERT INTO boletoBancario (id, nome, cpf, dataGeracaoBoleto, dataVencimento)
+    --        VALUES (2, 'Maria Fernanda', '89114182345', '2023-06-15', '2023-06-25');
 
-INSERT INTO compra (dataCompra, totalCompra, ifConcluida, id_endereco, id_pagamento, id_usuario)
-            VALUES ('2023-06-10', 511, true, 3, 1, 2);
+--INSERT INTO compra (dataCompra, totalCompra, ifConcluida, id_endereco, id_pagamento, id_usuario)
+   --         VALUES ('2023-06-10', 511, true, 3, 1, 2);
 
-INSERT INTO compra (dataCompra, totalCompra, ifConcluida, id_endereco, id_pagamento, id_usuario)
-            VALUES ('2023-06-15', 1228.25, true, 3, 2, 2);
+--INSERT INTO compra (dataCompra, totalCompra, ifConcluida, id_endereco, id_pagamento, id_usuario)
+  --          VALUES ('2023-06-15', 1228.25, true, 3, 2, 2);
 
-INSERT INTO itemCompra (id_compra, quantidade, precoUnitario, id_produto) VALUES (1, 10, 34.95, 1);
-INSERT INTO itemCompra (id_compra, quantidade, precoUnitario, id_produto) VALUES (1, 5, 32.30, 2);
-INSERT INTO itemCompra (id_compra, quantidade, precoUnitario, id_produto) VALUES (2, 15, 34.95, 1);
-INSERT INTO itemCompra (id_compra, quantidade, precoUnitario, id_produto) VALUES (2, 2, 29.00, 3);
-INSERT INTO itemCompra (id_compra, quantidade, precoUnitario, id_produto) VALUES (2, 20, 32.30, 2);
+--INSERT INTO itemCompra (id_compra, quantidade, precoUnitario, id_produto) VALUES (1, 10, 34.95, 1);
+--INSERT INTO itemCompra (id_compra, quantidade, precoUnitario, id_produto) VALUES (1, 5, 32.30, 2);
+--INSERT INTO itemCompra (id_compra, quantidade, precoUnitario, id_produto) VALUES (2, 15, 34.95, 1);
+--INSERT INTO itemCompra (id_compra, quantidade, precoUnitario, id_produto) VALUES (2, 2, 29.00, 3);
+--INSERT INTO itemCompra (id_compra, quantidade, precoUnitario, id_produto) VALUES (2, 20, 32.30, 2);

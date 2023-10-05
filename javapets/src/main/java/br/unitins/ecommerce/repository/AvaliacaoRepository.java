@@ -5,11 +5,12 @@ import java.util.List;
 import jakarta.enterprise.context.ApplicationScoped;
 import br.unitins.ecommerce.model.produto.avaliacao.Avaliacao;
 import br.unitins.ecommerce.model.produto.produto.Produto;
+import br.unitins.ecommerce.model.usuario.Usuario;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 
 @ApplicationScoped
 public class AvaliacaoRepository implements PanacheRepository<Avaliacao> {
-    
+
     public List<Avaliacao> findByYear(Integer year) {
 
         if (year == null)
@@ -24,5 +25,11 @@ public class AvaliacaoRepository implements PanacheRepository<Avaliacao> {
             return null;
 
         return find("FROM Avaliacao WHERE produto = ?1", produto).list();
+    }
+
+    public List<Avaliacao> findAvaliacaoByUsuario(Usuario usuario) {
+        if (usuario== null)
+            return null;
+        return find("FROM Avaliacao WHERE usuario=?1", usuario).list();
     }
 }

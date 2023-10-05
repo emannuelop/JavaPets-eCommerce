@@ -17,6 +17,7 @@ import br.unitins.ecommerce.dto.usuario.dadospessoais.DadosPessoaisDTO;
 import br.unitins.ecommerce.dto.usuario.listadesejo.ListaDesejoDTO;
 import br.unitins.ecommerce.dto.usuario.listadesejo.ListaDesejoResponseDTO;
 import br.unitins.ecommerce.model.endereco.Endereco;
+import br.unitins.ecommerce.model.produto.avaliacao.Avaliacao;
 import br.unitins.ecommerce.model.produto.produto.Produto;
 import br.unitins.ecommerce.model.usuario.Perfil;
 import br.unitins.ecommerce.model.usuario.PessoaFisica;
@@ -24,6 +25,7 @@ import br.unitins.ecommerce.model.usuario.Sexo;
 import br.unitins.ecommerce.model.usuario.Telefone;
 import br.unitins.ecommerce.model.usuario.Usuario;
 import br.unitins.ecommerce.repository.EnderecoRepository;
+import br.unitins.ecommerce.repository.AvaliacaoRepository;
 import br.unitins.ecommerce.repository.CidadeRepository;
 import br.unitins.ecommerce.repository.ProdutoRepository;
 import br.unitins.ecommerce.repository.TelefoneRepository;
@@ -53,6 +55,9 @@ public class UsuarioImplService implements UsuarioService {
 
     @Inject
     TelefoneRepository telefoneRepository;
+
+    @Inject
+    AvaliacaoRepository avaliacaoRepository;
 
     @Inject
     EnderecoRepository enderecoRepository;
@@ -228,17 +233,29 @@ public class UsuarioImplService implements UsuarioService {
     @Override
     @Transactional
     public void delete(Long id) throws IllegalArgumentException, NotFoundException {
-
-        if (id == null)
+        if (id == null) {
             throw new IllegalArgumentException("Número inválido");
+        }
 
         Usuario usuario = usuarioRepository.findById(id);
 
-        if (usuarioRepository.isPersistent(usuario))
-            usuarioRepository.delete(usuario);
+        if (usuario == null) {
+            throw new NotFoundException("Nenhum usuário encontrado");
+        }
 
-        else
-            throw new NotFoundException("Nenhum usuario encontrado");
+  
+        List<Telefone> telefones = telefoneRepository.findTelefoneByUsuario(usuario);
+        for (Telefone telefone : telefones) {
+            telefoneRepository.delete(telefone);
+        }
+
+        
+        List<Avaliacao> avaliacoes = avaliacaoRepository.findAvaliacaoByUsuario(usuario);
+        for (Avaliacao avaliacao : avaliacoes) {
+            avaliacaoRepository.delete(avaliacao);
+        }
+
+        usuarioRepository.delete(usuario);
     }
 
     @Override
@@ -492,7 +509,7 @@ public class UsuarioImplService implements UsuarioService {
 
     }
 
-@Override
+    @Override
     @Transactional
     public void insertTelefone(Long idUsuario, TelefoneDTO telefoneDTO) throws NullPointerException {
 
@@ -504,9 +521,9 @@ public class UsuarioImplService implements UsuarioService {
         telefone.setNumero(telefoneDTO.numero());
 
         // usuarioRepository.findById(idUsuario).setTelefones(telefone);
-         Usuario entity = usuarioRepository.findById(idUsuario);
-         telefoneRepository.persist(telefone);
-         entity.setTelefones(telefone);
+        Usuario entity = usuarioRepository.findById(idUsuario);
+        telefoneRepository.persist(telefone);
+        entity.setTelefones(telefone);
 
     }
 

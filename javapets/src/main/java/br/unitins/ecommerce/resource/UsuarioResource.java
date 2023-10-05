@@ -168,21 +168,36 @@ public class UsuarioResource {
     }
 
     @DELETE
-    @Path("/{id}")
-   // @RolesAllowed({ "Admin" })
-    public Response delete(@PathParam("id") Long id) throws IllegalArgumentException, NotFoundException {
-        try {
-            usuarioService.delete(id);
-            LOG.infof("Produto excluído com sucesso.", id);
+@Path("/{id}")
+public Response delete(@PathParam("id") Long id) {
+    try {
+        usuarioService.delete(id);
+        LOG.infof("Usuário excluído com sucesso: %d", id);
 
-            return Response
-                    .status(Status.NO_CONTENT)
-                    .build();
-        } catch (Exception e) {
-            LOG.error("Erro ao deletar usuário: parâmetros inválidos.", e);
-            throw e;
-        }
+        return Response
+                .status(Status.NO_CONTENT)
+                .build();
+    } catch (IllegalArgumentException e) {
+        LOG.error("Erro ao deletar usuário: parâmetros inválidos.", e);
+        return Response
+                .status(Status.BAD_REQUEST)
+                .entity("Parâmetros inválidos")
+                .build();
+    } catch (NotFoundException e) {
+        LOG.error("Usuário não encontrado.", e);
+        return Response
+                .status(Status.NOT_FOUND)
+                .entity("Usuário não encontrado")
+                .build();
+    } catch (Exception e) {
+        LOG.error("Erro ao deletar usuário.", e);
+        return Response
+                .status(Status.INTERNAL_SERVER_ERROR)
+                .entity("Erro ao excluir o usuário")
+                .build();
     }
+}
+
 
     @PATCH
     @Path("/lista_desejo/{idUsuario}/{idProduto}")
