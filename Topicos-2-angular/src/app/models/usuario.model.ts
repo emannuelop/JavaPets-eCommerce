@@ -1,3 +1,4 @@
+import { Cidade } from "./cidade.model";
 
 export class Usuario {
   id!: number;
@@ -20,7 +21,7 @@ export class Endereco {
   numero!: string;
   complemento!: string;
   cep!: string;
-  idMunicipio!: number;
+  cidade!: Cidade;
 }
 
 export class Telefone {

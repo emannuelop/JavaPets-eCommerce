@@ -40,7 +40,7 @@ cidadeControl: FormControl = new FormControl(null);
         numero: ['', Validators.required],
         complemento: '',
         cep: ['', Validators.required],
-        idMunicipio: ['', Validators.required]
+        cidade: [null]
       }),
        telefones: this.formBuilder.array([]) 
     });
@@ -49,6 +49,8 @@ cidadeControl: FormControl = new FormControl(null);
 
 
   ngOnInit(): void {
+    this.initializeForm();
+
     this.cidadeService.findAll(0, 100) // Você pode especificar o número de página e tamanho da página
     .subscribe((cidades: Cidade[]) => {
       this.cidades = cidades;
@@ -61,6 +63,7 @@ cidadeControl: FormControl = new FormControl(null);
         this.initializeForm();
       }
     });
+
 this.initializeForm();
 this.initializeForm();
     
@@ -76,12 +79,12 @@ this.initializeForm();
       id: [(usuario && usuario.id) || null],
       login: [(usuario && usuario.login) || '', Validators.required],
       senha: [(usuario && usuario.senha) || '', Validators.required],
+      
       pessoaFisicaDto: this.formBuilder.group({
         nome: [(usuario && usuario.pessoaFisicaDto && usuario.pessoaFisicaDto.nome) || '', Validators.required],
-
-        cpf: [(usuario &&usuario.pessoaFisicaDto &&usuario.pessoaFisicaDto.cpf) || '', Validators.required],
-        email: [(usuario &&usuario.pessoaFisicaDto && usuario.pessoaFisicaDto.email) || '', Validators.required],
-        sexo: [sexo, Validators.required],
+        cpf: [(usuario && usuario.pessoaFisicaDto && usuario.pessoaFisicaDto.cpf) || '', Validators.required],
+        email: [(usuario && usuario.pessoaFisicaDto && usuario.pessoaFisicaDto.email) || '', Validators.required],
+        sexo: [sexo, Validators.required]
       }),
       
       endereco: this.formBuilder.group({
@@ -90,7 +93,7 @@ this.initializeForm();
         numero: [(usuario && usuario.endereco.numero) || '', Validators.required],
         complemento: [(usuario && usuario.endereco.complemento) || ''],
         cep: [(usuario && usuario.endereco.cep) || '', Validators.required],
-        idMunicipio: [(usuario && usuario.endereco.idMunicipio) || null, Validators.required]
+        cidade: [(usuario && usuario.endereco.cidade) || null, Validators.required]
       }),
       telefones: this.formBuilder.array([]) // Inicialize como uma lista vazia
     });
@@ -109,6 +112,7 @@ this.initializeForm();
 
     console.log(this.formGroup.value);
     console.log(usuario);
+
   }
 
   salvar() {

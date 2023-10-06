@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import br.unitins.ecommerce.dto.municipio.CidadeResponseDTO;
+import br.unitins.ecommerce.model.endereco.Cidade;
 import br.unitins.ecommerce.model.endereco.Endereco;
 
 public record EnderecoResponseDTO(
@@ -12,7 +13,7 @@ public record EnderecoResponseDTO(
     String numero,
     String complemento,
     String cep,
-    Map<String, Object> municipio
+    Cidade cidade
 ) {
     
     public EnderecoResponseDTO (Endereco endereco) {
@@ -22,9 +23,7 @@ public record EnderecoResponseDTO(
             endereco.getNumero(),
             endereco.getComplemento(),
             endereco.getCep(),
-            viewCidade(endereco.getCidade().getNome(),
-                            endereco.getCidade().getEstado().getNome(),
-                            endereco.getCidade().getEstado().getSigla()));
+            endereco.getCidade());
     }
 
     private static Map<String, Object> viewCidade(String nome, String nomeEstado, String siglaEstado) {

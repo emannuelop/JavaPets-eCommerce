@@ -31,25 +31,25 @@
     <!-- Nome Column -->
     <ng-container matColumnDef="nome-column">
       <th mat-header-cell *matHeaderCellDef> Nome </th>
-      <td mat-cell *matCellDef="let usuario"> {{ usuario.nome }} </td>
+      <td mat-cell *matCellDef="let usuario"> {{ usuario.pessoaFisicaDto.nome }} </td>
     </ng-container>
 
     <!-- CPF Column -->
     <ng-container matColumnDef="cpf-column">
       <th mat-header-cell *matHeaderCellDef> CPF </th>
-      <td mat-cell *matCellDef="let usuario"> {{ usuario.cpf }} </td>
+      <td mat-cell *matCellDef="let usuario"> {{ usuario.pessoaFisicaDto.cpf }} </td>
     </ng-container>
 
     <!-- Email Column -->
     <ng-container matColumnDef="email-column">
       <th mat-header-cell *matHeaderCellDef> Email </th>
-      <td mat-cell *matCellDef="let usuario"> {{ usuario.email }} </td>
+      <td mat-cell *matCellDef="let usuario"> {{ usuario.pessoaFisicaDto.email }} </td>
     </ng-container>
 
     <!-- Sexo Column -->
     <ng-container matColumnDef="sexo-column">
       <th mat-header-cell *matHeaderCellDef> Sexo </th>
-      <td mat-cell *matCellDef="let usuario"> {{ usuario.sexo}} </td>
+      <td mat-cell *matCellDef="let usuario"> {{ usuario.pessoaFisicaDto.sexo}} </td>
     </ng-container>
 
     <!-- Endereço Column -->

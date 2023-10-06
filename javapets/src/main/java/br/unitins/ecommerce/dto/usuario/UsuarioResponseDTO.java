@@ -6,50 +6,58 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import br.unitins.ecommerce.dto.endereco.EnderecoDTO;
 import br.unitins.ecommerce.dto.municipio.CidadeResponseDTO;
 import br.unitins.ecommerce.model.endereco.Estado;
 import br.unitins.ecommerce.model.endereco.Cidade;
+import br.unitins.ecommerce.model.endereco.Endereco;
+import br.unitins.ecommerce.model.usuario.PessoaFisica;
 import br.unitins.ecommerce.model.usuario.Sexo;
 import br.unitins.ecommerce.model.usuario.Telefone;
 import br.unitins.ecommerce.model.usuario.Usuario;
 
 public record UsuarioResponseDTO(
         Long id,
-        String nome,
         String login,
-        String email,
-        String sexo,
-        String cpf,
+        PessoaFisicaDTO pessoaFisicaDto,
         String nomeImagem,
-        Map<String, Object> endereco,
+        Endereco endereco,
         List<Map<String, Object>> telefones) {
 
     public UsuarioResponseDTO(Usuario usuario) {
 
         this(usuario.getId(),
-                usuario.getPessoaFisica().getNome(),
                 usuario.getLogin(),
-                usuario.getPessoaFisica().getEmail(),
-               getSexoLabel(usuario.getPessoaFisica().getSexo()),
-                usuario.getPessoaFisica().getCpf(),
+                getPessoaDto(usuario.getPessoaFisica()),
                 usuario.getNomeImagem(),
-                viewEndereco(usuario.getEndereco().getLogradouro(),
-                        usuario.getEndereco().getBairro(),
-                        usuario.getEndereco().getNumero(),
-                        usuario.getEndereco().getComplemento(),
-                        usuario.getEndereco().getCep(),
-                        usuario.getEndereco().getCidade()),
+                usuario.getEndereco(),
                         usuario.getTelefones().stream()
                         .map(telefone -> viewTelefone(telefone.getCodigoArea(), telefone.getNumero()))
                         .collect(Collectors.toList()));
     }
+
+    private static  PessoaFisicaDTO getPessoaDto(PessoaFisica pessoa) {
+        
+        PessoaFisicaDTO pessoaf = new PessoaFisicaDTO(pessoa.getNome(), pessoa.getCpf(), pessoa.getEmail(), pessoa.getSexo().getId());
+
+        return pessoaf;
+    }
+
+    // private static EnderecoDTO getEndereco(Endereco endereco) {
+        
+    //     EnderecoDTO endereco2 = new EnderecoDTO(endereco.getLogradouro(), 
+    //     endereco.getBairro(), endereco.getNumero(), endereco.getComplemento(),
+    //      endereco.getCep(), endereco.getCidade());
+
+    //     return endereco2;
+    // }
 
      private static String getSexoLabel(Sexo sexo) {
         return (sexo != null) ? sexo.getLabel() : "Não especificado"; // Ou outro valor padrão adequado
     }
 
     public static Map<String, Object> viewEndereco(String logradouro, String bairro, String numero, String complemento,
-            String cep, Cidade municipio) {
+            String cep, Cidade cidade) {
 
         Map<String, Object> endereco = new HashMap<>();
 
@@ -58,22 +66,22 @@ public record UsuarioResponseDTO(
         endereco.put("numero", numero);
         endereco.put("complemento", complemento);
         endereco.put("cep", cep);
-        endereco.put("municipio", viewCidade(municipio.getNome(), municipio.getEstado()));
+        endereco.put("cidade", cidade);
 
         return endereco;
     }
     
 
 
-    public static Map<String, Object> viewCidade(String nome, Estado estado) {
+    // public static Map<String, Object> viewCidade(String nome, Estado estado) {
 
-        Map<String, Object> municipio = new HashMap<>();
+    //     Map<String, Object> cidade = new HashMap<>();
 
-        municipio.put("nome", nome);
-        municipio.put("estado", CidadeResponseDTO.viewEstado(estado.getNome(), estado.getSigla()));
+    //     cidade.put("nome", nome);
+    //     cidade.put("estado", CidadeResponseDTO.viewEstado(estado.getNome(), estado.getSigla()));
 
-        return municipio;
-    }
+    //     return cidade;
+    // }
 
     public static Map<String, Object> viewTelefone(String codigoArea, String numero) {
 

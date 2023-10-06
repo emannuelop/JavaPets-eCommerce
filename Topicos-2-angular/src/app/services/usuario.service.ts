@@ -48,7 +48,7 @@ export class UsuarioService {
         numero: usuario.endereco.numero,
         complemento: usuario.endereco.complemento,
         cep: usuario.endereco.cep,
-        idMunicipio: usuario.endereco.idMunicipio
+        cidade: usuario.endereco.cidade
       },
        telefones: usuario.telefones.map(telefone =>({
          codigoArea: telefone.codigoDeArea,
@@ -76,7 +76,7 @@ export class UsuarioService {
         numero: usuario.endereco.numero,
         complemento: usuario.endereco.complemento,
         cep: usuario.endereco.cep,
-        idMunicipio: usuario.endereco.idMunicipio
+        cidade: usuario.endereco.cidade
       },
       telefones: usuario.telefones.map(telefone => ({
         codigoArea: telefone.codigoDeArea,
