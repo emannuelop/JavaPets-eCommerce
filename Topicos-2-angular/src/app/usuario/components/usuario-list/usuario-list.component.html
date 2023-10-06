@@ -1,7 +1,7 @@
 <mat-toolbar>
   <div class="flex-container">
     <span class="toolbar-title"> Controle de Usuários </span>
-    <button mat-fab color="accent" routerLink="/usuarios/new">
+    <button mat-fab class="mat-custom-color" routerLink="/usuarios/new">
       <mat-icon>add</mat-icon>
     </button>
   </div>
@@ -16,6 +16,7 @@
       <mat-icon>search</mat-icon>
     </button>
   </div>
+  
 </div>
 
 <div class="mat-elevation-z8">
@@ -97,6 +98,6 @@
 
   <mat-paginator [pageSizeOptions]="[2, 4, 8, 16]" [pageSize]="pageSize" [length]="totalRegistros"
   (page)="paginar($event)">
-</mat-paginator>
+  </mat-paginator>
 </div>
 

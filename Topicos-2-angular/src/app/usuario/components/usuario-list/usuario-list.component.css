@@ -5,6 +5,7 @@
   align-items: center;
   justify-content: center;
   width: 100%;
+  background-color: whitesmoke;
 }
 
 /* Estilos para a div que envolve o campo de entrada e o botão */
@@ -13,6 +14,7 @@
   align-items: center;
   justify-content: flex-start; /* Alinhar elementos à esquerda verticalmente */
   width: 80%;
+  background-color: whitesmoke;
 }
 
 /* Estilos para o campo de entrada */
@@ -83,4 +85,8 @@ mat-icon {
 
 .telefone{
   white-space: nowrap;
+}
+.mat-custom-color {
+  background-color: #ff9900; 
+  color: #fff; 
 }

@@ -47,19 +47,19 @@ export class ProdutoFormComponent implements OnInit {
     // buscando todos para o select
     this.marcaService.findAll(0, 20).subscribe(data => {
       this.marcas = data;
-      this.initializeForm();
+     // this.initializeForm();
     });
 
     this.fornecedorService.findAll(0,20).subscribe(data => {
       this.fornecedores = data;
-      this.initializeForm();
+    //  this.initializeForm();
     });
 
     this.categoriaService.findAll(0,20).subscribe(data => {
       this.categorias = data;
-      this.initializeForm();
+ //     this.initializeForm();
     });
-    
+    this.initializeForm()
   }
 
   initializeForm() {

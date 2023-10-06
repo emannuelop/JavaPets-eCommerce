@@ -20,6 +20,7 @@ cidadeControl: FormControl = new FormControl(null);
     private cidadeService: CidadeService,
     private router: Router,
     private activatedRoute: ActivatedRoute) {
+      //const usuario: Usuario = this.activatedRoute.snapshot.data['usuario'];
 
     this.formGroup = this.formBuilder.group({
       id: [null],
@@ -51,18 +52,23 @@ cidadeControl: FormControl = new FormControl(null);
     this.cidadeService.findAll(0, 100) // Você pode especificar o número de página e tamanho da página
     .subscribe((cidades: Cidade[]) => {
       this.cidades = cidades;
+      this.initializeForm();
     });
     this.cidadeControl.valueChanges.subscribe((cidadeSelecionada) => {
       
       if (this.formGroup && this.formGroup.get('endereco')) {
         this.formGroup.get('endereco')?.get('idMunicipio')?.setValue(cidadeSelecionada?.id);
+        this.initializeForm();
       }
     });
+this.initializeForm();
+this.initializeForm();
     
   }
 
  
   initializeForm() {
+
     const usuario: Usuario = this.activatedRoute.snapshot.data['usuario'];
     const sexo = usuario?.pessoaFisicaDto?.sexo?.toString() || null;
 
@@ -71,9 +77,10 @@ cidadeControl: FormControl = new FormControl(null);
       login: [(usuario && usuario.login) || '', Validators.required],
       senha: [(usuario && usuario.senha) || '', Validators.required],
       pessoaFisicaDto: this.formBuilder.group({
-        nome: [(usuario && usuario.pessoaFisicaDto.nome) || '', Validators.required],
-        cpf: [(usuario && usuario.pessoaFisicaDto.cpf) || '', Validators.required],
-        email: [(usuario && usuario.pessoaFisicaDto.email) || '', Validators.required],
+        nome: [(usuario && usuario.pessoaFisicaDto && usuario.pessoaFisicaDto.nome) || '', Validators.required],
+
+        cpf: [(usuario &&usuario.pessoaFisicaDto &&usuario.pessoaFisicaDto.cpf) || '', Validators.required],
+        email: [(usuario &&usuario.pessoaFisicaDto && usuario.pessoaFisicaDto.email) || '', Validators.required],
         sexo: [sexo, Validators.required],
       }),
       
@@ -101,6 +108,7 @@ cidadeControl: FormControl = new FormControl(null);
      }
 
     console.log(this.formGroup.value);
+    console.log(usuario)
   }
 
   salvar() {
