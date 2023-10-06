@@ -119,6 +119,10 @@ INSERT INTO lista_desejo (id_usuario, id_produto) VALUES (1, 1);
 INSERT INTO lista_desejo (id_usuario, id_produto) VALUES (1, 2);
 INSERT INTO lista_desejo (id_usuario, id_produto) VALUES (4, 1);
 
+
+INSERT INTO cupomDesconto (codigoCupom, quantidadeDisponivel, porcentagemDesconto)VALUES ('aadawd', 1, 1); 
+INSERT INTO cupomDesconto (codigoCupom, quantidadeDisponivel, porcentagemDesconto)VALUES ('getas', 14, 121); 
+INSERT INTO cupomDesconto (codigoCupom, quantidadeDisponivel, porcentagemDesconto)VALUES ('baba', 100, 122); 
 --INSERT INTO avaliacao (data, estrela, id_produto, id_usuario) VALUES ('2023-01-22', 3, 1, 1);
 --INSERT INTO avaliacao (comentario, data, estrela, id_produto, id_usuario)
   --              VALUES ('muito bão', '2022-11-09', 5, 3, 2);
