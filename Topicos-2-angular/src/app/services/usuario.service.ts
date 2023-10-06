@@ -33,6 +33,7 @@ export class UsuarioService {
   }
 
   save(usuario: Usuario): Observable<Usuario> {
+    console.log(usuario.endereco.cidade.id);
     const obj = {
       login: usuario.login,
       senha: usuario.senha,
@@ -48,7 +49,7 @@ export class UsuarioService {
         numero: usuario.endereco.numero,
         complemento: usuario.endereco.complemento,
         cep: usuario.endereco.cep,
-        cidade: usuario.endereco.cidade
+        idMunicipio: usuario.endereco.cidade.id
       },
        telefones: usuario.telefones.map(telefone =>({
          codigoArea: telefone.codigoDeArea,
@@ -76,7 +77,7 @@ export class UsuarioService {
         numero: usuario.endereco.numero,
         complemento: usuario.endereco.complemento,
         cep: usuario.endereco.cep,
-        cidade: usuario.endereco.cidade
+        idMunicipio: usuario.endereco.cidade.id
       },
       telefones: usuario.telefones.map(telefone => ({
         codigoArea: telefone.codigoDeArea,

@@ -149,7 +149,7 @@
           <mat-form-field appearance="outline" class="full-width-input">
             <mat-label for="cidade_id">Selecione uma cidade</mat-label>
             <mat-select formControlName="cidade" id="cidade_id">
-              <mat-option *ngFor="let cidade of cidades" [value]="cidade.id">
+              <mat-option *ngFor="let cidade of cidades" [value]="cidade">
                 {{ cidade.nome }} - {{ cidade.estado.sigla }}
               </mat-option>
             </mat-select>
