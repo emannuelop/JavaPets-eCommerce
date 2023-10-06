@@ -49,7 +49,9 @@
     <!-- Sexo Column -->
     <ng-container matColumnDef="sexo-column">
       <th mat-header-cell *matHeaderCellDef> Sexo </th>
-      <td mat-cell *matCellDef="let usuario"> {{ usuario.pessoaFisicaDto.sexo}} </td>
+      <td mat-cell *matCellDef="let usuario">
+        {{ usuario.pessoaFisicaDto.sexo == '1' ? 'Masculino' : (usuario.pessoaFisicaDto.sexo == '2' ? 'Feminino' : 'Outro') }}
+      </td>
     </ng-container>
 
     <!-- Endereço Column -->
