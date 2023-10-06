@@ -9,6 +9,7 @@ import br.unitins.ecommerce.dto.produto.FornecedorResponseDTO;
 import br.unitins.ecommerce.model.produto.produto.Fornecedor;
 import br.unitins.ecommerce.repository.EstadoRepository;
 import br.unitins.ecommerce.repository.FornecedorRepository;
+import br.unitins.ecommerce.repository.TelefoneRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -25,6 +26,9 @@ public class FornecedorImplService implements FornecedorService {
 
     @Inject
     FornecedorRepository fornecedorRepository;
+
+    @Inject
+    TelefoneRepository telefoneRepository;
 
     @Inject
     EstadoRepository estadoRepository;
@@ -59,6 +63,8 @@ public class FornecedorImplService implements FornecedorService {
 
         entity.setNome(fornecedorDto.nome());
 
+        entity.setEmail(fornecedorDto.email());
+
         fornecedorRepository.persist(entity);
 
         return new FornecedorResponseDTO(entity);
@@ -76,6 +82,8 @@ public class FornecedorImplService implements FornecedorService {
             throw new NotFoundException("Número fora das opções disponíveis");
 
         entity.setNome(fornecedorDto.nome());
+
+        entity.setEmail(fornecedorDto.email());
 
         return new FornecedorResponseDTO(entity);
     }

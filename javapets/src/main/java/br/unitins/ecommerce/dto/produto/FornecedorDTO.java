@@ -4,7 +4,10 @@ import jakarta.validation.constraints.NotBlank;
 
 public record FornecedorDTO (
     @NotBlank(message = "Campo nome não pode estar vazio")
-    String nome
+    String nome,
+
+    @NotBlank(message = "Campo nome não pode estar vazio")
+    String email
 ) {
 
 }

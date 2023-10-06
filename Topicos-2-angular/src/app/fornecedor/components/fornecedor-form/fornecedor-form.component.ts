@@ -22,7 +22,8 @@ export class FornecedorFormComponent {
 
     this.formGroup = formBuilder.group({
       id:[(fornecedor && fornecedor.id) ? fornecedor.id : null],
-      nome:[(fornecedor && fornecedor.nome) ? fornecedor.nome : '', Validators.required]
+      nome:[(fornecedor && fornecedor.nome) ? fornecedor.nome : '', Validators.required],
+      email:[(fornecedor && fornecedor.email) ? fornecedor.email : '', Validators.required]
     })
   }
 

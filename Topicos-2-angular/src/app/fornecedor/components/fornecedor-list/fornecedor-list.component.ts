@@ -12,7 +12,7 @@ import { FornecedorService } from 'src/app/services/fornecedor.service';
 })
 export class FornecedorListComponent implements OnInit {
 
-  tableColumns: string[] = ['id-column', 'nome-column', 'acao-column'];
+  tableColumns: string[] = ['id-column', 'nome-column', 'email-column', 'acao-column'];
   fornecedores: Fornecedor[] = [];
   totalRegistros = 0;
   pageSize = 2;
