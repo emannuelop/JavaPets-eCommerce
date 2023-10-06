@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
+import { ConfimationDialogComponent } from 'src/app/confimation-dialog/confimation-dialog.component';
 import { Cidade } from 'src/app/models/cidade.model';
 import { CidadeService } from 'src/app/services/cidade.service';
 
@@ -17,7 +19,7 @@ export class CidadeListComponent {
   pagina = 0;
   filtro: string = "";
 
-  constructor(private cidadeService: CidadeService) {}
+  constructor(private cidadeService: CidadeService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.carregarCidades();
@@ -60,5 +62,30 @@ export class CidadeListComponent {
   aplicarFiltro() {
     this.carregarCidades();
     this.carregarTotalRegistros();
+  }
+
+  openConfirmationDialog(cidade: Cidade) {
+    const dialogRef = this.dialog.open(ConfimationDialogComponent, {
+      width: '400px',
+      data: { message: 'Tem certeza de que deseja excluir esta cidade?' }
+    });
+  
+    dialogRef.afterClosed().subscribe({
+      next: (result) => {
+        if (result) {
+          this.cidadeService.delete(cidade).subscribe({
+            next: () => {
+              this.cidades = this.cidades.filter(u => u !== cidade);
+              this.carregarTotalRegistros();
+              this.carregarCidades();
+              console.log('Usuário excluído com sucesso');
+            },
+            error: (error) => {
+              console.error('Erro ao excluir usuário:', error);
+            }
+          });
+        }
+      }
+    });
   }
 }
