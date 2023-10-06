@@ -19,7 +19,7 @@ public record EnderecoDTO(
     @NotBlank(message = "O campo cep não pode estar vazio")
     String cep,
 
-    @NotNull
+    @NotNull(message = "o campo idMunicipio não pode estar nulo")
     @Min(1)
     Long idMunicipio
 ) {

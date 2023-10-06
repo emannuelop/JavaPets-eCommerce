@@ -16,6 +16,7 @@ public record PessoaFisicaDTO2(
     @NotBlank(message = "O campo email não pode estar nulo")
     String email,
     
+    @NotBlank(message="o campo sexo não pode estar nulo")
     String sexo
 ) {
     
