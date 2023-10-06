@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Cidade } from 'src/app/models/cidade.model';
 import { Usuario } from 'src/app/models/usuario.model';
+import { CidadeService } from 'src/app/services/cidade.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
@@ -11,10 +13,11 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 })
 export class UsuarioFormComponent {
   formGroup: FormGroup;
-
-
+cidades:Cidade[] =[];
+cidadeControl: FormControl = new FormControl(null);
   constructor(private formBuilder: FormBuilder,
     private usuarioService: UsuarioService,
+    private cidadeService: CidadeService,
     private router: Router,
     private activatedRoute: ActivatedRoute) {
 
@@ -38,15 +41,24 @@ export class UsuarioFormComponent {
         cep: ['', Validators.required],
         idMunicipio: ['', Validators.required]
       }),
-       telefones: this.formBuilder.array([]) // Inicialize como uma lista vazia
+       telefones: this.formBuilder.array([]) 
     });
   }
 
 
 
   ngOnInit(): void {
-
-
+    this.cidadeService.findAll(0, 100) // Você pode especificar o número de página e tamanho da página
+    .subscribe((cidades: Cidade[]) => {
+      this.cidades = cidades;
+    });
+    this.cidadeControl.valueChanges.subscribe((cidadeSelecionada) => {
+      
+      if (this.formGroup && this.formGroup.get('endereco')) {
+        this.formGroup.get('endereco')?.get('idMunicipio')?.setValue(cidadeSelecionada?.id);
+      }
+    });
+    
   }
 
  
@@ -91,30 +103,6 @@ export class UsuarioFormComponent {
     console.log(this.formGroup.value);
   }
 
-  // salvar() {
-  //   if (this.formGroup.valid) {
-  //     const usuario = this.formGroup.value;
-  //     if (usuario.id == null) {
-  //       this.usuarioService.save(usuario).subscribe({
-  //         next: (usuarioCadastrado) => {
-  //           this.router.navigateByUrl('/usuarios/list');
-  //         },
-  //         error: (err) => {
-  //           console.log('Erro ao incluir' + JSON.stringify(err));
-  //         }
-  //       });
-  //     } else {
-  //       this.usuarioService.update(usuario).subscribe({
-  //         next: (UsuarioCadastrado) => {
-  //           this.router.navigateByUrl('/usuarios/list');
-  //         },
-  //         error: (err) => {
-  //           console.log('Erro ao alterar' + JSON.stringify(err));
-  //         }
-  //       });
-  //     }
-  //   }
-  // }
   salvar() {
     if (this.formGroup.valid) {
       const usuario = this.formGroup.value;
@@ -176,4 +164,5 @@ export class UsuarioFormComponent {
   removerTelefone(index: number) {
     this.telefonesFormArray.removeAt(index);
   }
+
 }

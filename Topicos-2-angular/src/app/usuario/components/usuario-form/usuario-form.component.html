@@ -103,7 +103,6 @@
           </mat-form-field>
         </div>
 
-        <!-- Outros controles dentro do grupo 'endereco' -->
         <div formGroupName="endereco">
           <h2>Endereço</h2>
           <mat-form-field appearance="outline" class="full-width-input">
@@ -114,7 +113,6 @@
               formControlName="logradouro"
               id="logradouro_id"
             />
-            <!-- Mat-error aqui, se necessário -->
           </mat-form-field>
           <mat-form-field appearance="outline" class="full-width-input">
             <mat-label for="bairro_id">Bairro</mat-label>
@@ -124,7 +122,6 @@
               formControlName="bairro"
               id="bairro_id"
             />
-            <!-- Mat-error aqui, se necessário -->
           </mat-form-field>
           <mat-form-field appearance="outline" class="full-width-input">
             <mat-label for="numero_id">Número</mat-label>
@@ -134,7 +131,6 @@
               formControlName="numero"
               id="numero_id"
             />
-            <!-- Mat-error aqui, se necessário -->
           </mat-form-field>
           <mat-form-field appearance="outline" class="full-width-input">
             <mat-label for="complemento_id">Complemento</mat-label>
@@ -144,47 +140,49 @@
               formControlName="complemento"
               id="complemento_id"
             />
-            <!-- Mat-error aqui, se necessário -->
           </mat-form-field>
           <mat-form-field appearance="outline" class="full-width-input">
             <mat-label for="cep_id">CEP</mat-label>
             <input matInput type="text" formControlName="cep" id="cep_id" />
-            <!-- Mat-error aqui, se necessário -->
           </mat-form-field>
+
           <mat-form-field appearance="outline" class="full-width-input">
-            <mat-label for="idMunicipio_id">ID Município</mat-label>
-            <input
-              matInput
-              type="text"
-              formControlName="idMunicipio"
-              id="idMunicipio_id"
-            />
-            <!-- Mat-error aqui, se necessário -->
+            <mat-label for="idMunicipio_id">Selecione uma cidade</mat-label>
+            <mat-select formControlName="idMunicipio" id="idMunicipio_id">
+              <mat-option *ngFor="let cidade of cidades" [value]="cidade.id">
+                {{ cidade.nome }} - {{ cidade.estado.sigla }}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
         </div>
 
         <div formArrayName="telefones">
-          <div *ngFor="let telefone of telefonesFormArray.controls; let i = index" [formGroupName]="i">
-            <!-- Campos de telefone -->
+          <div
+            *ngFor="let telefone of telefonesFormArray.controls; let i = index"
+            [formGroupName]="i"
+          >
             <mat-form-field>
-              <input matInput formControlName="codigoDeArea" placeholder="Código de Área">
+              <input
+                matInput
+                formControlName="codigoDeArea"
+                placeholder="Código de Área"
+              />
             </mat-form-field>
             <mat-form-field>
-              <input matInput formControlName="numero" placeholder="Número de Telefone">
+              <input
+                matInput
+                formControlName="numero"
+                placeholder="Número de Telefone"
+              />
             </mat-form-field>
             <button mat-icon-button color="warn" (click)="removerTelefone(i)">
               <mat-icon>delete</mat-icon>
             </button>
           </div>
         </div>
-        <button mat-button color="primary" (click)="adicionarTelefone()">Adicionar Telefone</button>
-        
-        
-        
-        
-        
-        
-        
+        <button mat-button color="primary" (click)="adicionarTelefone()">
+          Adicionar Telefone
+        </button>
       </form>
     </mat-card-content>
     <mat-card-actions>
