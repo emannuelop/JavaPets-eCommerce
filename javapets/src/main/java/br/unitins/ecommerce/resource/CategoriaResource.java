@@ -115,21 +115,29 @@ public class CategoriaResource {
     @Path("/{id}")
     // @RolesAllowed({"Admin"})
     public Response delete(@PathParam("id") Long id) throws IllegalArgumentException, NotFoundException {
-
+    
         try {
             categoriaService.delete(id);
-            LOG.infof("Município (%d) excluído com sucesso.", id);
+            LOG.infof("Categoria (%d) excluída com sucesso.", id);
             return Response
                     .status(Status.NO_CONTENT)
                     .build();
+        } catch (ConstraintViolationException e) {
+            LOG.errorf("Erro ao deletar categoria: %s", e.getMessage());
+            return Response
+                    .status(Status.INTERNAL_SERVER_ERROR) 
+                    .entity("A categoria não pode ser excluída porque está sendo utilizada.") 
+                    .build();
         } catch (IllegalArgumentException e) {
-            LOG.error("Erro ao deletar município: parâmetros inválidos.", e);
+            LOG.error("Erro ao deletar categoria: parâmetros inválidos.", e);
             throw e;
         } catch (NotFoundException e) {
-            LOG.errorf("Município (%d) não encontrado.", id);
+            LOG.errorf("Categoria (%d) não encontrada.", id);
             throw e;
         }
     }
+    
+
 
     @GET
     @Path("/count")
