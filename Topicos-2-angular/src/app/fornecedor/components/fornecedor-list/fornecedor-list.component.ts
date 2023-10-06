@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
+import { ConfimationDialogComponent } from 'src/app/confimation-dialog/confimation-dialog.component';
 import { Fornecedor } from 'src/app/models/fornecedor.model';
 import { FornecedorService } from 'src/app/services/fornecedor.service';
 
@@ -17,14 +19,14 @@ export class FornecedorListComponent implements OnInit {
   pagina = 0;
   filtro: string = "";
 
-  constructor(private fornecedorService: FornecedorService) {}
+  constructor(private fornecedorService: FornecedorService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
-    this.carregarEstados();
+    this.carregarFornecedores();
     this.carregarTotalRegistros();
   }
 
-  carregarEstados() {
+  carregarFornecedores() {
     if(this.filtro){
       this.fornecedorService.findByNome(this.filtro,this.pagina, this.pageSize).subscribe(data => {
         this.fornecedores = data;
@@ -54,12 +56,37 @@ export class FornecedorListComponent implements OnInit {
   paginar(event: PageEvent): void {
     this.pagina = event.pageIndex;
     this.pageSize = event.pageSize;
-    this.carregarEstados();
+    this.carregarFornecedores();
   }
 
   aplicarFiltro() {
-    this.carregarEstados();
+    this.carregarFornecedores();
     this.carregarTotalRegistros();
+  }
+
+  openConfirmationDialog(fornecedor: Fornecedor) {
+    const dialogRef = this.dialog.open(ConfimationDialogComponent, {
+      width: '400px',
+      data: { message: 'Tem certeza de que deseja excluir este usuário?' }
+    });
+  
+    dialogRef.afterClosed().subscribe({
+      next: (result) => {
+        if (result) {
+          this.fornecedorService.delete(fornecedor).subscribe({
+            next: () => {
+              this.fornecedores = this.fornecedores.filter(u => u !== fornecedor);
+              this.carregarTotalRegistros();
+              this.carregarFornecedores();
+              console.log('Usuário excluído com sucesso');
+            },
+            error: (error) => {
+              console.error('Erro ao excluir usuário:', error);
+            }
+          });
+        }
+      }
+    });
   }
 
 }

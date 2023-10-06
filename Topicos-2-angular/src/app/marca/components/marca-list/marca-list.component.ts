@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
+import { ConfimationDialogComponent } from 'src/app/confimation-dialog/confimation-dialog.component';
 import { Marca } from 'src/app/models/marca.model';
 import { MarcaService } from 'src/app/services/marca.service';
 
@@ -17,7 +19,7 @@ export class MarcaListComponent implements OnInit {
   pagina = 0;
   filtro: string = "";
 
-  constructor(private marcaService: MarcaService) {}
+  constructor(private marcaService: MarcaService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.carregarMarcas();
@@ -60,6 +62,31 @@ export class MarcaListComponent implements OnInit {
   aplicarFiltro() {
     this.carregarMarcas();
     this.carregarTotalRegistros();
+  }
+
+  openConfirmationDialog(marca: Marca) {
+    const dialogRef = this.dialog.open(ConfimationDialogComponent, {
+      width: '400px',
+      data: { message: 'Tem certeza de que deseja excluir este usuário?' }
+    });
+  
+    dialogRef.afterClosed().subscribe({
+      next: (result) => {
+        if (result) {
+          this.marcaService.delete(marca).subscribe({
+            next: () => {
+              this.marcas = this.marcas.filter(u => u !== marca);
+              this.carregarTotalRegistros();
+              this.carregarMarcas();
+              console.log('Usuário excluído com sucesso');
+            },
+            error: (error) => {
+              console.error('Erro ao excluir usuário:', error);
+            }
+          });
+        }
+      }
+    });
   }
 
 }

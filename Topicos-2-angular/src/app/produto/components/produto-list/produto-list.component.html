@@ -80,7 +80,7 @@
                 routerLink="/produtos/edit/{{produto.id}}">
           <mat-icon>edit</mat-icon>
         </button>
-        <button mat-icon-button color="warn" >
+        <button mat-icon-button color="warn" (click)="openConfirmationDialog(produto)">
           <mat-icon>delete</mat-icon>
         </button>
       </td>

@@ -50,7 +50,7 @@
                 routerLink="/marcas/edit/{{marca.id}}">
           <mat-icon>edit</mat-icon>
         </button>
-        <button mat-icon-button color="warn" >
+        <button mat-icon-button color="warn" (click)="openConfirmationDialog(marca)">
           <mat-icon>delete</mat-icon>
         </button>
       </td>
