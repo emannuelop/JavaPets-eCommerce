@@ -1,7 +1,7 @@
 <mat-toolbar>
   <div class="flex-container">
     <span class="toolbar-title"> Controle de Cidades </span>
-    <button mat-fab color="accent" routerLink="/cidades/new">
+    <button mat-fab class="mat-custom-color" routerLink="/cidades/new">
       <mat-icon>add</mat-icon>
     </button>
   </div>
@@ -10,7 +10,7 @@
   <div class="input-container">
     <mat-form-field appearance="outline" class="input-field">
       <mat-label>Pesquisar</mat-label>
-      <input [(ngModel)]="filtro" matInput placeholder="Ex. Tocantins" #input>
+      <input [(ngModel)]="filtro" matInput placeholder="Ex. Palmas" #input (keyup.enter) ="aplicarFiltro()">
     </mat-form-field>
     <button mat-icon-button color="primary" 
             class="search-button"

@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
@@ -78,14 +79,19 @@ export class CidadeListComponent {
               this.cidades = this.cidades.filter(u => u !== cidade);
               this.carregarTotalRegistros();
               this.carregarCidades();
-              console.log('Usuário excluído com sucesso');
+              console.log('Cidade excluída com sucesso');
             },
-            error: (error) => {
-              console.error('Erro ao excluir usuário:', error);
+            error: (response: HttpErrorResponse) => {
+              if (response.status === 500) {
+                alert("A cidade em questão já está sendo utilizada!!");
+              } else {
+                console.error('Erro ao excluir cidade:', response.error);
+              }
             }
           });
         }
       }
     });
   }
+  
 }

@@ -16,7 +16,8 @@
 }
 
 mat-toolbar{
-    background-color: #FFF8DC;
+    background-color: whitesmoke;
+
 }
 
 /* Estilos para o campo de entrada */
@@ -84,3 +85,7 @@ mat-icon {
     flex: 1;
     text-align: center;
 }
+.mat-custom-color {
+    background-color: #ff9900; 
+    color: #fff; 
+  }
