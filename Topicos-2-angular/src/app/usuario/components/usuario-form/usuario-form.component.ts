@@ -74,7 +74,7 @@ this.initializeForm();
 
     const usuario: Usuario = this.activatedRoute.snapshot.data['usuario'];
     const sexo = usuario?.pessoaFisicaDto?.sexo?.toString() || null;
-
+    const isEdicao = !!usuario;
     this.formGroup = this.formBuilder.group({
       id: [(usuario && usuario.id) || null],
       login: [(usuario && usuario.login) || '', Validators.required],
@@ -82,7 +82,7 @@ this.initializeForm();
       
       pessoaFisicaDto: this.formBuilder.group({
         nome: [(usuario && usuario.pessoaFisicaDto && usuario.pessoaFisicaDto.nome) || '', Validators.required],
-        cpf: [(usuario && usuario.pessoaFisicaDto && usuario.pessoaFisicaDto.cpf) || '', Validators.required],
+        cpf: [ (usuario && usuario.pessoaFisicaDto && usuario.pessoaFisicaDto.cpf) || '', Validators.required],
         email: [(usuario && usuario.pessoaFisicaDto && usuario.pessoaFisicaDto.email) || '', Validators.required],
         sexo: [sexo, Validators.required]
       }),

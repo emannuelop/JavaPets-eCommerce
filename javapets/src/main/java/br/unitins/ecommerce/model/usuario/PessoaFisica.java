@@ -8,7 +8,7 @@ import jakarta.persistence.PrimaryKeyJoinColumn;
 @PrimaryKeyJoinColumn(name = "id")
 public class PessoaFisica extends Pessoa {
     
-    @Column(unique = true, length = 11)
+    @Column(unique = false, length = 11)
     private String cpf;
 
     @Column(nullable = false)
