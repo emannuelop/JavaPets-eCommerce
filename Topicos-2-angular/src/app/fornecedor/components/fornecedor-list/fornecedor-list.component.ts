@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { PageEvent } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { ConfimationDialogComponent } from 'src/app/confimation-dialog/confimation-dialog.component';
+import { CustomPaginatorIntl } from 'src/app/models/custom-paginator-intl';
 import { Fornecedor } from 'src/app/models/fornecedor.model';
 import { FornecedorService } from 'src/app/services/fornecedor.service';
 
@@ -12,6 +13,8 @@ import { FornecedorService } from 'src/app/services/fornecedor.service';
 })
 export class FornecedorListComponent implements OnInit {
 
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator | undefined;
+
   tableColumns: string[] = ['id-column', 'nome-column', 'email-column', 'acao-column'];
   fornecedores: Fornecedor[] = [];
   totalRegistros = 0;
@@ -19,7 +22,13 @@ export class FornecedorListComponent implements OnInit {
   pagina = 0;
   filtro: string = "";
 
-  constructor(private fornecedorService: FornecedorService, private dialog: MatDialog) {}
+  constructor(private fornecedorService: FornecedorService, private dialog: MatDialog, private customPaginatorIntl: CustomPaginatorIntl) {}
+
+  ngAfterViewInit() {
+    if (this.paginator) {
+      this.paginator._intl = this.customPaginatorIntl; // Configuração da internacionalização
+    }
+  }
 
   ngOnInit(): void {
     this.carregarFornecedores();

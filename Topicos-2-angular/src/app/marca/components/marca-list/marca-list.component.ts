@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { PageEvent } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { ConfimationDialogComponent } from 'src/app/confimation-dialog/confimation-dialog.component';
+import { CustomPaginatorIntl } from 'src/app/models/custom-paginator-intl';
 import { Marca } from 'src/app/models/marca.model';
 import { MarcaService } from 'src/app/services/marca.service';
 
@@ -10,7 +11,11 @@ import { MarcaService } from 'src/app/services/marca.service';
   templateUrl: './marca-list.component.html',
   styleUrls: ['./marca-list.component.css']
 })
+
 export class MarcaListComponent implements OnInit {
+
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator | undefined;
+
 
   tableColumns: string[] = ['id-column', 'nome-column', 'cnpj-column', 'acao-column'];
   marcas: Marca[] = [];
@@ -19,7 +24,13 @@ export class MarcaListComponent implements OnInit {
   pagina = 0;
   filtro: string = "";
 
-  constructor(private marcaService: MarcaService, private dialog: MatDialog) {}
+  constructor(private marcaService: MarcaService, private dialog: MatDialog, private customPaginatorIntl: CustomPaginatorIntl) {}
+
+  ngAfterViewInit() {
+    if (this.paginator) {
+      this.paginator._intl = this.customPaginatorIntl; // Configuração da internacionalização
+    }
+  }
 
   ngOnInit(): void {
     this.carregarMarcas();

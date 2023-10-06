@@ -27,6 +27,14 @@ mat-card-actions {
     font-size:x-large;
 }
 
+h1{
+    padding-left: 3%;
+}
+
+.selects{
+    padding-left: 4%;
+}
+
 mat-toolbar{
     background-color: #FFF8DC;
 }

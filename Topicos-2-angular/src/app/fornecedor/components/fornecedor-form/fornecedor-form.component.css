@@ -5,6 +5,10 @@
     margin-bottom: 20px;
 }
 
+h1{
+    padding-left: 3%;
+}
+
 mat-card {
     max-width: 800px;
     margin: 2rem auto;

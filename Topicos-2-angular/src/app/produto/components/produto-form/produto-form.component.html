@@ -1,6 +1,7 @@
 <mat-toolbar class="centered-toolbar">Cadastro de Produto</mat-toolbar>
 <div class="form-container">
     <mat-card>
+      <h1>Informações</h1>
         <mat-card-content>
             <form [formGroup]="formGroup" >
                 <mat-form-field appearance="outline" class="full-width-input">
@@ -21,7 +22,8 @@
                         Descricao é obrigatório.
                     </mat-error>
                 </mat-form-field>
-                <mat-form-field appearance="outline" >
+                <h2>Categoria - Marca - Fornecedor</h2>
+                <mat-form-field class="selects" appearance="outline" >
                   <mat-label for="categoria_id">Categoria</mat-label>
                   <mat-select formControlName="categoria" id="categoria_id">
                     <mat-option *ngFor="let categoria of categorias" [value]="categoria">
@@ -29,7 +31,7 @@
                     </mat-option>
                   </mat-select>
                 </mat-form-field>
-                <mat-form-field appearance="outline" >
+                <mat-form-field appearance="outline" class="selects">
                   <mat-label for="marca_id">Marca</mat-label>
                   <mat-select formControlName="marca" id="marca_id">
                     <mat-option *ngFor="let marca of marcas" [value]="marca">
@@ -37,7 +39,7 @@
                     </mat-option>
                   </mat-select>
                 </mat-form-field>
-                <mat-form-field appearance="outline" >
+                <mat-form-field appearance="outline" class="selects">
                     <mat-label for="fornecedor_id">Fornecedor</mat-label>
                     <mat-select formControlName="fornecedor" id="fornecedor_id">
                       <mat-option *ngFor="let fornecedor of fornecedores" [value]="fornecedor">
@@ -45,7 +47,8 @@
                       </mat-option>
                     </mat-select>
                 </mat-form-field>
-                  <mat-form-field appearance="outline" class="full-width-input">
+                <h2>Preço e Estoque</h2>
+                  <mat-form-field appearance="outline" class="selects">
                     <mat-label for="preco_id">Preco</mat-label>
                     <input matInput type="number" formControlName="preco" id="preco_id" />
                     <mat-error *ngIf="formGroup.get('preco') &&
@@ -54,7 +57,7 @@
                         preco é obrigatório.
                     </mat-error>
                   </mat-form-field>
-                <mat-form-field appearance="outline" class="full-width-input">
+                <mat-form-field appearance="outline" class="selects">
                     <mat-label for="estoque_id">Estoque</mat-label>
                     <input matInput type="number" formControlName="estoque" id="estoque_id" />
                     <mat-error *ngIf="formGroup.get('estoque') &&

@@ -36,6 +36,10 @@ button[mat-raised-button] {
     /* tamanho do botao */
 }
 
+h1{
+    padding-left: 3%;
+}
+
 button[mat-raised-button]:not(:last-child) {
     margin-right: 1rem;
     /* Adiciona margem à direita de todos os botões, exceto o último */

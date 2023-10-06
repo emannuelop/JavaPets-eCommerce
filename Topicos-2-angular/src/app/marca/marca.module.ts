@@ -19,6 +19,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule} from '@angular/material/paginator';
 import { FormsModule } from '@angular/forms';
 import {MatDialogModule} from '@angular/material/dialog';
+import { CustomPaginatorIntl } from 'src/app/models/custom-paginator-intl'
+
 
 @NgModule({
   declarations: [
@@ -40,6 +42,9 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatPaginatorModule,
     FormsModule,
     MatDialogModule
+  ],
+  providers: [
+    CustomPaginatorIntl
   ]
 })
 export class MarcaModule { }

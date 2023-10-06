@@ -108,7 +108,7 @@ this.initializeForm();
      }
 
     console.log(this.formGroup.value);
-    console.log(usuario)
+    console.log(usuario);
   }
 
   salvar() {

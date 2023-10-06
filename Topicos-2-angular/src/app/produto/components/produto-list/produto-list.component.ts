@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { PageEvent } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { ConfimationDialogComponent } from 'src/app/confimation-dialog/confimation-dialog.component';
+import { CustomPaginatorIntl } from 'src/app/models/custom-paginator-intl';
 import { Produto } from 'src/app/models/produto.model';
 import { ProdutoService } from 'src/app/services/produto.service';
 
@@ -11,6 +12,8 @@ import { ProdutoService } from 'src/app/services/produto.service';
   styleUrls: ['./produto-list.component.css']
 })
 export class ProdutoListComponent {
+
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator | undefined;
   
   tableColumns: string[] = ['id-column', 'nome-column', 'descricao-column', 'marca-column',
    'fornecedor-column', 'categoria-column', 'preco-column', 'estoque-column', 'acao-column'];
@@ -21,7 +24,13 @@ export class ProdutoListComponent {
   pagina = 0;
   filtro: string = "";
 
-  constructor(private produtoService: ProdutoService, private dialog: MatDialog) {}
+  constructor(private produtoService: ProdutoService, private dialog: MatDialog, private customPaginatorIntl: CustomPaginatorIntl) {}
+
+  ngAfterViewInit() {
+    if (this.paginator) {
+      this.paginator._intl = this.customPaginatorIntl; // Configuração da internacionalização
+    }
+  }
 
   ngOnInit(): void {
     this.carregarProdutos();

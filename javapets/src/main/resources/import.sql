@@ -8,16 +8,41 @@ INSERT INTO marca (nome, cnpj) VALUES ('Pedigree', '31.634.674/0001-71');
 INSERT INTO marca (nome, cnpj) VALUES ('GoldeN', '07.284.054/0001-75');
 INSERT INTO marca (nome, cnpj) VALUES ('Whiskas', '12.286.796/0001-70');
 INSERT INTO marca (nome, cnpj) VALUES ('GranPlus', '38.850.092/0001-71');
+INSERT INTO marca (nome, cnpj) VALUES ('PetLovers', '12.345.678/0001-90');
+INSERT INTO marca (nome, cnpj) VALUES ('AnimalNutrition', '98.765.432/0001-21');
+INSERT INTO marca (nome, cnpj) VALUES ('HappyPaws', '11.222.333/0001-44');
+INSERT INTO marca (nome, cnpj) VALUES ('AquaTech', '55.666.777/0001-88');
+INSERT INTO marca (nome, cnpj) VALUES ('HealthPets', '77.888.999/0001-55');
+INSERT INTO marca (nome, cnpj) VALUES ('FurJoy', '12.345.678/0001-12');
+INSERT INTO marca (nome, cnpj) VALUES ('FinnedFriends', '11.111.111/0001-11');
+INSERT INTO marca (nome, cnpj) VALUES ('BeautyTails', '99.999.999/0001-99');
+INSERT INTO marca (nome, cnpj) VALUES ('FeatheredBeauties', '22.333.444/0001-22');
 
 INSERT INTO categoria (nome, descricao) VALUES ('Racao', 'Rações para todos os tipos de Pets');
-INSERT INTO categoria (nome, descricao) VALUES ('Sla', 'Sla');
+INSERT INTO categoria (nome, descricao) VALUES ('Brinquedos para Gatos', 'Diversos brinquedos para entretenimento de gatos');
+INSERT INTO categoria (nome, descricao) VALUES ('Acessórios para Cães', 'Acessórios variados para cães, como coleiras e guias');
+INSERT INTO categoria (nome, descricao) VALUES ('Produtos de Higiene', 'Itens para manter a higiene dos animais');
+INSERT INTO categoria (nome, descricao) VALUES ('Aquários', 'Aquários e acessórios para peixes');
+INSERT INTO categoria (nome, descricao) VALUES ('Medicamentos para Animais', 'Medicamentos para tratar diversas condições de saúde');
+INSERT INTO categoria (nome, descricao) VALUES ('Gaiolas para Pássaros', 'Gaiolas e acessórios para pássaros domésticos');
+INSERT INTO categoria (nome, descricao) VALUES ('Camas para Pets', 'Camas confortáveis para cães e gatos');
+INSERT INTO categoria (nome, descricao) VALUES ('Alimentos para Peixes', 'Alimentos específicos para peixes de aquário');
+INSERT INTO categoria (nome, descricao) VALUES ('Produtos de Beleza para Animais', 'Produtos para deixar os pets mais bonitos e bem cuidados');
 
-INSERT INTO fornecedor (nome, email) VALUES ('Bontrato', 'asasdasdasd');
+
+INSERT INTO fornecedor (nome, email) VALUES ('Bontrato', 'bontrato@gmail.com');
+INSERT INTO fornecedor (nome, email) VALUES ('PetVet', 'contato@petvet.com');
+INSERT INTO fornecedor (nome, email) VALUES ('AnimalCare', 'animalcare@provedor.com');
+INSERT INTO fornecedor (nome, email) VALUES ('PetFood', 'petfood@fornecedora.com');
+INSERT INTO fornecedor (nome, email) VALUES ('PetToys', 'info@pettoys.com');
+INSERT INTO fornecedor (nome, email) VALUES ('AquaWorld', 'aquaworld@fornecimento.com');
+INSERT INTO fornecedor (nome, email) VALUES ('HealthPets', 'healthpets@providencia.com');
+INSERT INTO fornecedor (nome, email) VALUES ('FurryFriends', 'furryfriends@contato.com');
+INSERT INTO fornecedor (nome, email) VALUES ('FishWorld', 'fishworld@fornecimento.com');
+INSERT INTO fornecedor (nome, email) VALUES ('BeautyPets', 'beautypets@provedora.com');
 
 INSERT INTO produto (nome, descricao, preco, estoque, id_marca, id_fornecedor, id_categoria) VALUES ('Ração Pedigree Nutrição Essencial', 'Para Cães Adultos', 140.00, 30, 1,1,1);
-
 INSERT INTO produto (nome, descricao, preco, estoque, id_marca, id_fornecedor, id_categoria) VALUES ('Ração Golden Fórmula Mini Bits', 'Para Cães Adultos de Porte Pequeno', 110.00, 10, 2,1,2);
-
 INSERT INTO produto (nome, descricao, preco, estoque, id_marca, id_fornecedor, id_categoria) VALUES ('Ração Whiskas', 'Para Gatos Adultos', 180.00, 15, 3,1,1);
 INSERT INTO produto (nome, descricao, preco, estoque, id_marca, id_fornecedor, id_categoria) VALUES ('Ração GranPlus Choice', 'Para Gatos Filhotes', 150.00, 12, 4,1,2);
 
