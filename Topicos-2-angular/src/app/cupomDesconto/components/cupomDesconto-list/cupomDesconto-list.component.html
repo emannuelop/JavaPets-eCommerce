@@ -1,7 +1,7 @@
 <mat-toolbar>
   <div class="flex-container">
     <span class="toolbar-title"> Controle de Cupom descontos </span>
-    <button mat-fab color="accent" routerLink="/cupomDescontos/new">
+    <button mat-fab class="mat-custom-color" routerLink="/cupomDescontos/new">
       <mat-icon>add</mat-icon>
     </button>
   </div>
@@ -56,7 +56,7 @@
                 routerLink="/cupomDescontos/edit/{{cupomDesconto.id}}">
           <mat-icon>edit</mat-icon>
         </button>
-        <button mat-icon-button color="warn" >
+        <button mat-icon-button color="warn" (click)="openConfirmationDialog(cupomDesconto)">
           <mat-icon>delete</mat-icon>
         </button>
       </td>

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
+import { ConfimationDialogComponent } from 'src/app/confimation-dialog/confimation-dialog.component';
 import { Pet } from 'src/app/models/pet.model';
 import { PetService } from 'src/app/services/pet.service';
 
@@ -17,10 +19,11 @@ export class PetListComponent implements OnInit {
   pagina = 0;
   filtro: string = "";
 
-  constructor(private petService: PetService) {}
+  constructor(private petService: PetService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.carregarPets();
+    this.carregarTotalRegistros();
   }
 
   carregarPets() {
@@ -37,6 +40,18 @@ export class PetListComponent implements OnInit {
   };
   }
 
+  carregarTotalRegistros() {
+    if(this.filtro){
+      this.petService.countByNome(this.filtro).subscribe(data => {
+        this.totalRegistros = data;})
+    }else{
+
+    this.petService.count().subscribe(data => {
+      this.totalRegistros = data;
+    });
+    }
+  }
+
   // Método para paginar os resultados
   paginar(event: PageEvent): void {
     this.pagina = event.pageIndex;
@@ -46,6 +61,32 @@ export class PetListComponent implements OnInit {
 
   aplicarFiltro() {
     this.carregarPets();
+    this.carregarTotalRegistros();
+  }
+
+  openConfirmationDialog(pet: Pet) {
+    const dialogRef = this.dialog.open(ConfimationDialogComponent, {
+      width: '400px',
+      data: { message: 'Tem certeza de que deseja excluir este pet?' }
+    });
+  
+    dialogRef.afterClosed().subscribe({
+      next: (result) => {
+        if (result) {
+          this.petService.delete(pet).subscribe({
+            next: () => {
+              this.pets = this.pets.filter(u => u !== pet);
+              this.carregarTotalRegistros();
+              this.carregarPets();
+              console.log('Pet excluído com sucesso');
+            },
+            error: (error) => {
+              console.error('Erro ao excluir pet:', error);
+            }
+          });
+        }
+      }
+    });
   }
 
 }

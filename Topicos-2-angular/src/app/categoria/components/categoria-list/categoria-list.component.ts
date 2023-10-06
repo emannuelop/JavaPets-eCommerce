@@ -64,6 +64,10 @@ export class CategoriaListComponent implements OnInit {
     this.carregarCategorias();
     this.carregarTotalRegistros();
   }
+<<<<<<< HEAD
+=======
+
+>>>>>>> c25503659db2fccd8979a8444c15bff7ffe31621
   openConfirmationDialog(categoria: Categoria) {
     const dialogRef = this.dialog.open(ConfimationDialogComponent, {
       width: '400px',
@@ -78,6 +82,7 @@ export class CategoriaListComponent implements OnInit {
               this.categorias = this.categorias.filter(u => u !== categoria);
               this.carregarTotalRegistros();
               this.carregarCategorias();
+<<<<<<< HEAD
               console.log('Usuário excluído com sucesso');
             },
             error: (response: HttpErrorResponse) => {
@@ -86,10 +91,20 @@ export class CategoriaListComponent implements OnInit {
               } else {
                 console.error('Erro ao excluir cidade:', response.error);
               }
+=======
+              console.log('Categoria excluído com sucesso');
+            },
+            error: (error) => {
+              console.error('Erro ao excluir categoria:', error);
+>>>>>>> c25503659db2fccd8979a8444c15bff7ffe31621
             }
           });
         }
       }
     });
   }
+<<<<<<< HEAD
+=======
+
+>>>>>>> c25503659db2fccd8979a8444c15bff7ffe31621
 }

@@ -24,7 +24,7 @@ export class PetService {
       page: pagina.toString(),
       pageSize: tamanhoPagina.toString()
     }
-    return this.http.get<Pet[]>(`${this.baseURL}/pets/pets/${nome}`, {params});
+    return this.http.get<Pet[]>(`${this.baseURL}/pets/searchByNome/${nome}`, {params});
   }
 
   findById(id: string): Observable<Pet> {
@@ -45,6 +45,10 @@ export class PetService {
 
   count(): Observable<number> {
     return this.http.get<number>(`${this.baseURL}/pets/count`);
+  }
+
+  countByNome(nome: string): Observable<number> {
+    return this.http.get<number>(`${this.baseURL}/cupomDescontos/count/search/${nome}`);
   }
 
 }

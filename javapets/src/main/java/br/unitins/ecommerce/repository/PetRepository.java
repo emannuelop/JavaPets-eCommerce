@@ -8,7 +8,7 @@ import io.quarkus.hibernate.orm.panache.PanacheRepository;
 @ApplicationScoped
 public class PetRepository implements PanacheRepository<Pet> {
     
-    public PanacheQuery findByNome (String nome) {
+    public PanacheQuery<Pet> findByNome (String nome) {
 
         if (nome == null)
             return null;
