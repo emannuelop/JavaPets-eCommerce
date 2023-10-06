@@ -119,6 +119,12 @@ public class CupomDescontoImplService implements CupomDescontoService {
 
         return cupomDescontoRepository.count();
     }
+
+    @Override
+    public Long countByNome(String nome) {
+
+        return cupomDescontoRepository.findByNome(nome).count();
+    }
     
     private void validar(CupomDescontoDTO cupomDescontoDTO) throws ConstraintViolationException {
 

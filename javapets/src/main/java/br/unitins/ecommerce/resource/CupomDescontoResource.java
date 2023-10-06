@@ -155,4 +155,13 @@ public class CupomDescontoResource {
         LOG.debug("ERRO DE DEBUG.");
         return cupomDescontoService.count();
     }
+
+    @GET
+    @Path("/count/search/{nome}")
+    // @RolesAllowed({"Admin"})
+    public Long count (@PathParam("nome") String nome) {
+        LOG.infof("Contando todos os cupomDesconto");
+        LOG.debug("ERRO DE DEBUG.");
+        return cupomDescontoService.countByNome(nome);
+    }
 }

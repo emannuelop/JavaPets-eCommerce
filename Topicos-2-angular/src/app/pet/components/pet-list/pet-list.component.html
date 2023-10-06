@@ -1,7 +1,7 @@
 <mat-toolbar>
   <div class="flex-container">
     <span class="toolbar-title"> Controle de Pets </span>
-    <button mat-fab color="accent" routerLink="/pets/new">
+    <button mat-fab class="mat-custom-color" routerLink="/pets/new">
       <mat-icon>add</mat-icon>
     </button>
   </div>
@@ -62,7 +62,7 @@
                 routerLink="/pets/edit/{{pet.id}}">
           <mat-icon>edit</mat-icon>
         </button>
-        <button mat-icon-button color="warn" >
+        <button mat-icon-button color="warn" (click)="openConfirmationDialog(pet)">
           <mat-icon>delete</mat-icon>
         </button>
       </td>

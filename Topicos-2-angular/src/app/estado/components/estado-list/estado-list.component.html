@@ -1,7 +1,7 @@
 <mat-toolbar>
   <div class="flex-container">
     <span class="toolbar-title"> Controle de Estados </span>
-    <button mat-fab color="accent" routerLink="/estados/new">
+    <button mat-fab class="mat-custom-color" routerLink="/estados/new">
       <mat-icon>add</mat-icon>
     </button>
   </div>
@@ -50,7 +50,7 @@
                 routerLink="/estados/edit/{{estado.id}}">
           <mat-icon>edit</mat-icon>
         </button>
-        <button mat-icon-button color="warn" >
+        <button mat-icon-button color="warn" (click)="openConfirmationDialog(estado)">
           <mat-icon>delete</mat-icon>
         </button>
       </td>

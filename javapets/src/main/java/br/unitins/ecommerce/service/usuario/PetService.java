@@ -24,4 +24,6 @@ public interface PetService {
     List<PetResponseDTO> getByNome(String nome, int page, int pageSize);
 
     Long count();
+
+    Long countByNome(String nome);
 }

@@ -24,4 +24,6 @@ public interface CupomDescontoService {
     List<CupomDescontoResponseDTO> getByNome(String nome, int page, int pageSize);
 
     Long count();
+
+    Long countByNome(String nome);
 }

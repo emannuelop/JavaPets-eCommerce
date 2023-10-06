@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
+import { ConfimationDialogComponent } from 'src/app/confimation-dialog/confimation-dialog.component';
 import { Categoria } from 'src/app/models/categoria.model';
 import { CategoriaService } from 'src/app/services/categoria.service';
 
@@ -17,7 +19,7 @@ export class CategoriaListComponent implements OnInit {
   pagina = 0;
   filtro: string = "";
 
-  constructor(private categoriaService: CategoriaService) {}
+  constructor(private categoriaService: CategoriaService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.carregarCategorias();
@@ -60,6 +62,31 @@ export class CategoriaListComponent implements OnInit {
   aplicarFiltro() {
     this.carregarCategorias();
     this.carregarTotalRegistros();
+  }
+
+  openConfirmationDialog(categoria: Categoria) {
+    const dialogRef = this.dialog.open(ConfimationDialogComponent, {
+      width: '400px',
+      data: { message: 'Tem certeza de que deseja excluir esta categoria?' }
+    });
+  
+    dialogRef.afterClosed().subscribe({
+      next: (result) => {
+        if (result) {
+          this.categoriaService.delete(categoria).subscribe({
+            next: () => {
+              this.categorias = this.categorias.filter(u => u !== categoria);
+              this.carregarTotalRegistros();
+              this.carregarCategorias();
+              console.log('Categoria excluído com sucesso');
+            },
+            error: (error) => {
+              console.error('Erro ao excluir categoria:', error);
+            }
+          });
+        }
+      }
+    });
   }
 
 }

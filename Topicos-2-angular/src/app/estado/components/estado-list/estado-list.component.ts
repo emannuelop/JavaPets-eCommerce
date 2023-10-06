@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
+import { ConfimationDialogComponent } from 'src/app/confimation-dialog/confimation-dialog.component';
 import { Estado } from 'src/app/models/estado.model';
 import { EstadoService } from 'src/app/services/estado.service';
 
@@ -17,7 +19,7 @@ export class EstadoListComponent implements OnInit {
   pagina = 0;
   filtro: string = "";
 
-  constructor(private estadoService: EstadoService) {}
+  constructor(private estadoService: EstadoService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.carregarEstados();
@@ -60,6 +62,31 @@ export class EstadoListComponent implements OnInit {
   aplicarFiltro() {
     this.carregarEstados();
     this.carregarTotalRegistros();
+  }
+
+  openConfirmationDialog(estado: Estado) {
+    const dialogRef = this.dialog.open(ConfimationDialogComponent, {
+      width: '400px',
+      data: { message: 'Tem certeza de que deseja excluir este estado?' }
+    });
+  
+    dialogRef.afterClosed().subscribe({
+      next: (result) => {
+        if (result) {
+          this.estadoService.delete(estado).subscribe({
+            next: () => {
+              this.estados = this.estados.filter(u => u !== estado);
+              this.carregarTotalRegistros();
+              this.carregarEstados();
+              console.log('Estado excluído com sucesso');
+            },
+            error: (error) => {
+              console.error('Erro ao excluir estado:', error);
+            }
+          });
+        }
+      }
+    });
   }
 
 }

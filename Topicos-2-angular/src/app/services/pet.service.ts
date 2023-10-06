@@ -47,4 +47,8 @@ export class PetService {
     return this.http.get<number>(`${this.baseURL}/pets/count`);
   }
 
+  countByNome(nome: string): Observable<number> {
+    return this.http.get<number>(`${this.baseURL}/cupomDescontos/count/search/${nome}`);
+  }
+
 }

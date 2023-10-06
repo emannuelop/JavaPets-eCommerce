@@ -15,6 +15,11 @@
     width: 80%;
 }
 
+.mat-custom-color {
+    background-color: #ff9900; 
+    color: #fff; 
+}
+
 /* Estilos para o campo de entrada */
 .input-field {
     flex: 1;

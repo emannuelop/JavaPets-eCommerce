@@ -1,7 +1,7 @@
 <mat-toolbar>
   <div class="flex-container">
     <span class="toolbar-title"> Controle de Categoria </span>
-    <button mat-fab color="accent" routerLink="/categorias/new">
+    <button mat-fab class="mat-custom-color" routerLink="/categorias/new">
       <mat-icon>add</mat-icon>
     </button>
   </div>
@@ -50,7 +50,7 @@
                 routerLink="/categorias/edit/{{categoria.id}}">
           <mat-icon>edit</mat-icon>
         </button>
-        <button mat-icon-button color="warn" >
+        <button mat-icon-button color="warn" (click)="openConfirmationDialog(categoria)">
           <mat-icon>delete</mat-icon>
         </button>
       </td>

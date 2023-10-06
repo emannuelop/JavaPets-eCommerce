@@ -124,6 +124,12 @@ public class PetImplService implements PetService {
 
         return petRepository.count();
     }
+
+    @Override
+    public Long countByNome(String nome) {
+
+        return petRepository.findByNome(nome).count();
+    }
     
     private void validar(PetDTO petDTO) throws ConstraintViolationException {
 

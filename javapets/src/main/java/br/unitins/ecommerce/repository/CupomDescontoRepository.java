@@ -8,12 +8,12 @@ import io.quarkus.hibernate.orm.panache.PanacheRepository;
 @ApplicationScoped
 public class CupomDescontoRepository implements PanacheRepository<CupomDesconto> {
     
-    public PanacheQuery findByNome (String nome) {
+    public PanacheQuery<CupomDesconto> findByNome (String codigoCupom) {
 
-        if (nome == null)
+        if (codigoCupom == null)
             return null;
 
-        return find("FROM CupomDesconto WHERE UPPER(nome) LIKE ?1", "%" + nome.toUpperCase() + "%");
+        return find("FROM CupomDesconto WHERE UPPER(codigoCupom) LIKE ?1", "%" + codigoCupom.toUpperCase() + "%");
         
     }
 }
