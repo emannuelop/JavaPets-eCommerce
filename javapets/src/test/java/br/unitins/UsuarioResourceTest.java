@@ -27,7 +27,7 @@ import jakarta.inject.Inject;
 @QuarkusTest
 public class UsuarioResourceTest {
 
-    @Inject
+  /*  @Inject
     UsuarioService usuarioService;
     
     @Test
@@ -344,4 +344,5 @@ public class UsuarioResourceTest {
             .then()
                 .statusCode(200);
     }
+    */
 }

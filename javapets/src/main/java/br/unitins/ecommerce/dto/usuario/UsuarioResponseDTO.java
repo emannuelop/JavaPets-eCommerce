@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import br.unitins.ecommerce.dto.municipio.CidadeResponseDTO;
 import br.unitins.ecommerce.model.endereco.Estado;
@@ -38,7 +39,9 @@ public record UsuarioResponseDTO(
                         usuario.getEndereco().getComplemento(),
                         usuario.getEndereco().getCep(),
                         usuario.getEndereco().getCidade()),
-                        viewItensCompra(usuario.getTelefones()));
+                        usuario.getTelefones().stream()
+                        .map(telefone -> viewTelefone(telefone.getCodigoArea(), telefone.getNumero()))
+                        .collect(Collectors.toList()));
     }
 
      private static String getSexoLabel(Sexo sexo) {

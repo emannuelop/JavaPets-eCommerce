@@ -60,7 +60,7 @@ public interface UsuarioService {
 
     void update(Long id, String nomeImagem);
 
-    void insertTelefone (Long idUsuario, TelefoneDTO telefoneDTO);
+    //void insertTelefone (Long idUsuario, TelefoneDTO telefoneDTO);
 
     void removeTelefone (Long idUsuario, Long idTelefone);
 

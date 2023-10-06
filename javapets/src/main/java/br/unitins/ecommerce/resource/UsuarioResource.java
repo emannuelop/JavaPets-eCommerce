@@ -260,7 +260,7 @@ public Response delete(@PathParam("id") Long id) {
         return usuarioService.countByNome(nome);
     }
 
-    @POST
+  /*   @POST
     @Path("/telefone/adiconartelefone")
    // @RolesAllowed({ "Admin", "User", "User_Basic" })
     public Response insertIntoCarrrinho(AdicionarTelDTO telefone) {
@@ -280,5 +280,5 @@ public Response delete(@PathParam("id") Long id) {
 
             return Response.status(Status.NOT_FOUND).entity(result).build();
         }
-    }
+    }*/
 }

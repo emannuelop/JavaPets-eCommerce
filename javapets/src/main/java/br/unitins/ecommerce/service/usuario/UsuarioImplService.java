@@ -128,6 +128,7 @@ public class UsuarioImplService implements UsuarioService {
     for (TelefoneDTO telefoneDto : usuarioDto.telefones()) {
         Telefone telefone = new Telefone();
         telefone.setCodigoArea(telefoneDto.codigoArea());
+        telefone.setUsuario(entity);
         telefone.setNumero(telefoneDto.numero());
         telefones.add(telefone);
     }
