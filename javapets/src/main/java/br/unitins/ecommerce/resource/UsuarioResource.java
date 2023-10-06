@@ -66,7 +66,7 @@ public class UsuarioResource {
     @Path("/{id}")
    // @RolesAllowed({ "Admin" })
     public UsuarioResponseDTO getById(@PathParam("id") Long id) throws NotFoundException {
-        LOG.info("Buscando usuário por nome");
+        LOG.info("Buscando usuário por ID");
         LOG.debug("ERRO DE DEBUG.");
 
         return usuarioService.getById(id);
