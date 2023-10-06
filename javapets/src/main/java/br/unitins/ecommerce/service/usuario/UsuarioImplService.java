@@ -517,7 +517,7 @@ public class UsuarioImplService implements UsuarioService {
 
     }
 
-    @Override
+    /*@Override
     @Transactional
     public void insertTelefone(Long idUsuario, TelefoneDTO telefoneDTO) throws NullPointerException {
 
@@ -533,7 +533,7 @@ public class UsuarioImplService implements UsuarioService {
         telefoneRepository.persist(telefone);
         entity.setTelefones(telefones);
 
-    }
+    }*/
 
     @Override
     public void removeTelefone(Long idUsuario, Long idTelefone) {
