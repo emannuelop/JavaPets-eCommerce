@@ -9,10 +9,10 @@ INSERT INTO marca (nome, cnpj) VALUES ('GoldeN', '07.284.054/0001-75');
 INSERT INTO marca (nome, cnpj) VALUES ('Whiskas', '12.286.796/0001-70');
 INSERT INTO marca (nome, cnpj) VALUES ('GranPlus', '38.850.092/0001-71');
 
-INSERT INTO fornecedor (nome) VALUES ('Bontrato');
-
 INSERT INTO categoria (nome, descricao) VALUES ('Racao', 'Rações para todos os tipos de Pets');
 INSERT INTO categoria (nome, descricao) VALUES ('Sla', 'Sla');
+
+INSERT INTO fornecedor (nome, email) VALUES ('Bontrato', 'asasdasdasd');
 
 INSERT INTO produto (nome, descricao, preco, estoque, id_marca, id_fornecedor, id_categoria) VALUES ('Ração Pedigree Nutrição Essencial', 'Para Cães Adultos', 140.00, 30, 1,1,1);
 
@@ -84,6 +84,8 @@ INSERT INTO telefone (codigoarea, numero, id_usuario) VALUES ('061', '99933-0572
 INSERT INTO telefone (codigoarea, numero, id_usuario) VALUES ('063', '99933-0572',5);
 INSERT INTO telefone (codigoarea, numero, id_usuario) VALUES ('078', '98203-3301',2);
 INSERT INTO telefone (codigoarea, numero, id_usuario) VALUES ('092', '98382-0912',4);
+
+INSERT INTO fornecedor (nome,email) VALUES ('ASASAS', 'sadasdasdasd');
 
 
 INSERT INTO lista_desejo (id_usuario, id_produto) VALUES (1, 3);
