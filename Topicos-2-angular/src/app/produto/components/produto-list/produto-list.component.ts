@@ -69,7 +69,7 @@ export class ProdutoListComponent {
   openConfirmationDialog(produto: Produto) {
     const dialogRef = this.dialog.open(ConfimationDialogComponent, {
       width: '400px',
-      data: { message: 'Tem certeza de que deseja excluir este usuário?' }
+      data: { message: 'Tem certeza de que deseja excluir este produto?' }
     });
   
     dialogRef.afterClosed().subscribe({
@@ -80,10 +80,10 @@ export class ProdutoListComponent {
               this.produtos = this.produtos.filter(u => u !== produto);
               this.carregarTotalRegistros();
               this.carregarProdutos();
-              console.log('Usuário excluído com sucesso');
+              console.log('Produto excluído com sucesso');
             },
             error: (error) => {
-              console.error('Erro ao excluir usuário:', error);
+              console.error('Erro ao excluir produto:', error);
             }
           });
         }

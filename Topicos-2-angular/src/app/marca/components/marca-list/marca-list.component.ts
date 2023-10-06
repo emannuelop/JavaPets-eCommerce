@@ -67,7 +67,7 @@ export class MarcaListComponent implements OnInit {
   openConfirmationDialog(marca: Marca) {
     const dialogRef = this.dialog.open(ConfimationDialogComponent, {
       width: '400px',
-      data: { message: 'Tem certeza de que deseja excluir este usuário?' }
+      data: { message: 'Tem certeza de que deseja excluir esta marca?' }
     });
   
     dialogRef.afterClosed().subscribe({
@@ -78,10 +78,10 @@ export class MarcaListComponent implements OnInit {
               this.marcas = this.marcas.filter(u => u !== marca);
               this.carregarTotalRegistros();
               this.carregarMarcas();
-              console.log('Usuário excluído com sucesso');
+              console.log('Marca excluído com sucesso');
             },
             error: (error) => {
-              console.error('Erro ao excluir usuário:', error);
+              console.error('Erro ao excluir marca:', error);
             }
           });
         }

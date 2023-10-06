@@ -67,7 +67,7 @@ export class FornecedorListComponent implements OnInit {
   openConfirmationDialog(fornecedor: Fornecedor) {
     const dialogRef = this.dialog.open(ConfimationDialogComponent, {
       width: '400px',
-      data: { message: 'Tem certeza de que deseja excluir este usuário?' }
+      data: { message: 'Tem certeza de que deseja excluir este fornecedor?' }
     });
   
     dialogRef.afterClosed().subscribe({
@@ -78,10 +78,10 @@ export class FornecedorListComponent implements OnInit {
               this.fornecedores = this.fornecedores.filter(u => u !== fornecedor);
               this.carregarTotalRegistros();
               this.carregarFornecedores();
-              console.log('Usuário excluído com sucesso');
+              console.log('Fornecedor excluído com sucesso');
             },
             error: (error) => {
-              console.error('Erro ao excluir usuário:', error);
+              console.error('Erro ao excluir fornecedor:', error);
             }
           });
         }
