@@ -59,29 +59,10 @@ public class EstadoResource {
     // @RolesAllowed({"Admin"})
     public Response insert(EstadoDTO estadoDto) {
         LOG.infof("Inserindo um estado: %s", estadoDto.nome());
-        Result result = null;
-        try {
-            LOG.infof("Produto inserido na lista Desejo.");
 
-            return Response
-                    .status(Status.CREATED) // 201
-                    .entity(estadoService.insert(estadoDto))
-                    .build();
-
-        } catch (ConstraintViolationException e) {
-            LOG.error("Erro ao incluir um estado.");
-            LOG.debug(e.getMessage());
-            result = new Result(e.getConstraintViolations());
-
-        } catch (Exception e) {
-            LOG.fatal("Erro sem identificacao: " + e.getMessage());
-            result = new Result(e.getMessage(), false);
-
-        }
-        return Response
-                .status(Status.NOT_FOUND)
-                .entity(result)
-                .build();
+        EstadoResponseDTO estado = estadoService.insert(estadoDto);
+        LOG.infof("Estado (%d) criado com sucesso.", estado.id());
+        return Response.status(Status.CREATED).entity(estado).build();
 
     }
 

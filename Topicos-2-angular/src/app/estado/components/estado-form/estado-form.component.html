@@ -6,19 +6,15 @@
                 <mat-form-field appearance="outline" class="full-width-input">
                     <mat-label>Nome</mat-label>
                     <input matInput type="text" formControlName="nome" />
-                    <mat-error *ngIf="formGroup.get('nome') &&
-                formGroup.get('nome')?.invalid &&
-                formGroup.get('nome')?.touched">
-                        Nome é obrigatório.
+                    <mat-error *ngIf="formGroup.get('nome')?.hasError('apiError')">
+                        {{ formGroup.get('nome')?.getError('apiError') }}
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="outline" class="full-width-input">
                     <mat-label>Sigla</mat-label>
                     <input matInput type="text" formControlName="sigla" />
-                    <mat-error *ngIf="formGroup.get('sigla') &&
-                        formGroup.get('sigla')?.invalid &&
-                        formGroup.get('sigla')?.touched">
-                        Sigla é obrigatória.
+                    <mat-error *ngIf="formGroup.get('sigla')?.hasError('apiError')">
+                        {{ formGroup.get('sigla')?.getError('apiError') }}
                     </mat-error>
                 </mat-form-field>
             </form>
