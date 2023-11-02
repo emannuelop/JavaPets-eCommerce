@@ -8,7 +8,7 @@ import { Produto } from '../models/produto.model';
   providedIn: 'root'
 })
 export class ProdutoService {
-  private baseURL: string =  'http://localhost:8080/produtos';
+  private baseURL: string =  'http://localhost:8080';
 
   constructor(private http: HttpClient) {}
 
@@ -17,7 +17,7 @@ export class ProdutoService {
       page: pagina.toString(),
       pageSize: tamanhoPagina.toString()
     }
-    return this.http.get<Produto[]>(`${this.baseURL}`,{params});
+    return this.http.get<Produto[]>(`${this.baseURL}/produtos`,{params});
   }
 
   findByNome(nome: string,pagina:number, tamanhoPagina:number): Observable<Produto[]> {
@@ -25,11 +25,11 @@ export class ProdutoService {
       page: pagina.toString(),
       pageSize: tamanhoPagina.toString()
     }
-    return this.http.get<Produto[]>(`${this.baseURL}/searchByNome/${nome}`, {params});
+    return this.http.get<Produto[]>(`${this.baseURL}/produtos/searchByNome/${nome}`, {params});
   }
 
   findById(id: string): Observable<Produto> {
-    return this.http.get<Produto>(`${this.baseURL}/${id}`);
+    return this.http.get<Produto>(`${this.baseURL}/produtos/${id}`);
   }
 
   save(produto: Produto): Observable<Produto> {
@@ -42,7 +42,7 @@ export class ProdutoService {
       preco: produto.preco,
       estoque: produto.estoque  
     }
-    return this.http.post<Produto>(`${this.baseURL}`, obj);
+    return this.http.post<Produto>(`${this.baseURL}/produtos`, obj);
   }
 
   update(produto: Produto): Observable<Produto> {
@@ -55,23 +55,23 @@ export class ProdutoService {
         preco: produto.preco,
         estoque: produto.estoque  
       }
-    return this.http.put<Produto>(`${this.baseURL}/${produto.id}`, obj );
+    return this.http.put<Produto>(`${this.baseURL}/produtos/${produto.id}`, obj );
   }
 
   delete(produto: Produto): Observable<any> {
-    return this.http.delete<Produto>(`${this.baseURL}/${produto.id}`);
+    return this.http.delete<Produto>(`${this.baseURL}/produtos/${produto.id}`);
   }
 
   count(): Observable<number> {
-    return this.http.get<number>(`${this.baseURL}/count`);
+    return this.http.get<number>(`${this.baseURL}/produtos/count`);
   }
 
   countByNome(nome: string): Observable<number> {
-    return this.http.get<number>(`${this.baseURL}/count/search/${nome}`);
+    return this.http.get<number>(`${this.baseURL}/produtos/count/search/${nome}`);
   }
 
   getUrlImagem(nomeImagem: string): string {
-    return `${this.baseURL}/image/download/${nomeImagem}`;
+    return `${this.baseURL}/produtos/image/download/${nomeImagem}`;
   }
 
 }
