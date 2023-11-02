@@ -177,7 +177,7 @@ public class UsuarioLogadoResource {
         String nomeImagem = "";
 
         try {
-            nomeImagem = fileService.salvarImagemUsuario(form.getImagem(), form.getNomeImagem());
+            nomeImagem = fileService.salvar(form.getImagem(), form.getNomeImagem());
             LOG.infof("Imagem salva com sucesso: %s", nomeImagem);
         } catch (IOException e) {
             LOG.error("Erro ao salvar a imagem do produto.", e);

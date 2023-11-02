@@ -179,6 +179,16 @@ public class ProdutoImplService implements ProdutoService {
         return list.stream().map(e -> ProdutoResponseDTO.valueOf(e)).collect(Collectors.toList());
     }
 
+    @Override
+    @Transactional
+    public ProdutoResponseDTO salveImage(Long id, String nomeImagem) {
+
+        Produto entity = produtoRepository.findById(id);
+        entity.setNomeImagem(nomeImagem);
+
+        return ProdutoResponseDTO.valueOf(entity);
+    }
+
     // @Override
     // public List<ProdutoResponseDTO> getByMarca(String nome) throws NullPointerException {
 

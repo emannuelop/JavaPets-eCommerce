@@ -64,15 +64,14 @@ public class ProdutoResource {
     }
 
     @GET
-    @Path("/download/{nomeImagem}")
+    @Path("image/download/{nomeImagem}")
     // @RolesAllowed({ "Admin", "User" })
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
     public Response download(@PathParam("nomeImagem") String nomeImagem) {
 
         try {
             ResponseBuilder response = Response.ok(fileService.download(nomeImagem));
-
-            response.header("Content-Disposition", "attachment;filename=" + nomeImagem);
+            response.header("Content-Disposition", "attachment;filename="+nomeImagem);
             LOG.infof("Download do arquivo %s concluído com sucesso.", nomeImagem);
 
             return response.build();
@@ -152,7 +151,7 @@ public class ProdutoResource {
         String nomeImagem = "";
 
         try {
-            nomeImagem = fileService.salvarImagemUsuario(form.getImagem(), form.getNomeImagem());
+            nomeImagem = fileService.salvar(form.getImagem(), form.getNomeImagem());
             LOG.infof("Imagem salva com sucesso: %s", nomeImagem);
 
         } catch (IOException e) {

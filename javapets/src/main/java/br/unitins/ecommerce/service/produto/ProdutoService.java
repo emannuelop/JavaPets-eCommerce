@@ -29,6 +29,8 @@ public interface ProdutoService {
 
     List<ProdutoResponseDTO> getByNome(String nome, int page, int pageSize);
 
+    ProdutoResponseDTO salveImage(Long id, String nomeImagem);
+
     // List<ProdutoResponseDTO> getByMarca(String nome);
 
     // metodos de filtragem

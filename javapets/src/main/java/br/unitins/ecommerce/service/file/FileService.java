@@ -5,7 +5,7 @@ import java.io.IOException;
 
 public interface FileService {
     
-    String salvarImagemUsuario(byte[] imagem, String nomeImagem) throws IOException;
+    String salvar(byte[] imagem, String nomeImagem) throws IOException;
 
     File download(String nomeArquivo); 
 
