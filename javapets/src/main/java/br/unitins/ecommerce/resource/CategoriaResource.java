@@ -39,8 +39,8 @@ public class CategoriaResource {
     @GET
     @PermitAll
     public List<CategoriaResponseDTO> getAll(
-        @QueryParam("page") @DefaultValue("0") int page,
-        @QueryParam("pageSize") @DefaultValue("2") int pageSize) {
+            @QueryParam("page") @DefaultValue("0") int page,
+            @QueryParam("pageSize") @DefaultValue("2") int pageSize) {
         LOG.info("Buscando todos os categoria.");
         LOG.debug("ERRO DE DEBUG.");
         return categoriaService.getAll(page, pageSize);
@@ -60,62 +60,32 @@ public class CategoriaResource {
     public Response insert(CategoriaDTO categoriaDto) {
         LOG.infof("Inserindo um categoria: %s", categoriaDto.nome());
 
-        Result result = null;
+        CategoriaResponseDTO categoria = categoriaService.insert(categoriaDto);
 
-        try {
-            CategoriaResponseDTO categoria = categoriaService.insert(categoriaDto);
+        LOG.infof("Categoria (%d) criado com sucesso.", categoria.id());
 
-            LOG.infof("Categoria (%d) criado com sucesso.", categoria.id());
+        return Response.status(Status.CREATED).entity(categoria).build();
 
-            return Response.status(Status.CREATED).entity(categoria).build();
-
-        } catch (ConstraintViolationException e) {
-
-            LOG.error("Erro ao incluir um categoria.");
-
-            LOG.debug(e.getMessage());
-
-            result = new Result(e.getConstraintViolations());
-
-        } catch (Exception e) {
-            LOG.fatal("Erro sem identificacao: " + e.getMessage());
-
-            result = new Result(e.getMessage(), false);
-        }
-        return Response.status(Status.NOT_FOUND).entity(result).build();
     }
 
     @PUT
     @Path("/{id}")
     // @RolesAllowed({"Admin"})
     public Response update(@PathParam("id") Long id, CategoriaDTO categoriaDto) {
-        Result result = null;
-        
-        try {
-            categoriaService.update(id, categoriaDto);
-            LOG.infof("Município (%d) atualizado com sucesso.", id);
-            return Response
-                    .status(Status.NO_CONTENT) // 204
-                    .build();
-        } catch (ConstraintViolationException e) {
-            LOG.error("Erro de validação ao atualizar o município.", e);
-            LOG.debug(e.getMessage());
 
-            result = new Result(e.getConstraintViolations());
+        categoriaService.update(id, categoriaDto);
+        LOG.infof("Município (%d) atualizado com sucesso.", id);
+        return Response
+                .status(Status.NO_CONTENT) // 204
+                .build();
 
-        } catch (Exception e) {
-            LOG.fatal("Erro ao atualizar o município " + id + ".", e);
-            result = new Result(e.getMessage(), false);
-    
-        }
-        return Response.status(Status.NOT_FOUND).entity(result).build();
     }
 
     @DELETE
     @Path("/{id}")
     // @RolesAllowed({"Admin"})
     public Response delete(@PathParam("id") Long id) throws IllegalArgumentException, NotFoundException {
-    
+
         try {
             categoriaService.delete(id);
             LOG.infof("Categoria (%d) excluída com sucesso.", id);
@@ -125,8 +95,8 @@ public class CategoriaResource {
         } catch (ConstraintViolationException e) {
             LOG.errorf("Erro ao deletar categoria: %s", e.getMessage());
             return Response
-                    .status(Status.INTERNAL_SERVER_ERROR) 
-                    .entity("A categoria não pode ser excluída porque está sendo utilizada.") 
+                    .status(Status.INTERNAL_SERVER_ERROR)
+                    .entity("A categoria não pode ser excluída porque está sendo utilizada.")
                     .build();
         } catch (IllegalArgumentException e) {
             LOG.error("Erro ao deletar categoria: parâmetros inválidos.", e);
@@ -136,8 +106,6 @@ public class CategoriaResource {
             throw e;
         }
     }
-    
-
 
     @GET
     @Path("/count")
@@ -151,7 +119,7 @@ public class CategoriaResource {
     @GET
     @Path("/count/search/{nome}")
     // @RolesAllowed({"Admin"})
-    public Long count (@PathParam("nome") String nome) {
+    public Long count(@PathParam("nome") String nome) {
         LOG.infof("Contando todos os categorias");
         LOG.debug("ERRO DE DEBUG.");
         return categoriaService.countByNome(nome);
@@ -161,8 +129,8 @@ public class CategoriaResource {
     @Path("/searchByNome/{nome}")
     @PermitAll
     public List<CategoriaResponseDTO> getByNome(@PathParam("nome") String nome,
-    @QueryParam("page") @DefaultValue("0") int page,
-        @QueryParam("pageSize") @DefaultValue("2") int pageSize) throws NullPointerException {
+            @QueryParam("page") @DefaultValue("0") int page,
+            @QueryParam("pageSize") @DefaultValue("2") int pageSize) throws NullPointerException {
         LOG.infof("Pesquisando Categoria por nome.", nome);
         LOG.debug("ERRO DE DEBUG.");
         return categoriaService.getByNome(nome, page, pageSize);

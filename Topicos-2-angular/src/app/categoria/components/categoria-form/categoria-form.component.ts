@@ -11,18 +11,19 @@ import { CategoriaService } from 'src/app/services/categoria.service';
 })
 export class CategoriaFormComponent {
   formGroup: FormGroup;
+  apiResponse: any = null;
 
   constructor(private formBuilder: FormBuilder,
-              private categoriaService: CategoriaService,
-              private router: Router,
-              private activatedRoute: ActivatedRoute) {
+    private categoriaService: CategoriaService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute) {
 
     const categoria: Categoria = this.activatedRoute.snapshot.data['categoria'];
 
     this.formGroup = formBuilder.group({
-      id:[(categoria && categoria.id) ? categoria.id : null],
-      nome:[(categoria && categoria.nome) ? categoria.nome : '', Validators.required],
-      descricao:[(categoria && categoria.descricao) ? categoria.descricao : '', Validators.required]
+      id: [(categoria && categoria.id) ? categoria.id : null],
+      nome: [(categoria && categoria.nome) ? categoria.nome : '', Validators.required],
+      descricao: [(categoria && categoria.descricao) ? categoria.descricao : '', Validators.required]
     })
   }
 
@@ -34,8 +35,13 @@ export class CategoriaFormComponent {
           next: (categoriaCadastrado) => {
             this.router.navigateByUrl('/categorias/list');
           },
-          error: (err) => {
-            console.log('Erro ao incluir' + JSON.stringify(err));
+          error: (errorResponse) => {
+            this.apiResponse = errorResponse.error;
+
+            this.formGroup.get('nome')?.setErrors({ apiError: this.getErrorMessage('nome') });
+            this.formGroup.get('descricao')?.setErrors({apiError: this.getErrorMessage('descricao')});
+
+            console.log('Erro ao incluir' + JSON.stringify(errorResponse));
           }
         });
       } else {
@@ -43,13 +49,23 @@ export class CategoriaFormComponent {
           next: (categoriaCadastrado) => {
             this.router.navigateByUrl('/categorias/list');
           },
-          error: (err) => {
-            console.log('Erro ao alterar' + JSON.stringify(err));
+          error: (errorResponse) => {
+            this.apiResponse = errorResponse.error;
+
+          this.formGroup.get('nome')?.setErrors({ apiError: this.getErrorMessage('nome') });
+          this.formGroup.get('descricao')?.setErrors({apiError: this.getErrorMessage('descricao')});
+            console.log('Erro ao alterar' + JSON.stringify(errorResponse));
           }
-        });        
+        });
       }
     }
   }
+
+  getErrorMessage(fieldName: string): string {
+    const error = this.apiResponse.errors.find((error: any) => error.fieldName === fieldName);
+    return error ? error.message : '';
+  }
+
 
   excluir() {
     const categoria = this.formGroup.value;
@@ -62,6 +78,6 @@ export class CategoriaFormComponent {
           console.log('Erro ao excluir' + JSON.stringify(err));
         }
       });
-    }      
+    }
   }
 }

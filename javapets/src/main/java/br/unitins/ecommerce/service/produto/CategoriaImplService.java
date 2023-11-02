@@ -8,11 +8,13 @@ import br.unitins.ecommerce.dto.produto.CategoriaDTO;
 import br.unitins.ecommerce.dto.produto.CategoriaResponseDTO;
 import br.unitins.ecommerce.model.produto.produto.Categoria;
 import br.unitins.ecommerce.repository.CategoriaRepository;
+import br.unitins.ecommerce.validation.ValidationException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.Valid;
 import jakarta.validation.Validator;
 import jakarta.ws.rs.NotFoundException;
 
@@ -47,9 +49,11 @@ public class CategoriaImplService implements CategoriaService {
 
     @Override
     @Transactional
-    public CategoriaResponseDTO insert(CategoriaDTO categoriaDto) throws ConstraintViolationException {
-        
-        validar(categoriaDto);
+    public CategoriaResponseDTO insert(@Valid CategoriaDTO categoriaDto) throws ConstraintViolationException {
+        if(categoriaRepository.findByNomeValidation(categoriaDto.nome()) != null){
+            throw new ValidationException("nome","A categoria "+categoriaDto.nome()+" já está cadastrada.");
+        }
+       // validar(categoriaDto);
 
         Categoria entity = new Categoria();
 
@@ -64,9 +68,9 @@ public class CategoriaImplService implements CategoriaService {
 
     @Override
     @Transactional
-    public CategoriaResponseDTO update(Long id, CategoriaDTO categoriaDto) throws ConstraintViolationException, NotFoundException {
+    public CategoriaResponseDTO update(Long id, @Valid CategoriaDTO categoriaDto) throws ConstraintViolationException, NotFoundException {
         
-        validar(categoriaDto);
+        //validar(categoriaDto);
 
         Categoria entity = categoriaRepository.findById(id);
 

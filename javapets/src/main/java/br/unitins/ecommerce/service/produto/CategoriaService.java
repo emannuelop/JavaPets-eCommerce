@@ -4,6 +4,7 @@ import java.util.List;
 
 import br.unitins.ecommerce.dto.produto.CategoriaDTO;
 import br.unitins.ecommerce.dto.produto.CategoriaResponseDTO;
+import jakarta.validation.Valid;
 
 public interface CategoriaService {
     
@@ -13,9 +14,9 @@ public interface CategoriaService {
     
     CategoriaResponseDTO getById(Long id);
 
-    CategoriaResponseDTO insert(CategoriaDTO categoriaDto);
+    CategoriaResponseDTO insert(@Valid CategoriaDTO categoriaDto);
 
-    CategoriaResponseDTO update(Long id, CategoriaDTO categoriaDto);
+    CategoriaResponseDTO update(Long id, @Valid CategoriaDTO categoriaDto);
 
     void delete(Long id);
 
