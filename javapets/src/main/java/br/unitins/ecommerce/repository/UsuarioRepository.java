@@ -10,8 +10,8 @@ import io.quarkus.hibernate.orm.panache.PanacheRepository;
 
 @ApplicationScoped
 public class UsuarioRepository implements PanacheRepository<Usuario> {
-    
-    public PanacheQuery findByNome (String nomePessoaFisica) {
+
+    public PanacheQuery findByNome(String nomePessoaFisica) {
 
         if (nomePessoaFisica == null)
             return null;

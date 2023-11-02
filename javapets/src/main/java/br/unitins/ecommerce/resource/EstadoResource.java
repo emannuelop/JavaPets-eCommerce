@@ -38,9 +38,8 @@ public class EstadoResource {
     @GET
     // @PermitAll
     public List<EstadoResponseDTO> getAll(
-        @QueryParam("page") @DefaultValue("0") int page,
-        @QueryParam("pageSize") @DefaultValue("2") int pageSize) 
-        {
+            @QueryParam("page") @DefaultValue("0") int page,
+            @QueryParam("pageSize") @DefaultValue("2") int pageSize) {
         LOG.infof("Buscando todos os estados");
         LOG.debug("ERRO DE DEBUG.");
         return estadoService.getAll(page, pageSize);
@@ -70,28 +69,12 @@ public class EstadoResource {
     @Path("/{id}")
     // @RolesAllowed({"Admin"})
     public Response update(@PathParam("id") Long id, EstadoDTO estadoDto) {
-        Result result = null;
-        try {
-            estadoService.update(id, estadoDto);
-            LOG.infof("Estado (%d) atualizado com sucesso.", id);
-            return Response
-                    .status(Status.NO_CONTENT) // 204
-                    .build();
 
-        } catch (ConstraintViolationException e) {
-            LOG.errorf("Erro ao atualizar um Estado. ", id, e);
-            LOG.debug(e.getMessage());
-
-            result = new Result(e.getConstraintViolations());
-
-        } catch (Exception e) {
-            LOG.fatal("Erro sem identificacao: " + e.getMessage());
-            result = new Result(e.getMessage(), false);
-
-        }
+        LOG.infof("Atualizando um estado: %s", estadoDto.nome());
+        estadoService.update(id, estadoDto);
+        LOG.infof("Estado (%d) atualizado com sucesso.", id);
         return Response
-                .status(Status.NOT_FOUND)
-                .entity(result)
+                .status(Status.NO_CONTENT) // 204
                 .build();
 
     }
@@ -124,7 +107,7 @@ public class EstadoResource {
     @GET
     @Path("/count/search/{nome}")
     // @RolesAllowed({"Admin"})
-    public Long count (@PathParam("nome") String nome) {
+    public Long count(@PathParam("nome") String nome) {
         LOG.infof("Contando todos os estados");
         LOG.debug("ERRO DE DEBUG.");
         return estadoService.countByNome(nome);
@@ -134,10 +117,8 @@ public class EstadoResource {
     @Path("/searchByNome/{nome}")
     // @PermitAll
     public List<EstadoResponseDTO> getByNome(@PathParam("nome") String nome,
-        @QueryParam("page") @DefaultValue("0") int page,
-        @QueryParam("pageSize") @DefaultValue("2") int pageSize
-        ) throws NullPointerException 
-        {
+            @QueryParam("page") @DefaultValue("0") int page,
+            @QueryParam("pageSize") @DefaultValue("2") int pageSize) throws NullPointerException {
         LOG.infof("Buscando estado pelo nome. ", nome);
         LOG.debug("ERRO DE DEBUG.");
         return estadoService.getByNome(nome, page, pageSize);

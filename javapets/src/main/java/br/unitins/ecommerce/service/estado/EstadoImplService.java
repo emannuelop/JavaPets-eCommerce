@@ -51,7 +51,7 @@ public class EstadoImplService implements EstadoService {
 
     @Override
     @Transactional
-    public EstadoResponseDTO insert(EstadoDTO estadoDto) throws ConstraintViolationException {
+    public EstadoResponseDTO insert(@Valid EstadoDTO estadoDto) throws ConstraintViolationException {
 
         validar(estadoDto);
 
@@ -68,7 +68,7 @@ public class EstadoImplService implements EstadoService {
 
     @Override
     @Transactional
-    public EstadoResponseDTO update(@Valid Long id, EstadoDTO estadoDto) throws ConstraintViolationException {
+    public EstadoResponseDTO update( Long id, @Valid  EstadoDTO estadoDto) throws ConstraintViolationException {
 
         // validar(estadoDto);
 

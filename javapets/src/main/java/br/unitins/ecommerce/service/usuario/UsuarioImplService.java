@@ -33,6 +33,7 @@ import br.unitins.ecommerce.repository.TelefoneRepository;
 import br.unitins.ecommerce.repository.UsuarioRepository;
 import br.unitins.ecommerce.service.hash.HashService;
 import br.unitins.ecommerce.service.pessoafisica.PessoaFisicaService;
+import br.unitins.ecommerce.validation.ValidationException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -118,6 +119,9 @@ public class UsuarioImplService implements UsuarioService {
     @Override
     @Transactional
     public UsuarioResponseDTO insert(UsuarioDTO usuarioDto) throws ConstraintViolationException {
+        if(usuarioRepository.findByLogin(usuarioDto.login()) != null) {
+            throw new ValidationException("login","O login informado já existe. Informe outro login.");
+        }
 
         validar(usuarioDto);
 

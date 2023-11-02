@@ -27,7 +27,7 @@ export class EstadoFormComponent {
     })
   }
 
-  salvar() {
+  salvar() { 
     if (this.formGroup.valid) {
       const estado = this.formGroup.value;
       if (estado.id == null) {
@@ -51,8 +51,13 @@ export class EstadoFormComponent {
           next: (estadoCadastrado) => {
             this.router.navigateByUrl('/estados/list');
           },
-          error: (err) => {
-            console.log('Erro ao alterar' + JSON.stringify(err));
+          error: (errorResponse) => {
+
+            this.apiResponse = errorResponse.error;
+
+            this.formGroup.get('nome')?.setErrors({ apiError: this.getErrorMessage('nome') });
+            this.formGroup.get('sigla')?.setErrors({ apiError: this.getErrorMessage('sigla') });
+            console.log('Erro ao alterar' + JSON.stringify(errorResponse));
           }
         });        
       }
