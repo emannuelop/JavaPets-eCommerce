@@ -70,4 +70,8 @@ export class ProdutoService {
     return this.http.get<number>(`${this.baseURL}/produtos/count/search/${nome}`);
   }
 
+  getUrlImagem(nomeImagem: string): string {
+    return `${this.baseURL}/produtos/image/download/${nomeImagem}`;
+  }
+
 }

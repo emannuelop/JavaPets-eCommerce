@@ -34,8 +34,6 @@ public class Produto extends DefaultEntity {
     @JoinColumn(name = "id_categoria", nullable = false)
     private Categoria categoria;
 
-    
-
     public Produto() {
     }
 

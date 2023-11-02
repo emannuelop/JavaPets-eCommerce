@@ -13,14 +13,14 @@ import jakarta.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 public class FileImplService implements FileService {
 
-    // ex. /user/janio/quarkus/images/usuario/
+    // ex. /user/janio/quarkus/images/produto/
     private final String PATH_USER = System.getProperty("user.home")
             + File.separator + "quarkus"
             + File.separator + "images"
-            + File.separator + "usuario" + File.separator;
+            + File.separator + "produto" + File.separator;
 
     @Override
-    public String salvarImagemUsuario(byte[] imagem, String nomeImagem) throws IOException {
+    public String salvar(byte[] imagem, String nomeImagem) throws IOException {
 
         // verificando o tipo da imagem
         String mimeType = Files.probeContentType(new File(nomeImagem).toPath());

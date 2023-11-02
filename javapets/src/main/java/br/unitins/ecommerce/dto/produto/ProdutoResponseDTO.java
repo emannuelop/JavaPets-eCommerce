@@ -13,7 +13,8 @@ public record ProdutoResponseDTO(
     Fornecedor fornecedor,
     Categoria categoria,
     Double preco,
-    int estoque
+    int estoque,
+    String nomeImagem
 ) {
     
     public static ProdutoResponseDTO valueOf(Produto produto) {
@@ -25,7 +26,8 @@ public record ProdutoResponseDTO(
             produto.getFornecedor(),
             produto.getCategoria(),
             produto.getPreco(),
-            produto.getEstoque()
+            produto.getEstoque(),
+            produto.getNomeImagem()
             );
     }
 }
