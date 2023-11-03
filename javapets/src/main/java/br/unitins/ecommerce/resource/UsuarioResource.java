@@ -43,9 +43,9 @@ public class UsuarioResource {
     private static final Logger LOG = Logger.getLogger(UsuarioResource.class);
 
     @GET
-   // @RolesAllowed({ "Admin" })
-    public List<UsuarioResponseDTO> getAllUsuario( @QueryParam("page") @DefaultValue("0") int page,
-        @QueryParam("pageSize") @DefaultValue("2") int pageSize) {
+    // @RolesAllowed({ "Admin" })
+    public List<UsuarioResponseDTO> getAllUsuario(@QueryParam("page") @DefaultValue("0") int page,
+            @QueryParam("pageSize") @DefaultValue("2") int pageSize) {
         LOG.info("Buscando todos os usuários");
         LOG.debug("ERRO DE DEBUG.");
 
@@ -54,7 +54,7 @@ public class UsuarioResource {
 
     @GET
     @Path("/usuarios-basicos")
-    //@RolesAllowed({ "Admin" })
+    // @RolesAllowed({ "Admin" })
     public List<UsuarioBasicoResponseDTO> getAllUsuarioBasico() {
         LOG.info("Buscando todos os usuários basicos");
         LOG.debug("ERRO DE DEBUG.");
@@ -64,7 +64,7 @@ public class UsuarioResource {
 
     @GET
     @Path("/{id}")
-   // @RolesAllowed({ "Admin" })
+    // @RolesAllowed({ "Admin" })
     public UsuarioResponseDTO getById(@PathParam("id") Long id) throws NotFoundException {
         LOG.info("Buscando usuário por ID");
         LOG.debug("ERRO DE DEBUG.");
@@ -83,29 +83,14 @@ public class UsuarioResource {
     }
 
     @POST
-   // @RolesAllowed({ "Admin" })
+    // @RolesAllowed({ "Admin" })
     public Response insert(UsuarioDTO usuarioDto) {
-        Result result = null;
-        try {
-            LOG.infof("Usuário criado com sucesso.");
 
-            return Response
-                    .status(Status.CREATED) // 201
-                    .entity(usuarioService.insert(usuarioDto))
-                    .build();
-        } catch (ConstraintViolationException e) {
-            LOG.error("Erro ao incluir Usuário.");
-            LOG.debug(e.getMessage());
+        LOG.infof("Usuário criado com sucesso.");
 
-            result = new Result(e.getConstraintViolations());
-        } catch (Exception e) {
-            LOG.fatal("Erro sem identificacao: " + e.getMessage());
-            result = new Result(e.getMessage(), false);
-
-        }
         return Response
-                .status(Status.NOT_FOUND)
-                .entity(result)
+                .status(Status.CREATED) // 201
+                .entity(usuarioService.insert(usuarioDto))
                 .build();
 
     }
@@ -140,64 +125,48 @@ public class UsuarioResource {
 
     @PUT
     @Path("/{id}")
-   // @RolesAllowed({ "Admin" })
+    // @RolesAllowed({ "Admin" })
     public Response update(@PathParam("id") Long id, UsuarioDTO usuarioDto) {
-        Result result = null;
-        try {
-            usuarioService.update(id, usuarioDto);
-            LOG.infof("Usuário (%d) atualizado com sucesso.", id);
 
-            return Response
-                    .status(Status.NO_CONTENT) // 204
-                    .build();
+        usuarioService.update(id, usuarioDto);
+        LOG.infof("Usuário (%d) atualizado com sucesso.", id);
 
-        } catch (ConstraintViolationException e) {
-            LOG.errorf("Erro ao atualizar um usuário. ", id, e);
-            LOG.debug(e.getMessage());
-
-            result = new Result(e.getConstraintViolations());
-        } catch (Exception e) {
-            LOG.fatal("Erro sem identificacao: " + e.getMessage());
-            result = new Result(e.getMessage(), false);
-
-        }
         return Response
-                .status(Status.NOT_FOUND)
-                .entity(result)
+                .status(Status.NO_CONTENT) // 204
                 .build();
+
     }
 
     @DELETE
-@Path("/{id}")
-public Response delete(@PathParam("id") Long id) {
-    try {
-        usuarioService.delete(id);
-        LOG.infof("Usuário excluído com sucesso: %d", id);
+    @Path("/{id}")
+    public Response delete(@PathParam("id") Long id) {
+        try {
+            usuarioService.delete(id);
+            LOG.infof("Usuário excluído com sucesso: %d", id);
 
-        return Response
-                .status(Status.NO_CONTENT)
-                .build();
-    } catch (IllegalArgumentException e) {
-        LOG.error("Erro ao deletar usuário: parâmetros inválidos.", e);
-        return Response
-                .status(Status.BAD_REQUEST)
-                .entity("Parâmetros inválidos")
-                .build();
-    } catch (NotFoundException e) {
-        LOG.error("Usuário não encontrado.", e);
-        return Response
-                .status(Status.NOT_FOUND)
-                .entity("Usuário não encontrado")
-                .build();
-    } catch (Exception e) {
-        LOG.error("Erro ao deletar usuário.", e);
-        return Response
-                .status(Status.INTERNAL_SERVER_ERROR)
-                .entity("Erro ao excluir o usuário")
-                .build();
+            return Response
+                    .status(Status.NO_CONTENT)
+                    .build();
+        } catch (IllegalArgumentException e) {
+            LOG.error("Erro ao deletar usuário: parâmetros inválidos.", e);
+            return Response
+                    .status(Status.BAD_REQUEST)
+                    .entity("Parâmetros inválidos")
+                    .build();
+        } catch (NotFoundException e) {
+            LOG.error("Usuário não encontrado.", e);
+            return Response
+                    .status(Status.NOT_FOUND)
+                    .entity("Usuário não encontrado")
+                    .build();
+        } catch (Exception e) {
+            LOG.error("Erro ao deletar usuário.", e);
+            return Response
+                    .status(Status.INTERNAL_SERVER_ERROR)
+                    .entity("Erro ao excluir o usuário")
+                    .build();
+        }
     }
-}
-
 
     @PATCH
     @Path("/lista_desejo/{idUsuario}/{idProduto}")
@@ -223,7 +192,7 @@ public Response delete(@PathParam("id") Long id) {
 
     @GET
     @Path("/count")
-  //  @RolesAllowed({ "Admin" })
+    // @RolesAllowed({ "Admin" })
     public Long count() {
         LOG.infof("Contando os usuários");
         LOG.debug("ERRO DE DEBUG.");
@@ -242,9 +211,10 @@ public Response delete(@PathParam("id") Long id) {
 
     @GET
     @Path("/searchByNome/{nome}")
-  //  @RolesAllowed({ "Admin" })
-    public List<UsuarioResponseDTO> getByNome(@PathParam("nome") String nome, @QueryParam("page") @DefaultValue("0") int page,
-    @QueryParam("pageSize") @DefaultValue("2") int pageSize) throws NullPointerException {
+    // @RolesAllowed({ "Admin" })
+    public List<UsuarioResponseDTO> getByNome(@PathParam("nome") String nome,
+            @QueryParam("page") @DefaultValue("0") int page,
+            @QueryParam("pageSize") @DefaultValue("2") int pageSize) throws NullPointerException {
         LOG.info("Buscando usuário por nome");
         LOG.debug("ERRO DE DEBUG.");
 
@@ -254,31 +224,34 @@ public Response delete(@PathParam("id") Long id) {
     @GET
     @Path("/count/search/{nome}")
     // @RolesAllowed({"Admin"})
-    public Long count (@PathParam("nome") String nome) {
+    public Long count(@PathParam("nome") String nome) {
         LOG.infof("Contando todos os usuários");
         LOG.debug("ERRO DE DEBUG.");
         return usuarioService.countByNome(nome);
     }
 
-  /*   @POST
-    @Path("/telefone/adiconartelefone")
-   // @RolesAllowed({ "Admin", "User", "User_Basic" })
-    public Response insertIntoCarrrinho(AdicionarTelDTO telefone) {
-        Result result = null;
-
-        TelefoneDTO tel = new TelefoneDTO(telefone.codigoArea(), telefone.numero());
-
-        try{
-            usuarioService.insertTelefone(telefone.idUsu(), tel);
-
-            LOG.info("Telefone inserido no com sucesso.");
-            return Response.status(Status.CREATED).build();
-        } catch (NullPointerException e) {
-            LOG.error("Erro ao adicionar telefone.", e);
-
-            result = new Result(e.getMessage(), false);
-
-            return Response.status(Status.NOT_FOUND).entity(result).build();
-        }
-    }*/
+    /*
+     * @POST
+     * 
+     * @Path("/telefone/adiconartelefone")
+     * // @RolesAllowed({ "Admin", "User", "User_Basic" })
+     * public Response insertIntoCarrrinho(AdicionarTelDTO telefone) {
+     * Result result = null;
+     * 
+     * TelefoneDTO tel = new TelefoneDTO(telefone.codigoArea(), telefone.numero());
+     * 
+     * try{
+     * usuarioService.insertTelefone(telefone.idUsu(), tel);
+     * 
+     * LOG.info("Telefone inserido no com sucesso.");
+     * return Response.status(Status.CREATED).build();
+     * } catch (NullPointerException e) {
+     * LOG.error("Erro ao adicionar telefone.", e);
+     * 
+     * result = new Result(e.getMessage(), false);
+     * 
+     * return Response.status(Status.NOT_FOUND).entity(result).build();
+     * }
+     * }
+     */
 }

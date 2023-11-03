@@ -6,6 +6,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.Valid;
 import jakarta.validation.Validator;
 
 import br.unitins.ecommerce.dto.usuario.PessoaFisicaDTO;
@@ -24,9 +25,9 @@ public class PessoaFisicaImplService implements PessoaFisicaService {
     Validator validator;
 
     @Override
-    public PessoaFisica insertPessoaFisica(PessoaFisicaDTO pessoaFisicaDTO) {
+    public PessoaFisica insertPessoaFisica(@Valid PessoaFisicaDTO pessoaFisicaDTO) {
         
-        validar(pessoaFisicaDTO);
+        //validar(pessoaFisicaDTO);
 
         PessoaFisica entity = new PessoaFisica();
 
@@ -58,9 +59,9 @@ public class PessoaFisicaImplService implements PessoaFisicaService {
     }
 
     @Override
-    public void updatePessoaFisica(Usuario usuario, PessoaFisicaDTO pessoaFisicaDTO) {
+    public void updatePessoaFisica(Usuario usuario, @Valid PessoaFisicaDTO pessoaFisicaDTO) {
         
-        validar(pessoaFisicaDTO);
+      //  validar(pessoaFisicaDTO);
 
         Long idPessoaFisica = usuario.getPessoaFisica().getId();
 

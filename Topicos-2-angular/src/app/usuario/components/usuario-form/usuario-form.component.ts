@@ -14,6 +14,8 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 export class UsuarioFormComponent {
   formGroup: FormGroup;
 cidades:Cidade[] =[];
+apiResponse: any = null;
+
 cidadeControl: FormControl = new FormControl(null);
   constructor(private formBuilder: FormBuilder,
     private usuarioService: UsuarioService,
@@ -127,8 +129,26 @@ this.initializeForm();
           next: (usuarioCadastrado) => {
             this.router.navigateByUrl('/usuarios/list');
           },
-          error: (err) => {
-            console.log('Erro ao incluir' + JSON.stringify(err));
+          error: (errorResponse) => {
+            this.apiResponse = errorResponse.error;
+
+            this.formGroup.get('login')?.setErrors({ apiError: this.getErrorMessage('login') });
+            this.formGroup.get('senha')?.setErrors({apiError: this.getErrorMessage('descricao')});
+
+            this.formGroup.get('pessoaFisicaDto')?.get('nome')?.setErrors({ apiError: this.getErrorMessage('nome') });
+            this.formGroup.get('pessoaFisicaDto')?.get('cpf')?.setErrors({ apiError: this.getErrorMessage('cpf') });
+            this.formGroup.get('pessoaFisicaDto')?.get('email')?.setErrors({ apiError: this.getErrorMessage('email') });
+            this.formGroup.get('pessoaFisicaDto')?.get('sexo')?.setErrors({ apiError: this.getErrorMessage('sexo') });
+
+            this.formGroup.get('endereco')?.get('logradouro')?.setErrors({ apiError: this.getErrorMessage('logradouro') });
+            this.formGroup.get('endereco')?.get('bairro')?.setErrors({ apiError: this.getErrorMessage('bairro') });
+            this.formGroup.get('endereco')?.get('numero')?.setErrors({ apiError: this.getErrorMessage('numero') });
+            this.formGroup.get('endereco')?.get('cep')?.setErrors({ apiError: this.getErrorMessage('cep') });
+            this.formGroup.get('endereco')?.get('cidade')?.setErrors({ apiError: this.getErrorMessage('cidade') });
+
+
+            
+            console.log('Erro ao incluir' + JSON.stringify(errorResponse));
           }
         });
       } else {
@@ -136,13 +156,18 @@ this.initializeForm();
           next: (UsuarioCadastrado) => {
             this.router.navigateByUrl('/usuarios/list');
           },
-          error: (err) => {
-            console.log('Erro ao alterar' + JSON.stringify(err));
+          error: (errorResponse) => {
+            console.log('Erro ao alterar' + JSON.stringify(errorResponse));
           }
         });
       }
     }
   }
+  getErrorMessage(fieldName: string): string {
+    const error = this.apiResponse.errors.find((error: any) => error.fieldName === fieldName);
+    return error ? error.message : '';
+  }
+
   
   excluir() {
     const usuario = this.formGroup.value;

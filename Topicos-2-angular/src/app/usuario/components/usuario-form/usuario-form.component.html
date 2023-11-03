@@ -1,4 +1,4 @@
-<mat-toolbar class="centered-toolbar" ><p>Cadastro de Usuário</p></mat-toolbar>
+<mat-toolbar class="centered-toolbar"><p>Cadastro de Usuário</p></mat-toolbar>
 <div class="form-container">
   <mat-card>
     <mat-card-content>
@@ -10,12 +10,18 @@
             <input matInput type="text" formControlName="nome" id="nome_id" />
             <mat-error
               *ngIf="
-                formGroup.get('nome') &&
-                formGroup.get('nome')?.invalid &&
-                formGroup.get('nome')?.touched
+                formGroup
+                  .get('pessoaFisicaDto')
+                  ?.get('nome')
+                  ?.hasError('apiError')
               "
             >
-              Nome é obrigatório.
+              {{
+                formGroup
+                  .get("pessoaFisicaDto")
+                  ?.get("nome")
+                  ?.getError("apiError")
+              }}
             </mat-error>
           </mat-form-field>
           <mat-form-field appearance="outline" class="full-width-input">
@@ -23,12 +29,18 @@
             <input matInput type="text" formControlName="cpf" id="cpf_id" />
             <mat-error
               *ngIf="
-                formGroup.get('cpf') &&
-                formGroup.get('cpf')?.invalid &&
-                formGroup.get('cpf')?.touched
+                formGroup
+                  .get('pessoaFisicaDto')
+                  ?.get('cpf')
+                  ?.hasError('apiError')
               "
             >
-              CPF é obrigatório.
+              {{
+                formGroup
+                  .get("pessoaFisicaDto")
+                  ?.get("cpf")
+                  ?.getError("apiError")
+              }}
             </mat-error>
           </mat-form-field>
           <mat-form-field appearance="outline" class="full-width-input">
@@ -41,12 +53,18 @@
             />
             <mat-error
               *ngIf="
-                formGroup.get('email') &&
-                formGroup.get('email')?.invalid &&
-                formGroup.get('email')?.touched
+                formGroup
+                  .get('pessoaFisicaDto')
+                  ?.get('email')
+                  ?.hasError('apiError')
               "
             >
-              Email é obrigatório.
+              {{
+                formGroup
+                  .get("pessoaFisicaDto")
+                  ?.get("email")
+                  ?.getError("apiError")
+              }}
             </mat-error>
           </mat-form-field>
           <mat-form-field appearance="outline" class="full-width-input">
@@ -57,12 +75,18 @@
             </mat-select>
             <mat-error
               *ngIf="
-                formGroup.get('sexo') &&
-                formGroup.get('sexo')?.invalid &&
-                formGroup.get('sexo')?.touched
+                formGroup
+                  .get('pessoaFisicaDto')
+                  ?.get('cpf')
+                  ?.hasError('apiError')
               "
             >
-              Sexo é obrigatório.
+              {{
+                formGroup
+                  .get("pessoaFisicaDto")
+                  ?.get("sexo")
+                  ?.getError("apiError")
+              }}
             </mat-error>
           </mat-form-field>
         </div>
@@ -72,14 +96,8 @@
           <mat-form-field appearance="outline" class="full-width-input">
             <mat-label for="login_id">Login</mat-label>
             <input matInput formControlName="login" id="login_id" />
-            <mat-error
-              *ngIf="
-                formGroup.get('login') &&
-                formGroup.get('login')?.invalid &&
-                formGroup.get('login')?.touched
-              "
-            >
-              login é obrigatório.
+            <mat-error *ngIf="formGroup.get('login')?.hasError('apiError')">
+              {{ formGroup.get("login")?.getError("apiError") }}
             </mat-error>
           </mat-form-field>
 
@@ -91,14 +109,8 @@
               formControlName="senha"
               id="senha_id"
             />
-            <mat-error
-              *ngIf="
-                formGroup.get('senha') &&
-                formGroup.get('senha')?.invalid &&
-                formGroup.get('senha')?.touched
-              "
-            >
-              senha é obrigatório.
+            <mat-error *ngIf="formGroup.get('senha')?.hasError('apiError')">
+              {{ formGroup.get("senha")?.getError("apiError") }}
             </mat-error>
           </mat-form-field>
         </div>
@@ -180,7 +192,12 @@
             </button>
           </div>
         </div>
-        <button mat-button color="primary" class="botao-add-tel" (click)="adicionarTelefone()">
+        <button
+          mat-button
+          color="primary"
+          class="botao-add-tel"
+          (click)="adicionarTelefone()"
+        >
           Adicionar Telefone
         </button>
       </form>
