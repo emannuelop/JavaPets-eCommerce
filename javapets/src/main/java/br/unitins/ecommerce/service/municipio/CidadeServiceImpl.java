@@ -9,11 +9,13 @@ import br.unitins.ecommerce.dto.municipio.CidadeResponseDTO;
 import br.unitins.ecommerce.model.endereco.Cidade;
 import br.unitins.ecommerce.repository.CidadeRepository;
 import br.unitins.ecommerce.repository.EstadoRepository;
+import br.unitins.ecommerce.validation.ValidationException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.Valid;
 import jakarta.validation.Validator;
 import jakarta.ws.rs.NotFoundException;
 
@@ -47,7 +49,10 @@ public class CidadeServiceImpl implements CidadeService {
 
     @Override
     @Transactional
-    public CidadeResponseDTO create(CidadeDTO cidadeDTO) throws ConstraintViolationException {
+    public CidadeResponseDTO create(@Valid CidadeDTO cidadeDTO) throws ConstraintViolationException {
+        if(cidadeRepository.findByNomeValidation(cidadeDTO.nome()) != null){
+            throw new ValidationException("nome","A cidade "+cidadeDTO.nome()+" já está cadastrada");
+        }
         validar(cidadeDTO);
 
         Cidade entity = new Cidade();
@@ -61,7 +66,7 @@ public class CidadeServiceImpl implements CidadeService {
 
     @Override
     @Transactional
-    public CidadeResponseDTO update(Long id, CidadeDTO cidadeDTO) throws ConstraintViolationException {
+    public CidadeResponseDTO update(Long id, @Valid CidadeDTO cidadeDTO) throws ConstraintViolationException {
         validar(cidadeDTO);
 
         Cidade entity = cidadeRepository.findById(id);

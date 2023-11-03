@@ -14,6 +14,7 @@ import { EstadoService } from 'src/app/services/estado.service';
 export class CidadeFormComponent implements OnInit {
   formGroup: FormGroup;
   estados: Estado[] = [];
+  apiResponse: any = null;
 
   constructor(private formBuilder: FormBuilder,
               private estadoService: EstadoService,
@@ -59,8 +60,12 @@ export class CidadeFormComponent implements OnInit {
           next: (cidadeCadastrado) => {
             this.router.navigateByUrl('/cidades/list');
           },
-          error: (err) => {
-            console.log('Erro ao incluir' + JSON.stringify(err));
+          error: (errorResponse) => {
+            this.apiResponse = errorResponse.error;
+            this.formGroup.get('nome')?.setErrors({ apiError: this.getErrorMessage('nome') });
+            this.formGroup.get('estado')?.setErrors({apiError: this.getErrorMessage('estado')});
+
+            console.log('Erro ao incluir' + JSON.stringify(errorResponse));
           }
         });
       } else {
@@ -68,12 +73,22 @@ export class CidadeFormComponent implements OnInit {
           next: (cidadeCadastrado) => {
             this.router.navigateByUrl('/cidades/list');
           },
-          error: (err) => {
-            console.log('Erro ao alterar' + JSON.stringify(err));
+          error: (errorResponse) => {
+            this.apiResponse = errorResponse.error;
+            this.formGroup.get('nome')?.setErrors({ apiError: this.getErrorMessage('nome') });
+            this.formGroup.get('estado')?.setErrors({apiError: this.getErrorMessage('estado')});
+
+            console.log('Erro ao incluir' + JSON.stringify(errorResponse));
+            console.log('Erro ao alterar' + JSON.stringify(errorResponse));
           }
         });        
       }
     }
+  }
+
+  getErrorMessage(fieldName: string): string {
+    const error = this.apiResponse.errors.find((error: any) => error.fieldName === fieldName);
+    return error ? error.message : '';
   }
 
   excluir() {
