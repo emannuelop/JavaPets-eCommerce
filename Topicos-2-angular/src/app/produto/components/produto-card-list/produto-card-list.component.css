@@ -20,3 +20,27 @@ img {
     align-items: center;
     justify-content: center;
 }
+.pesquisar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding-top: 10px;
+}
+.input-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Alinhar elementos à esquerda verticalmente */
+    width: 80%;
+}
+.input-field {
+    flex: 1;
+    margin-right: 8px;
+}
+.search-button {
+    width: 54px;
+    height: 54px;
+    align-self: flex-start; /* Alinhar o botão verticalmente ao topo */
+}
+

@@ -17,7 +17,9 @@ export class ProdutoCardListComponent implements OnInit  {
 
   cards = signal<Card[]> ([]);
   produtos: Produto[] = [];
-
+  filtro: string = "";
+  pageSize = 10;
+  pagina = 0;
   constructor(private produtoService: ProdutoService) {}
 
   ngOnInit(): void {
@@ -25,11 +27,20 @@ export class ProdutoCardListComponent implements OnInit  {
   }
 
   carregarProdutos() {
-    // buscando todos as produtos
-    this.produtoService.findAll(0, 10).subscribe(data => {
+    if(this.filtro){
+      this.produtoService.findByNome(this.filtro,this.pagina, this.pageSize).subscribe(data => {
+        this.produtos = data;
+        this.carregarCards();
+      })
+
+    }else{
+
+    this.produtoService.findAll(this.pagina, this.pageSize).subscribe(data => {
       this.produtos = data;
       this.carregarCards();
-    });
+    })
+  };
+  
   }
 
   carregarCards() {
@@ -42,6 +53,11 @@ export class ProdutoCardListComponent implements OnInit  {
       });
     });
     this.cards.set(cards);
+  }
+
+  aplicarFiltro() {
+    this.carregarProdutos();
+  
   }
 
 }
