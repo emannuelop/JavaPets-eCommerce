@@ -32,3 +32,8 @@
 
     </mat-card>
 </div>
+<div class="mat-elevation-z8">
+<mat-paginator [pageSizeOptions]="[2, 4, 8, 16]" [pageSize]="pageSize" [length]="totalRegistros"
+(page)="paginar($event)">
+</mat-paginator>
+</div>

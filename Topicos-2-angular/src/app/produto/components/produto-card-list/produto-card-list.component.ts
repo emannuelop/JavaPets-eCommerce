@@ -1,4 +1,6 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, ViewChild, signal } from '@angular/core';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { CustomPaginatorIntl } from 'src/app/models/custom-paginator-intl';
 import { Produto } from 'src/app/models/produto.model';
 import { ProdutoService } from 'src/app/services/produto.service';
 
@@ -15,15 +17,25 @@ type Card = {
 })
 export class ProdutoCardListComponent implements OnInit  {
 
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator | undefined;
+
   cards = signal<Card[]> ([]);
   produtos: Produto[] = [];
+  totalRegistros = 0;
   filtro: string = "";
   pageSize = 10;
   pagina = 0;
-  constructor(private produtoService: ProdutoService) {}
+  constructor(private produtoService: ProdutoService, private customPaginatorIntl: CustomPaginatorIntl) {}
+
+  ngAfterViewInit() {
+    if (this.paginator) {
+      this.paginator._intl = this.customPaginatorIntl; // Configuração da internacionalização
+    }
+  }
 
   ngOnInit(): void {
     this.carregarProdutos();
+    this.carregarTotalRegistros();
   }
 
   carregarProdutos() {
@@ -42,6 +54,25 @@ export class ProdutoCardListComponent implements OnInit  {
   };
   
   }
+
+  carregarTotalRegistros() {
+    if(this.filtro){
+      this.produtoService.countByNome(this.filtro).subscribe(data => {
+        this.totalRegistros = data;})
+    }else{
+
+    this.produtoService.count().subscribe(data => {
+      this.totalRegistros = data;
+    });
+  }
+  }
+
+    // Método para paginar os resultados
+    paginar(event: PageEvent): void {
+      this.pagina = event.pageIndex;
+      this.pageSize = event.pageSize;
+      this.carregarProdutos();
+    }
 
   carregarCards() {
     const cards: Card[] = [];
