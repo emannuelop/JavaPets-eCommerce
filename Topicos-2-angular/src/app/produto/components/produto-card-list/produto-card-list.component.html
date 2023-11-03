@@ -5,7 +5,9 @@
        
         <mat-card-title class="centered-text"> {{card.titulo}} </mat-card-title>
         
-        <mat-card-content class="centered-text"> {{card.preco | currency:'BRL'}} </mat-card-content>
+        <mat-card-content class="centered-text"> 
+            {{card.preco | currency:'BRL'}} 
+        </mat-card-content>
 
         <mat-card-actions class="centered-text">
             <button mat-button color="primary">Ver mais ...</button>
@@ -14,5 +16,6 @@
         <mat-card-footer>
             <button mat-flat-button color="primary" style="width: 100%; padding: 16px;">Adicionar ao carrinho</button>
         </mat-card-footer>
+
     </mat-card>
 </div>

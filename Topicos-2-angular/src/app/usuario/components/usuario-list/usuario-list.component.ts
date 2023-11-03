@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { PageEvent } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { ConfimationDialogComponent } from 'src/app/confimation-dialog/confimation-dialog.component';
+import { CustomPaginatorIntl } from 'src/app/models/custom-paginator-intl';
 import { Usuario } from 'src/app/models/usuario.model'; // Importe a classe Usuario
 import { UsuarioService } from 'src/app/services/usuario.service'; // Importe o serviço de usuário
 
@@ -12,6 +13,8 @@ import { UsuarioService } from 'src/app/services/usuario.service'; // Importe o 
 })
 export class UsuarioListComponent {
 
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator | undefined;
+
   tableColumns: string[] = ['login-column', 'nome-column', 'cpf-column', 'email-column', 'sexo-column', 'endereco-column', 'telefone-column', 'acao-column'];
 
   usuarios: Usuario[] = [];
@@ -20,7 +23,13 @@ export class UsuarioListComponent {
   pagina = 0;
   filtro: string = "";
 
-  constructor(private usuarioService: UsuarioService, private dialog: MatDialog) { }
+  constructor(private usuarioService: UsuarioService, private dialog: MatDialog, private customPaginatorIntl: CustomPaginatorIntl) { }
+
+  ngAfterViewInit() {
+    if (this.paginator) {
+      this.paginator._intl = this.customPaginatorIntl; // Configuração da internacionalização
+    }
+  }
 
   ngOnInit(): void {
     this.carregarUsuarios();

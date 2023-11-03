@@ -1,9 +1,10 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { PageEvent } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { ConfimationDialogComponent } from 'src/app/confimation-dialog/confimation-dialog.component';
 import { Categoria } from 'src/app/models/categoria.model';
+import { CustomPaginatorIntl } from 'src/app/models/custom-paginator-intl';
 import { CategoriaService } from 'src/app/services/categoria.service';
 
 @Component({
@@ -13,6 +14,8 @@ import { CategoriaService } from 'src/app/services/categoria.service';
 })
 export class CategoriaListComponent implements OnInit {
 
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator | undefined;
+
   tableColumns: string[] = ['id-column', 'nome-column', 'descricao-column', 'acao-column'];
   categorias: Categoria[] = [];
   totalRegistros = 0;
@@ -20,7 +23,13 @@ export class CategoriaListComponent implements OnInit {
   pagina = 0;
   filtro: string = "";
 
-  constructor(private categoriaService: CategoriaService,private dialog:MatDialog) {}
+  constructor(private categoriaService: CategoriaService,private dialog:MatDialog, private customPaginatorIntl: CustomPaginatorIntl) {}
+
+  ngAfterViewInit() {
+    if (this.paginator) {
+      this.paginator._intl = this.customPaginatorIntl; // Configuração da internacionalização
+    }
+  }
 
   ngOnInit(): void {
     this.carregarCategorias();
