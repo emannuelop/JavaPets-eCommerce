@@ -20,11 +20,13 @@ import { MatPaginatorModule} from '@angular/material/paginator';
 import { FormsModule } from '@angular/forms';
 import {MatDialogModule} from '@angular/material/dialog';
 import { CustomPaginatorIntl } from 'src/app/models/custom-paginator-intl'
+import { ProdutoCardListComponent } from './components/produto-card-list/produto-card-list.component';
 
 @NgModule({
   declarations: [
     ProdutoListComponent,
-    ProdutoFormComponent
+    ProdutoFormComponent,
+    ProdutoCardListComponent
   ],
   imports: [
     CommonModule,
