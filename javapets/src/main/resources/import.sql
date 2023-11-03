@@ -41,10 +41,10 @@ INSERT INTO fornecedor (nome, email) VALUES ('FurryFriends', 'furryfriends@conta
 INSERT INTO fornecedor (nome, email) VALUES ('FishWorld', 'fishworld@fornecimento.com');
 INSERT INTO fornecedor (nome, email) VALUES ('BeautyPets', 'beautypets@provedora.com');
 
-INSERT INTO produto (nome, descricao, preco, estoque, id_marca, id_fornecedor, id_categoria, nomeImagem) VALUES ('Ração Pedigree Nutrição Essencial', 'Para Cães Adultos', 140.00, 30, 1,1,1, 'faixa_preta_jiu.png');
-INSERT INTO produto (nome, descricao, preco, estoque, id_marca, id_fornecedor, id_categoria, nomeImagem) VALUES ('Ração Golden Fórmula Mini Bits', 'Para Cães Adultos de Porte Pequeno', 110.00, 10, 2,1,2, 'faixa_preta_jiu.png');
-INSERT INTO produto (nome, descricao, preco, estoque, id_marca, id_fornecedor, id_categoria, nomeImagem) VALUES ('Ração Whiskas', 'Para Gatos Adultos', 180.00, 15, 3,1,1, 'faixa_preta_jiu.png');
-INSERT INTO produto (nome, descricao, preco, estoque, id_marca, id_fornecedor, id_categoria, nomeImagem) VALUES ('Ração GranPlus Choice', 'Para Gatos Filhotes', 150.00, 12, 4,1,2, 'faixa_preta_jiu.png');
+INSERT INTO produto (nome, descricao, preco, estoque, id_marca, id_fornecedor, id_categoria, nomeImagem) VALUES ('Ração Pedigree Nutrição Essencial', 'Para Cães Adultos', 140.00, 30, 1,1,1, 'pedigree.png');
+INSERT INTO produto (nome, descricao, preco, estoque, id_marca, id_fornecedor, id_categoria, nomeImagem) VALUES ('Ração Golden Fórmula Mini Bits', 'Para Cães Adultos de Porte Pequeno', 110.00, 10, 2,1,2, 'golden.png');
+INSERT INTO produto (nome, descricao, preco, estoque, id_marca, id_fornecedor, id_categoria, nomeImagem) VALUES ('Ração Whiskas', 'Para Gatos Adultos', 180.00, 15, 3,1,1, 'whiskas.png');
+INSERT INTO produto (nome, descricao, preco, estoque, id_marca, id_fornecedor, id_categoria, nomeImagem) VALUES ('Ração GranPlus Choice', 'Para Gatos Filhotes', 150.00, 12, 4,1,2, 'granplus.png');
 
 INSERT INTO estado (nome, sigla) VALUES ('Acre', 'AC');
 INSERT INTO estado (nome, sigla) VALUES ('Amazonas', 'AM');
