@@ -4,6 +4,7 @@ import java.util.List;
 
 import br.unitins.ecommerce.dto.municipio.CidadeDTO;
 import br.unitins.ecommerce.dto.municipio.CidadeResponseDTO;
+import jakarta.validation.Valid;
 
 
 public interface CidadeService {
@@ -13,9 +14,9 @@ public interface CidadeService {
 
         CidadeResponseDTO findById(Long id);
     
-        CidadeResponseDTO create(CidadeDTO dto);
+        CidadeResponseDTO create(@Valid CidadeDTO dto);
     
-        CidadeResponseDTO update(Long id, CidadeDTO dto);
+        CidadeResponseDTO update(Long id, @Valid CidadeDTO dto);
     
         void delete(Long id);
     

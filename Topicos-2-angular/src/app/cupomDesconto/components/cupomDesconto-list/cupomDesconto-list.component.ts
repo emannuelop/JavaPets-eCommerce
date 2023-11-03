@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { PageEvent } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { ConfimationDialogComponent } from 'src/app/confimation-dialog/confimation-dialog.component';
 import { CupomDesconto } from 'src/app/models/cupomDesconto.model';
+import { CustomPaginatorIntl } from 'src/app/models/custom-paginator-intl';
 import { CupomDescontoService } from 'src/app/services/cupomDesconto.service';
 
 @Component({
@@ -12,6 +13,8 @@ import { CupomDescontoService } from 'src/app/services/cupomDesconto.service';
 })
 export class CupomDescontoListComponent implements OnInit {
 
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator | undefined;
+
   tableColumns: string[] = ['id-column', 'codigoCupom-column', 'quantidadeDisponivel-column', 'porcentagemDesconto-column', 'acao-column'];
   cupomDescontos: CupomDesconto[] = [];
   totalRegistros = 0;
@@ -19,7 +22,13 @@ export class CupomDescontoListComponent implements OnInit {
   pagina = 0;
   filtro: string = "";
 
-  constructor(private cupomDescontoService: CupomDescontoService, private dialog: MatDialog) {}
+  constructor(private cupomDescontoService: CupomDescontoService, private dialog: MatDialog, private customPaginatorIntl: CustomPaginatorIntl) {}
+
+  ngAfterViewInit() {
+    if (this.paginator) {
+      this.paginator._intl = this.customPaginatorIntl; // Configuração da internacionalização
+    }
+  }
 
   ngOnInit(): void {
     this.carregarCupomDescontos();
