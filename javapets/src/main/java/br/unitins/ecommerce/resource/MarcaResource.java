@@ -58,56 +58,22 @@ public class MarcaResource {
     // @RolesAllowed({"Admin"})
     public Response insert(MarcaDTO marcaDto) {
         LOG.infof("Inserindo um marca: %s", marcaDto.nome());
-
-        Result result = null;
-
-        try {
             MarcaResponseDTO marca = marcaService.insert(marcaDto);
 
             LOG.infof("Marca (%d) criado com sucesso.", marca.id());
 
             return Response.status(Status.CREATED).entity(marca).build();
-
-        } catch (ConstraintViolationException e) {
-
-            LOG.error("Erro ao incluir um marca.");
-
-            LOG.debug(e.getMessage());
-
-            result = new Result(e.getConstraintViolations());
-
-        } catch (Exception e) {
-            LOG.fatal("Erro sem identificacao: " + e.getMessage());
-
-            result = new Result(e.getMessage(), false);
-        }
-        return Response.status(Status.NOT_FOUND).entity(result).build();
     }
 
     @PUT
     @Path("/{id}")
     // @RolesAllowed({"Admin"})
     public Response update(@PathParam("id") Long id, MarcaDTO marcaDto) {
-        Result result = null;
-        
-        try {
             marcaService.update(id, marcaDto);
             LOG.infof("Município (%d) atualizado com sucesso.", id);
             return Response
                     .status(Status.NO_CONTENT) // 204
                     .build();
-        } catch (ConstraintViolationException e) {
-            LOG.error("Erro de validação ao atualizar o município.", e);
-            LOG.debug(e.getMessage());
-
-            result = new Result(e.getConstraintViolations());
-
-        } catch (Exception e) {
-            LOG.fatal("Erro ao atualizar o município " + id + ".", e);
-            result = new Result(e.getMessage(), false);
-    
-        }
-        return Response.status(Status.NOT_FOUND).entity(result).build();
     }
 
     @DELETE

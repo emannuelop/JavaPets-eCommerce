@@ -7,19 +7,15 @@
                 <mat-form-field appearance="outline" class="full-width-input">
                     <mat-label>Nome</mat-label>
                     <input matInput type="text" formControlName="nome" />
-                    <mat-error *ngIf="formGroup.get('nome') &&
-                formGroup.get('nome')?.invalid &&
-                formGroup.get('nome')?.touched">
-                        Nome é obrigatório.
+                    <mat-error *ngIf="formGroup.get('nome')?.hasError('apiError')">
+                        {{ formGroup.get('nome')?.getError('apiError') }}
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="outline" class="full-width-input">
                     <mat-label>Cnpj</mat-label>
                     <input matInput type="text" formControlName="cnpj" />
-                    <mat-error *ngIf="formGroup.get('cnpj') &&
-                formGroup.get('cnpj')?.invalid &&
-                formGroup.get('cnpj')?.touched">
-                        Cnpj é obrigatória.
+                    <mat-error *ngIf="formGroup.get('cnpj')?.hasError('apiError')">
+                        {{ formGroup.get('cnpj')?.getError('apiError') }}
                     </mat-error>
                 </mat-form-field>
             </form>

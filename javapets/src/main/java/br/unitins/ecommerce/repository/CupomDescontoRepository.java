@@ -16,4 +16,13 @@ public class CupomDescontoRepository implements PanacheRepository<CupomDesconto>
         return find("FROM CupomDesconto WHERE UPPER(codigoCupom) LIKE ?1", "%" + codigoCupom.toUpperCase() + "%");
         
     }
+
+    public CupomDesconto findByNomeValidation (String codigoCupom) {
+
+        if (codigoCupom == null)
+            return null;
+
+            return find("codigoCupom = ?1 ", codigoCupom).firstResult();
+        
+    }
 }

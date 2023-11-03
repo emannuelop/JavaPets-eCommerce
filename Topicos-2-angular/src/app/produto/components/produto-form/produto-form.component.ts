@@ -17,6 +17,7 @@ import { ProdutoService } from 'src/app/services/produto.service';
 })
 export class ProdutoFormComponent implements OnInit {
   formGroup: FormGroup;
+  apiResponse: any = null;
   marcas: Marca[] = [];
   fornecedores: Fornecedor[] = [];
   categorias: Categoria[] = [];
@@ -93,21 +94,44 @@ export class ProdutoFormComponent implements OnInit {
           next: (produtoCadastrado) => {
             this.router.navigateByUrl('/produtos/list');
           },
-          error: (err) => {
-            console.log('Erro ao incluir' + JSON.stringify(err));
-          }
+          error: (errorResponse) => {
+            // Processar erros da API
+           this.apiResponse = errorResponse.error; 
+
+           // Associar erros aos campos do formulário
+           this.formGroup.get('nome')?.setErrors({ apiError: this.getErrorMessage('nome') });
+           this.formGroup.get('descricao')?.setErrors({ apiError: this.getErrorMessage('descricao') });
+           this.formGroup.get('preco')?.setErrors({ apiError: this.getErrorMessage('preco') });
+           this.formGroup.get('estoque')?.setErrors({ apiError: this.getErrorMessage('estoque') });
+     
+           console.log('Erro ao incluir' + JSON.stringify(errorResponse));
+         }
         });
       } else {
         this.produtoService.update(produto).subscribe({
           next: (produtoCadastrado) => {
             this.router.navigateByUrl('/produtos/list');
           },
-          error: (err) => {
-            console.log('Erro ao alterar' + JSON.stringify(err));
-          }
+          error: (errorResponse) => {
+            // Processar erros da API
+           this.apiResponse = errorResponse.error; 
+
+           // Associar erros aos campos do formulário
+           this.formGroup.get('nome')?.setErrors({ apiError: this.getErrorMessage('nome') });
+           this.formGroup.get('descricao')?.setErrors({ apiError: this.getErrorMessage('descricao') });
+           this.formGroup.get('preco')?.setErrors({ apiError: this.getErrorMessage('preco') });
+           this.formGroup.get('estoque')?.setErrors({ apiError: this.getErrorMessage('estoque') });
+     
+           console.log('Erro ao incluir' + JSON.stringify(errorResponse));
+         }
         });        
       }
     }
+  }
+
+  getErrorMessage(fieldName: string): string {
+    const error = this.apiResponse.errors.find((error: any) => error.fieldName === fieldName);
+    return error ? error.message : '';
   }
 
   excluir() {

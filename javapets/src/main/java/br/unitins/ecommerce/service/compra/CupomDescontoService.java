@@ -4,6 +4,7 @@ import java.util.List;
 
 import br.unitins.ecommerce.dto.compra.CupomDescontoDTO;
 import br.unitins.ecommerce.dto.compra.CupomDescontoResponseDTO;
+import jakarta.validation.Valid;
 
 public interface CupomDescontoService {
     
@@ -13,9 +14,9 @@ public interface CupomDescontoService {
     
     CupomDescontoResponseDTO getById(Long id);
 
-    CupomDescontoResponseDTO insert(CupomDescontoDTO cupomDescontoDto);
+    CupomDescontoResponseDTO insert(@Valid CupomDescontoDTO cupomDescontoDto);
 
-    CupomDescontoResponseDTO update(Long id, CupomDescontoDTO cupomDescontoDto);
+    CupomDescontoResponseDTO update(Long id, @Valid CupomDescontoDTO cupomDescontoDto);
 
     void delete(Long id);
 

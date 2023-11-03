@@ -9,6 +9,7 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.Valid;
 import jakarta.validation.Validator;
 import jakarta.ws.rs.NotFoundException;
 
@@ -16,6 +17,7 @@ import br.unitins.ecommerce.dto.compra.CupomDescontoDTO;
 import br.unitins.ecommerce.dto.compra.CupomDescontoResponseDTO;
 import br.unitins.ecommerce.model.compra.CupomDesconto;
 import br.unitins.ecommerce.repository.CupomDescontoRepository;
+import br.unitins.ecommerce.validation.ValidationException;
 
 @ApplicationScoped
 public class CupomDescontoImplService implements CupomDescontoService {
@@ -48,9 +50,11 @@ public class CupomDescontoImplService implements CupomDescontoService {
 
     @Override
     @Transactional
-    public CupomDescontoResponseDTO insert(CupomDescontoDTO cupomDescontoDto) throws ConstraintViolationException {
+    public CupomDescontoResponseDTO insert(@Valid CupomDescontoDTO cupomDescontoDto) throws ConstraintViolationException {
         
-        validar(cupomDescontoDto);
+        if(cupomDescontoRepository.findByNomeValidation(cupomDescontoDto.codigoCupom()) != null){
+            throw new ValidationException("nome","O cupom desconto "+cupomDescontoDto.codigoCupom()+" já está cadastrada.");
+        }
 
         CupomDesconto entity = new CupomDesconto();
 
@@ -67,9 +71,9 @@ public class CupomDescontoImplService implements CupomDescontoService {
 
     @Override
     @Transactional
-    public CupomDescontoResponseDTO update(Long id, CupomDescontoDTO cupomDescontoDto) throws ConstraintViolationException, NotFoundException {
+    public CupomDescontoResponseDTO update(Long id, @Valid CupomDescontoDTO cupomDescontoDto) throws ConstraintViolationException, NotFoundException {
         
-        validar(cupomDescontoDto);
+        //validar(cupomDescontoDto);
 
         CupomDesconto entity = cupomDescontoRepository.findById(id);
 

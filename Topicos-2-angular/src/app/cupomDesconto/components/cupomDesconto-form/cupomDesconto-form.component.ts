@@ -11,6 +11,7 @@ import { CupomDescontoService } from 'src/app/services/cupomDesconto.service';
 })
 export class CupomDescontoFormComponent {
   formGroup: FormGroup;
+  apiResponse: any = null;
 
   constructor(private formBuilder: FormBuilder,
               private cupomDescontoService: CupomDescontoService,
@@ -35,8 +36,16 @@ export class CupomDescontoFormComponent {
           next: (cupomDescontoCadastrado) => {
             this.router.navigateByUrl('/cupomDescontos/list');
           },
-          error: (err) => {
-            console.log('Erro ao incluir' + JSON.stringify(err));
+          error: (errorResponse) => {
+             // Processar erros da API
+           this.apiResponse = errorResponse.error; 
+
+           // Associar erros aos campos do formulário
+           this.formGroup.get('codigoCupom')?.setErrors({ apiError: this.getErrorMessage('codigoCupom') });
+           this.formGroup.get('quantidadeDisponivel')?.setErrors({ apiError: this.getErrorMessage('quantidadeDisponivel') });
+           this.formGroup.get('porcentagemDesconto')?.setErrors({ apiError: this.getErrorMessage('porcentagemDesconto') });
+     
+           console.log('Erro ao incluir' + JSON.stringify(errorResponse));
           }
         });
       } else {
@@ -44,12 +53,26 @@ export class CupomDescontoFormComponent {
           next: (cupomDescontoCadastrado) => {
             this.router.navigateByUrl('/cupomDescontos/list');
           },
-          error: (err) => {
-            console.log('Erro ao alterar' + JSON.stringify(err));
-          }
+          error: (errorResponse) => {
+            // Processar erros da API
+          this.apiResponse = errorResponse.error; 
+
+          // Associar erros aos campos do formulário
+          this.formGroup.get('codigoCupom')?.setErrors({ apiError: this.getErrorMessage('codigoCupom') });
+          this.formGroup.get('quantidadeDisponivel')?.setErrors({ apiError: this.getErrorMessage('quantidadeDisponivel') });
+          this.formGroup.get('porcentagemDesconto')?.setErrors({ apiError: this.getErrorMessage('porcentagemDesconto') });
+    
+          console.log('Erro ao incluir' + JSON.stringify(errorResponse));
+         }
+
         });        
       }
     }
+  }
+
+  getErrorMessage(fieldName: string): string {
+    const error = this.apiResponse.errors.find((error: any) => error.fieldName === fieldName);
+    return error ? error.message : '';
   }
 
   excluir() {

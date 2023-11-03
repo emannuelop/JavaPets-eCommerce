@@ -14,6 +14,7 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.Valid;
 import jakarta.validation.Validator;
 import jakarta.ws.rs.NotFoundException;
 
@@ -51,7 +52,7 @@ public class MarcaImplService implements MarcaService {
 
     @Override
     @Transactional
-    public MarcaResponseDTO insert(MarcaDTO marcaDto) throws ConstraintViolationException {
+    public MarcaResponseDTO insert(@Valid MarcaDTO marcaDto) throws ConstraintViolationException {
         
         validar(marcaDto);
 
@@ -68,7 +69,7 @@ public class MarcaImplService implements MarcaService {
 
     @Override
     @Transactional
-    public MarcaResponseDTO update(Long id, MarcaDTO marcaDto) throws ConstraintViolationException, NotFoundException {
+    public MarcaResponseDTO update(Long id, @Valid MarcaDTO marcaDto) throws ConstraintViolationException, NotFoundException {
         
         validar(marcaDto);
 

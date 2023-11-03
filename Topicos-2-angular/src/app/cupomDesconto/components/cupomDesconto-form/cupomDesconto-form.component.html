@@ -6,10 +6,8 @@
                 <mat-form-field appearance="outline" class="full-width-input">
                     <mat-label>Codigo cupom</mat-label>
                     <input matInput type="text" formControlName="codigoCupom" />
-                    <mat-error *ngIf="formGroup.get('codigoCupom') &&
-                formGroup.get('codigoCupom')?.invalid &&
-                formGroup.get('codigoCupom')?.touched">
-                        codigoCupom é obrigatório.
+                    <mat-error *ngIf="formGroup.get('codigoCupom')?.hasError('apiError')">
+                        {{ formGroup.get('codigoCupom')?.getError('apiError') }}
                     </mat-error>
                 </mat-form-field>
 
@@ -19,10 +17,8 @@
                     
                     <input matInput type="number" formControlName="quantidadeDisponivel" id="quantidadeDisponivel_id" />
 
-                    <mat-error *ngIf="formGroup.get('quantidadeDisponivel') &&
-                        formGroup.get('quantidadeDisponivel')?.invalid &&
-                        formGroup.get('quantidadeDisponivel')?.touched">
-                        quantidadeDisponivel é obrigatória.
+                    <mat-error *ngIf="formGroup.get('quantidadeDisponivel')?.hasError('apiError')">
+                        {{ formGroup.get('quantidadeDisponivel')?.getError('apiError') }}
                     </mat-error>
 
                 </mat-form-field>
@@ -33,10 +29,8 @@
                     
                     <input matInput type="number" formControlName="porcentagemDesconto" id="porcentagemDesconto_id" />
 
-                    <mat-error *ngIf="formGroup.get('porcentagemDesconto') &&
-                        formGroup.get('porcentagemDesconto')?.invalid &&
-                        formGroup.get('porcentagemDesconto')?.touched">
-                        porcentagemDesconto é obrigatória.
+                    <mat-error *ngIf="formGroup.get('porcentagemDesconto')?.hasError('apiError')">
+                        {{ formGroup.get('porcentagemDesconto')?.getError('apiError') }}
                     </mat-error>
 
                 </mat-form-field>

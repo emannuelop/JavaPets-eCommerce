@@ -4,6 +4,7 @@ import java.util.List;
 
 import br.unitins.ecommerce.dto.usuario.PetDTO;
 import br.unitins.ecommerce.dto.usuario.PetResponseDTO;
+import jakarta.validation.Valid;
 
 public interface PetService {
     
@@ -13,9 +14,9 @@ public interface PetService {
     
     PetResponseDTO getById(Long id);
 
-    PetResponseDTO insert(PetDTO petDto);
+    PetResponseDTO insert(@Valid PetDTO petDto);
 
-    PetResponseDTO update(Long id, PetDTO petDto);
+    PetResponseDTO update(Long id, @Valid PetDTO petDto);
 
     void delete(Long id);
 

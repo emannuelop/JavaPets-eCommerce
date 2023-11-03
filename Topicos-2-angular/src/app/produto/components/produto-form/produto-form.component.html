@@ -7,20 +7,16 @@
                 <mat-form-field appearance="outline" class="full-width-input">
                     <mat-label for="nome_id">Nome</mat-label>
                     <input matInput type="text" formControlName="nome" id="nome_id" />
-                    <mat-error *ngIf="formGroup.get('nome') &&
-                        formGroup.get('nome')?.invalid &&
-                        formGroup.get('nome')?.touched">
-                        Nome é obrigatório.
-                    </mat-error>
+                    <mat-error *ngIf="formGroup.get('nome')?.hasError('apiError')">
+                      {{ formGroup.get('nome')?.getError('apiError') }}
+                  </mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="outline" class="full-width-input">
                     <mat-label for="descricao_id">Descricao</mat-label>
                     <input matInput type="text" formControlName="descricao" id="descricao_id" />
-                    <mat-error *ngIf="formGroup.get('descricao') &&
-                        formGroup.get('descricao')?.invalid &&
-                        formGroup.get('descricao')?.touched">
-                        Descricao é obrigatório.
-                    </mat-error>
+                    <mat-error *ngIf="formGroup.get('descricao')?.hasError('apiError')">
+                      {{ formGroup.get('descricao')?.getError('apiError') }}
+                  </mat-error>
                 </mat-form-field>
                 <h2>Categoria - Marca - Fornecedor</h2>
                 <mat-form-field class="selects" appearance="outline" >
@@ -51,20 +47,16 @@
                   <mat-form-field appearance="outline" class="selects">
                     <mat-label for="preco_id">Preco</mat-label>
                     <input matInput type="number" formControlName="preco" id="preco_id" />
-                    <mat-error *ngIf="formGroup.get('preco') &&
-                        formGroup.get('preco')?.invalid &&
-                        formGroup.get('preco')?.touched">
-                        preco é obrigatório.
-                    </mat-error>
+                    <mat-error *ngIf="formGroup.get('preco')?.hasError('apiError')">
+                      {{ formGroup.get('preco')?.getError('apiError') }}
+                  </mat-error>
                   </mat-form-field>
                 <mat-form-field appearance="outline" class="selects">
                     <mat-label for="estoque_id">Estoque</mat-label>
                     <input matInput type="number" formControlName="estoque" id="estoque_id" />
-                    <mat-error *ngIf="formGroup.get('estoque') &&
-                        formGroup.get('estoque')?.invalid &&
-                        formGroup.get('estoque')?.touched">
-                        Estoque é obrigatório.
-                    </mat-error>
+                    <mat-error *ngIf="formGroup.get('estoque')?.hasError('apiError')">
+                      {{ formGroup.get('estoque')?.getError('apiError') }}
+                  </mat-error>
                 </mat-form-field>
             </form>
         </mat-card-content>

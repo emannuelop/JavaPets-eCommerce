@@ -6,30 +6,24 @@
                 <mat-form-field appearance="outline" class="full-width-input">
                     <mat-label>Nome</mat-label>
                     <input matInput type="text" formControlName="nome" />
-                    <mat-error *ngIf="formGroup.get('nome') &&
-                formGroup.get('nome')?.invalid &&
-                formGroup.get('nome')?.touched">
-                        nome é obrigatório.
+                    <mat-error *ngIf="formGroup.get('nome')?.hasError('apiError')">
+                        {{ formGroup.get('nome')?.getError('apiError') }}
                     </mat-error>
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" class="full-width-input">
                     <mat-label>Especie</mat-label>
                     <input matInput type="text" formControlName="especie" />
-                    <mat-error *ngIf="formGroup.get('especie') &&
-                        formGroup.get('especie')?.invalid &&
-                        formGroup.get('especie')?.touched">
-                        Especie é obrigatória.
+                    <mat-error *ngIf="formGroup.get('especie')?.hasError('apiError')">
+                        {{ formGroup.get('especie')?.getError('apiError') }}
                     </mat-error>
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" class="full-width-input">
                     <mat-label>Raça</mat-label>
                     <input matInput type="text" formControlName="raca" />
-                    <mat-error *ngIf="formGroup.get('raca') &&
-                        formGroup.get('raca')?.invalid &&
-                        formGroup.get('raca')?.touched">
-                        Raca é obrigatória.
+                    <mat-error *ngIf="formGroup.get('raca')?.hasError('apiError')">
+                        {{ formGroup.get('raca')?.getError('apiError') }}
                     </mat-error>
                 </mat-form-field>
 
@@ -39,10 +33,8 @@
                     
                     <input matInput type="number" formControlName="idadeEmMeses" id="idadeEmMeses_id" />
 
-                    <mat-error *ngIf="formGroup.get('idadeEmMeses') &&
-                        formGroup.get('idadeEmMeses')?.invalid &&
-                        formGroup.get('idadeEmMeses')?.touched">
-                        idadeEmMeses é obrigatória.
+                    <mat-error *ngIf="formGroup.get('idadeEmMeses')?.hasError('apiError')">
+                        {{ formGroup.get('idadeEmMeses')?.getError('apiError') }}
                     </mat-error>
 
                 </mat-form-field>
