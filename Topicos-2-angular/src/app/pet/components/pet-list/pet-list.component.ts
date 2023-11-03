@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { PageEvent } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { ConfimationDialogComponent } from 'src/app/confimation-dialog/confimation-dialog.component';
+import { CustomPaginatorIntl } from 'src/app/models/custom-paginator-intl';
 import { Pet } from 'src/app/models/pet.model';
 import { PetService } from 'src/app/services/pet.service';
 
@@ -12,6 +13,8 @@ import { PetService } from 'src/app/services/pet.service';
 })
 export class PetListComponent implements OnInit {
 
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator | undefined;
+
   tableColumns: string[] = ['id-column', 'nome-column', 'especie-column', 'raca-column', 'idadeEmMeses-column', 'acao-column'];
   pets: Pet[] = [];
   totalRegistros = 0;
@@ -19,7 +22,13 @@ export class PetListComponent implements OnInit {
   pagina = 0;
   filtro: string = "";
 
-  constructor(private petService: PetService, private dialog: MatDialog) {}
+  constructor(private petService: PetService, private dialog: MatDialog, private customPaginatorIntl: CustomPaginatorIntl) {}
+
+  ngAfterViewInit() {
+    if (this.paginator) {
+      this.paginator._intl = this.customPaginatorIntl; // Configuração da internacionalização
+    }
+  }
 
   ngOnInit(): void {
     this.carregarPets();

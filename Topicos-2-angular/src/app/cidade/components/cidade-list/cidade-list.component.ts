@@ -1,9 +1,10 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { PageEvent } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { ConfimationDialogComponent } from 'src/app/confimation-dialog/confimation-dialog.component';
 import { Cidade } from 'src/app/models/cidade.model';
+import { CustomPaginatorIntl } from 'src/app/models/custom-paginator-intl';
 import { CidadeService } from 'src/app/services/cidade.service';
 
 @Component({
@@ -13,6 +14,8 @@ import { CidadeService } from 'src/app/services/cidade.service';
 })
 export class CidadeListComponent {
 
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator | undefined;
+
   tableColumns: string[] = ['id-column', 'nome-column', 'estado-column', 'acao-column'];
   cidades: Cidade[] = [];
   totalRegistros = 0;
@@ -20,7 +23,13 @@ export class CidadeListComponent {
   pagina = 0;
   filtro: string = "";
 
-  constructor(private cidadeService: CidadeService, private dialog: MatDialog) {}
+  constructor(private cidadeService: CidadeService, private dialog: MatDialog, private customPaginatorIntl: CustomPaginatorIntl) {}
+
+  ngAfterViewInit() {
+    if (this.paginator) {
+      this.paginator._intl = this.customPaginatorIntl; // Configuração da internacionalização
+    }
+  }
 
   ngOnInit(): void {
     this.carregarCidades();
