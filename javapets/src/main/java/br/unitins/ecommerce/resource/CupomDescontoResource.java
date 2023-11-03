@@ -63,55 +63,24 @@ public class CupomDescontoResource {
     public Response insert(CupomDescontoDTO cupomDescontoDto) {
         LOG.infof("Inserindo um cupomDesconto: %s", cupomDescontoDto.codigoCupom());
 
-        Result result = null;
-
-        try {
             CupomDescontoResponseDTO cupomDesconto = cupomDescontoService.insert(cupomDescontoDto);
 
             LOG.infof("CupomDesconto (%d) criado com sucesso.", cupomDesconto.id());
 
             return Response.status(Status.CREATED).entity(cupomDesconto).build();
 
-        } catch (ConstraintViolationException e) {
-
-            LOG.error("Erro ao incluir um cupomDesconto.");
-
-            LOG.debug(e.getMessage());
-
-            result = new Result(e.getConstraintViolations());
-
-        } catch (Exception e) {
-            LOG.fatal("Erro sem identificacao: " + e.getMessage());
-
-            result = new Result(e.getMessage(), false);
-        }
-        return Response.status(Status.NOT_FOUND).entity(result).build();
     }
 
     @PUT
     @Path("/{id}")
     // @RolesAllowed({"Admin"})
     public Response update(@PathParam("id") Long id, CupomDescontoDTO cupomDescontoDto) {
-        Result result = null;
-        
-        try {
             cupomDescontoService.update(id, cupomDescontoDto);
             LOG.infof("cupomDesconto (%d) atualizado com sucesso.", id);
             return Response
                     .status(Status.NO_CONTENT) // 204
                     .build();
-        } catch (ConstraintViolationException e) {
-            LOG.error("Erro de validação ao atualizar o cupomDesconto.", e);
-            LOG.debug(e.getMessage());
-
-            result = new Result(e.getConstraintViolations());
-
-        } catch (Exception e) {
-            LOG.fatal("Erro ao atualizar o cupomDesconto " + id + ".", e);
-            result = new Result(e.getMessage(), false);
-    
-        }
-        return Response.status(Status.NOT_FOUND).entity(result).build();
+        
     }
 
     @DELETE

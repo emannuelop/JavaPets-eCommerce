@@ -4,6 +4,7 @@ import java.util.List;
 
 import br.unitins.ecommerce.dto.produto.FornecedorDTO;
 import br.unitins.ecommerce.dto.produto.FornecedorResponseDTO;
+import jakarta.validation.Valid;
 
 public interface FornecedorService {
     
@@ -13,9 +14,9 @@ public interface FornecedorService {
     
     FornecedorResponseDTO getById(Long id);
 
-    FornecedorResponseDTO insert(FornecedorDTO fornecedorDto);
+    FornecedorResponseDTO insert(@Valid FornecedorDTO fornecedorDto);
 
-    FornecedorResponseDTO update(Long id, FornecedorDTO fornecedorDto);
+    FornecedorResponseDTO update(Long id, @Valid FornecedorDTO fornecedorDto);
 
     void delete(Long id);
 

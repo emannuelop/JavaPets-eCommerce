@@ -62,56 +62,22 @@ public class PetResource {
     // @RolesAllowed({"Admin"})
     public Response insert(PetDTO petDto) {
         LOG.infof("Inserindo um pet: %s", petDto.nome());
-
-        Result result = null;
-
-        try {
             PetResponseDTO pet = petService.insert(petDto);
 
             LOG.infof("Pet (%d) criado com sucesso.", pet.id());
 
             return Response.status(Status.CREATED).entity(pet).build();
-
-        } catch (ConstraintViolationException e) {
-
-            LOG.error("Erro ao incluir um pet.");
-
-            LOG.debug(e.getMessage());
-
-            result = new Result(e.getConstraintViolations());
-
-        } catch (Exception e) {
-            LOG.fatal("Erro sem identificacao: " + e.getMessage());
-
-            result = new Result(e.getMessage(), false);
-        }
-        return Response.status(Status.NOT_FOUND).entity(result).build();
     }
 
     @PUT
     @Path("/{id}")
     // @RolesAllowed({"Admin"})
     public Response update(@PathParam("id") Long id, PetDTO petDto) {
-        Result result = null;
-        
-        try {
             petService.update(id, petDto);
             LOG.infof("Pet (%d) atualizado com sucesso.", id);
             return Response
                     .status(Status.NO_CONTENT) // 204
                     .build();
-        } catch (ConstraintViolationException e) {
-            LOG.error("Erro de validação ao atualizar o pet.", e);
-            LOG.debug(e.getMessage());
-
-            result = new Result(e.getConstraintViolations());
-
-        } catch (Exception e) {
-            LOG.fatal("Erro ao atualizar o pet " + id + ".", e);
-            result = new Result(e.getMessage(), false);
-    
-        }
-        return Response.status(Status.NOT_FOUND).entity(result).build();
     }
 
     @DELETE

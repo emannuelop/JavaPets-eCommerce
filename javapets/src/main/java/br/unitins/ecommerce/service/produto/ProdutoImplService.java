@@ -9,6 +9,7 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.Valid;
 import jakarta.validation.Validator;
 import jakarta.ws.rs.NotFoundException;
 import br.unitins.ecommerce.dto.produto.ProdutoDTO;
@@ -74,9 +75,7 @@ public class ProdutoImplService implements ProdutoService {
 
     @Override
     @Transactional
-    public ProdutoResponseDTO insert(ProdutoDTO produtoDto) throws ConstraintViolationException {
-
-        validar(produtoDto);
+    public ProdutoResponseDTO insert(@Valid ProdutoDTO produtoDto) throws ConstraintViolationException {
 
         Produto entity = new Produto();
 
@@ -101,7 +100,7 @@ public class ProdutoImplService implements ProdutoService {
 
     @Override
     @Transactional
-    public ProdutoResponseDTO update(Long id, ProdutoDTO produtoDto) throws ConstraintViolationException {
+    public ProdutoResponseDTO update(Long id, @Valid ProdutoDTO produtoDto) throws ConstraintViolationException {
 
         validar(produtoDto);
 

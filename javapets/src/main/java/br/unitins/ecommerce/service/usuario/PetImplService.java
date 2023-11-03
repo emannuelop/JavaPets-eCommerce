@@ -9,6 +9,7 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.Valid;
 import jakarta.validation.Validator;
 import jakarta.ws.rs.NotFoundException;
 import br.unitins.ecommerce.dto.compra.CupomDescontoResponseDTO;
@@ -49,9 +50,9 @@ public class PetImplService implements PetService {
 
     @Override
     @Transactional
-    public PetResponseDTO insert(PetDTO petDto) throws ConstraintViolationException {
+    public PetResponseDTO insert(@Valid PetDTO petDto) throws ConstraintViolationException {
         
-        validar(petDto);
+        //validar(petDto);
 
         Pet entity = new Pet();
 
@@ -70,7 +71,7 @@ public class PetImplService implements PetService {
 
     @Override
     @Transactional
-    public PetResponseDTO update(Long id, PetDTO petDto) throws ConstraintViolationException, NotFoundException {
+    public PetResponseDTO update(Long id, @Valid PetDTO petDto) throws ConstraintViolationException, NotFoundException {
         
         validar(petDto);
 

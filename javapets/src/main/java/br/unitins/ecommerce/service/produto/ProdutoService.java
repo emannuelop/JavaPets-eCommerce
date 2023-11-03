@@ -4,6 +4,7 @@ import java.util.List;
 
 import br.unitins.ecommerce.dto.produto.ProdutoDTO;
 import br.unitins.ecommerce.dto.produto.ProdutoResponseDTO;
+import jakarta.validation.Valid;
 
 public interface ProdutoService {
 
@@ -13,9 +14,9 @@ public interface ProdutoService {
 
     ProdutoResponseDTO getById(Long id);
 
-    ProdutoResponseDTO insert(ProdutoDTO produtoDto);
+    ProdutoResponseDTO insert(@Valid ProdutoDTO produtoDto);
 
-    ProdutoResponseDTO update(Long id, ProdutoDTO produtoDto);
+    ProdutoResponseDTO update(Long id, @Valid ProdutoDTO produtoDto);
 
     void update(Long id, String nomeImagem);
 

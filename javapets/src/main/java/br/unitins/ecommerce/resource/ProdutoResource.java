@@ -89,57 +89,22 @@ public class ProdutoResource {
     public Response insert(ProdutoDTO produtoDto) {
 
         LOG.infof("Inserindo um produto: %s", produtoDto.nome());
-        Result result = null;
-        try {
-            LOG.infof("Produto inserido na lista Desejo.");
+            LOG.infof("Produto inserido");
             return Response
                     .status(Status.CREATED) // 201
                     .entity(produtoService.insert(produtoDto))
                     .build();
-
-        } catch (ConstraintViolationException e) {
-            LOG.error("Erro ao incluir um produto.");
-            LOG.debug(e.getMessage());
-            result = new Result(e.getConstraintViolations());
-
-        } catch (Exception e) {
-            LOG.fatal("Erro sem identificacao: " + e.getMessage());
-            result = new Result(e.getMessage(), false);
-
-        }
-        return Response
-                .status(Status.NOT_FOUND)
-                .entity(result)
-                .build();
     }
 
     @PUT
     @Path("/{id}")
     // @RolesAllowed({"Admin"})
     public Response update(@PathParam("id") Long id, ProdutoDTO produtoDto) {
-        Result result = null;
-        try {
             produtoService.update(id, produtoDto);
             LOG.infof("Produto (%d) atualizado com sucesso.", id);
             return Response
                     .status(Status.NO_CONTENT) // 204
                     .build();
-
-        } catch (ConstraintViolationException e) {
-            LOG.errorf("Erro ao atualizar um produto. ", id, e);
-            LOG.debug(e.getMessage());
-
-            result = new Result(e.getConstraintViolations());
-
-        } catch (Exception e) {
-            LOG.fatal("Erro sem identificacao: " + e.getMessage());
-            result = new Result(e.getMessage(), false);
-
-        }
-        return Response
-                .status(Status.NOT_FOUND)
-                .entity(result)
-                .build();
     }
 
     @PATCH

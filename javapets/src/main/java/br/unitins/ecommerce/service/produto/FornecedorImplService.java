@@ -15,6 +15,7 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.Valid;
 import jakarta.validation.Validator;
 import jakarta.ws.rs.NotFoundException;
 
@@ -55,9 +56,9 @@ public class FornecedorImplService implements FornecedorService {
 
     @Override
     @Transactional
-    public FornecedorResponseDTO insert(FornecedorDTO fornecedorDto) throws ConstraintViolationException {
+    public FornecedorResponseDTO insert(@Valid FornecedorDTO fornecedorDto) throws ConstraintViolationException {
         
-        validar(fornecedorDto);
+        //validar(fornecedorDto);
 
         Fornecedor entity = new Fornecedor();
 
@@ -72,7 +73,7 @@ public class FornecedorImplService implements FornecedorService {
 
     @Override
     @Transactional
-    public FornecedorResponseDTO update(Long id, FornecedorDTO fornecedorDto) throws ConstraintViolationException, NotFoundException {
+    public FornecedorResponseDTO update(Long id, @Valid FornecedorDTO fornecedorDto) throws ConstraintViolationException, NotFoundException {
         
         validar(fornecedorDto);
 

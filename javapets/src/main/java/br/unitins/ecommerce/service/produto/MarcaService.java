@@ -4,6 +4,7 @@ import java.util.List;
 
 import br.unitins.ecommerce.dto.produto.MarcaDTO;
 import br.unitins.ecommerce.dto.produto.MarcaResponseDTO;
+import jakarta.validation.Valid;
 
 public interface MarcaService {
     
@@ -13,9 +14,9 @@ public interface MarcaService {
     
     MarcaResponseDTO getById(Long id);
 
-    MarcaResponseDTO insert(MarcaDTO marcaDto);
+    MarcaResponseDTO insert(@Valid MarcaDTO marcaDto);
 
-    MarcaResponseDTO update(Long id, MarcaDTO marcaDto);
+    MarcaResponseDTO update(Long id, @Valid MarcaDTO marcaDto);
 
     void delete(Long id);
 

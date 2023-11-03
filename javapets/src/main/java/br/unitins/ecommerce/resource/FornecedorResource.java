@@ -60,56 +60,22 @@ public class FornecedorResource {
     // @RolesAllowed({"Admin"})
     public Response insert(FornecedorDTO fornecedorDto) {
         LOG.infof("Inserindo um fornecedor: %s", fornecedorDto.nome());
-
-        Result result = null;
-
-        try {
             FornecedorResponseDTO fornecedor = fornecedorService.insert(fornecedorDto);
 
             LOG.infof("Fornecedor (%d) criado com sucesso.", fornecedor.id());
 
             return Response.status(Status.CREATED).entity(fornecedor).build();
-
-        } catch (ConstraintViolationException e) {
-
-            LOG.error("Erro ao incluir um fornecedor.");
-
-            LOG.debug(e.getMessage());
-
-            result = new Result(e.getConstraintViolations());
-
-        } catch (Exception e) {
-            LOG.fatal("Erro sem identificacao: " + e.getMessage());
-
-            result = new Result(e.getMessage(), false);
-        }
-        return Response.status(Status.NOT_FOUND).entity(result).build();
     }
 
     @PUT
     @Path("/{id}")
     // @RolesAllowed({"Admin"})
     public Response update(@PathParam("id") Long id, FornecedorDTO fornecedorDto) {
-        Result result = null;
-        
-        try {
             fornecedorService.update(id, fornecedorDto);
             LOG.infof("Município (%d) atualizado com sucesso.", id);
             return Response
                     .status(Status.NO_CONTENT) // 204
                     .build();
-        } catch (ConstraintViolationException e) {
-            LOG.error("Erro de validação ao atualizar o município.", e);
-            LOG.debug(e.getMessage());
-
-            result = new Result(e.getConstraintViolations());
-
-        } catch (Exception e) {
-            LOG.fatal("Erro ao atualizar o município " + id + ".", e);
-            result = new Result(e.getMessage(), false);
-    
-        }
-        return Response.status(Status.NOT_FOUND).entity(result).build();
     }
 
     @DELETE
