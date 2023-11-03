@@ -39,6 +39,7 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.Valid;
 import jakarta.validation.Validator;
 import jakarta.ws.rs.NotAuthorizedException;
 import jakarta.ws.rs.NotFoundException;
@@ -118,29 +119,29 @@ public class UsuarioImplService implements UsuarioService {
 
     @Override
     @Transactional
-    public UsuarioResponseDTO insert(UsuarioDTO usuarioDto) throws ConstraintViolationException {
-        if(usuarioRepository.findByLogin(usuarioDto.login()) != null) {
-            throw new ValidationException("login","O login informado já existe. Informe outro login.");
+    public UsuarioResponseDTO insert(@Valid UsuarioDTO usuarioDto) throws ConstraintViolationException {
+        if (usuarioRepository.findByLogin(usuarioDto.login()) != null) {
+            throw new ValidationException("login", "O login informado já existe. Informe outro login.");
         }
 
-        validar(usuarioDto);
+        // validar(usuarioDto);
 
         Usuario entity = new Usuario();
 
-          List<Telefone> telefones = new ArrayList<>();
+        List<Telefone> telefones = new ArrayList<>();
 
-    for (TelefoneDTO telefoneDto : usuarioDto.telefones()) {
-        Telefone telefone = new Telefone();
-        telefone.setCodigoArea(telefoneDto.codigoArea());
-        telefone.setUsuario(entity);
-        telefone.setNumero(telefoneDto.numero());
-        telefones.add(telefone);
-    }
+        for (TelefoneDTO telefoneDto : usuarioDto.telefones()) {
+            Telefone telefone = new Telefone();
+            telefone.setCodigoArea(telefoneDto.codigoArea());
+            telefone.setUsuario(entity);
+            telefone.setNumero(telefoneDto.numero());
+            telefones.add(telefone);
+        }
 
-    // Persista a lista de telefones
-    for (Telefone telefone : telefones) {
-        telefoneRepository.persist(telefone);
-    }
+        // Persista a lista de telefones
+        for (Telefone telefone : telefones) {
+            telefoneRepository.persist(telefone);
+        }
 
         entity.setPessoaFisica(insertPessoaFisica(usuarioDto.pessoaFisicaDto()));
 
@@ -197,10 +198,10 @@ public class UsuarioImplService implements UsuarioService {
 
     @Override
     @Transactional
-    public UsuarioResponseDTO update(Long id, UsuarioDTO usuarioDto)
+    public UsuarioResponseDTO update(Long id, @Valid UsuarioDTO usuarioDto)
             throws ConstraintViolationException, NotFoundException {
 
-        validar(usuarioDto);
+        // validar(usuarioDto);
 
         Usuario entity = usuarioRepository.findById(id);
 
@@ -256,13 +257,11 @@ public class UsuarioImplService implements UsuarioService {
             throw new NotFoundException("Nenhum usuário encontrado");
         }
 
-  
         List<Telefone> telefones = telefoneRepository.findTelefoneByUsuario(usuario);
         for (Telefone telefone : telefones) {
             telefoneRepository.delete(telefone);
         }
 
-        
         List<Avaliacao> avaliacoes = avaliacaoRepository.findAvaliacaoByUsuario(usuario);
         for (Avaliacao avaliacao : avaliacoes) {
             avaliacaoRepository.delete(avaliacao);
@@ -522,23 +521,27 @@ public class UsuarioImplService implements UsuarioService {
 
     }
 
-    /*@Override
-    @Transactional
-    public void insertTelefone(Long idUsuario, TelefoneDTO telefoneDTO) throws NullPointerException {
-
-        validar(telefoneDTO);
-
-        Telefone telefone = new Telefone();
-
-        telefone.setCodigoArea(telefoneDTO.codigoArea());
-        telefone.setNumero(telefoneDTO.numero());
-
-        // usuarioRepository.findById(idUsuario).setTelefones(telefone);
-        Usuario entity = usuarioRepository.findById(idUsuario);
-        telefoneRepository.persist(telefone);
-        entity.setTelefones(telefones);
-
-    }*/
+    /*
+     * @Override
+     * 
+     * @Transactional
+     * public void insertTelefone(Long idUsuario, TelefoneDTO telefoneDTO) throws
+     * NullPointerException {
+     * 
+     * validar(telefoneDTO);
+     * 
+     * Telefone telefone = new Telefone();
+     * 
+     * telefone.setCodigoArea(telefoneDTO.codigoArea());
+     * telefone.setNumero(telefoneDTO.numero());
+     * 
+     * // usuarioRepository.findById(idUsuario).setTelefones(telefone);
+     * Usuario entity = usuarioRepository.findById(idUsuario);
+     * telefoneRepository.persist(telefone);
+     * entity.setTelefones(telefones);
+     * 
+     * }
+     */
 
     @Override
     public void removeTelefone(Long idUsuario, Long idTelefone) {
