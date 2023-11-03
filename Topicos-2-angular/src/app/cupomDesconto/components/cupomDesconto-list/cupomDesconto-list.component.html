@@ -10,7 +10,7 @@
   <div class="input-container">
     <mat-form-field appearance="outline" class="input-field">
       <mat-label>Pesquisar</mat-label>
-      <input [(ngModel)]="filtro" matInput placeholder="Ex. Desconto" #input>
+      <input [(ngModel)]="filtro" matInput placeholder="Ex. Desconto" #input (keyup.enter) ="aplicarFiltro()">
     </mat-form-field>
     <button mat-icon-button color="primary" 
             class="search-button"
