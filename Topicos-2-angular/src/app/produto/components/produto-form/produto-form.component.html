@@ -58,6 +58,32 @@
                       {{ formGroup.get('estoque')?.getError('apiError') }}
                   </mat-error>
                 </mat-form-field>
+                <mat-form-field appearance="outline" class="full-width-input">
+                  <mat-label>Imagem do Produto</mat-label>
+                  <input type="file" (change)="carregarImagemSelecionada($event)" hidden #fileInput>
+                  <input matInput [value]="fileName" readonly>
+                  
+                  <button mat-icon-button matSuffix (click)="fileInput.click()">
+                      <mat-icon>folder_open</mat-icon>
+                  </button>   
+              </mat-form-field>
+
+              <div *ngIf="imagePreview" class="container responsive-grid">
+                  <mat-card>
+              
+                      <img mat-card-image [src]="imagePreview" >
+              
+                      <mat-card-actions class="centered-text">
+                          <button mat-button color="primary">Ver mais ...</button>
+                      </mat-card-actions>
+              
+                      <mat-card-footer>
+                          <button mat-flat-button color="accent"
+                              style="width: 100%; padding: 16px;">Adicionar ao carrinho</button>
+                      </mat-card-footer>
+                  </mat-card>
+              </div>
+              
             </form>
         </mat-card-content>
         <mat-card-actions>

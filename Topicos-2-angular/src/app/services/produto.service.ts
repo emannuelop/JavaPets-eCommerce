@@ -74,4 +74,13 @@ export class ProdutoService {
     return `${this.baseURL}/produtos/image/download/${nomeImagem}`;
   }
 
+  uploadImagem(id: number, nomeImagem: string, imagem: File): Observable<any> {
+    const formData: FormData = new FormData();
+    formData.append('id', id.toString());
+    formData.append('nomeImagem', imagem.name);
+    formData.append('imagem', imagem, imagem.name);
+    
+    return this.http.patch<Produto>(`${this.baseURL}/produtos/image/upload`, formData);
+  }
+
 }

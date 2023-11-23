@@ -63,26 +63,26 @@ public class ProdutoResource {
         return produtoService.getById(id);
     }
 
-    @GET
-    @Path("image/download/{nomeImagem}")
-    // @RolesAllowed({ "Admin", "User" })
-    @Produces(MediaType.APPLICATION_OCTET_STREAM)
-    public Response download(@PathParam("nomeImagem") String nomeImagem) {
-
-        try {
-            ResponseBuilder response = Response.ok(fileService.download(nomeImagem));
-            response.header("Content-Disposition", "attachment;filename="+nomeImagem);
-            LOG.infof("Download do arquivo %s concluído com sucesso.", nomeImagem);
-
-            return response.build();
-
-        } catch (Exception e) {
-            LOG.errorf("Erro ao realizar o download do arquivo: %s", nomeImagem, e);
-            return Response
-                    .status(Status.INTERNAL_SERVER_ERROR)
-                    .build();
-        }
-    }
+//     @GET
+//     @Path("image/download/{nomeImagem}")
+//     // @RolesAllowed({ "Admin", "User" })
+//     @Produces(MediaType.APPLICATION_OCTET_STREAM)
+//     public Response download(@PathParam("nomeImagem") String nomeImagem) {
+// 
+//         try {
+//             ResponseBuilder response = Response.ok(fileService.download(nomeImagem));
+//             response.header("Content-Disposition", "attachment;filename="+nomeImagem);
+//             LOG.infof("Download do arquivo %s concluído com sucesso.", nomeImagem);
+// 
+//             return response.build();
+// 
+//         } catch (Exception e) {
+//             LOG.errorf("Erro ao realizar o download do arquivo: %s", nomeImagem, e);
+//             return Response
+//                     .status(Status.INTERNAL_SERVER_ERROR)
+//                     .build();
+//         }
+//    }
 
     @POST
     // @RolesAllowed({"Admin"})
@@ -107,31 +107,31 @@ public class ProdutoResource {
                     .build();
     }
 
-    @PATCH
-    @Path("/atualizar-imagem/{id}")
-    // @RolesAllowed({ "Admin" })
-    @Consumes(MediaType.MULTIPART_FORM_DATA)
-    public Response salvarImagem(@MultipartForm ImageForm form, @PathParam("id") Long id) {
-
-        String nomeImagem = "";
-
-        try {
-            nomeImagem = fileService.salvar(form.getImagem(), form.getNomeImagem());
-            LOG.infof("Imagem salva com sucesso: %s", nomeImagem);
-
-        } catch (IOException e) {
-            LOG.error("Erro ao salvar a imagem do produto.", e);
-            Result result = new Result(e.getMessage(), false);
-
-            return Response.status(Status.CONFLICT).entity(result).build();
-        }
-
-        produtoService.update(id, nomeImagem);
-
-        return Response
-                .status(Status.NO_CONTENT)
-                .build();
-    }
+//    @PATCH
+//    @Path("/atualizar-imagem/{id}")
+//    // @RolesAllowed({ "Admin" })
+//    @Consumes(MediaType.MULTIPART_FORM_DATA)
+//    public Response salvarImagem(@MultipartForm ImageForm form, @PathParam("id") Long id) {
+//
+//        String nomeImagem = "";
+//
+//        try {
+//            nomeImagem = fileService.salvar(form.getImagem(), form.getNomeImagem());
+//            LOG.infof("Imagem salva com sucesso: %s", nomeImagem);
+//
+//        } catch (IOException e) {
+//            LOG.error("Erro ao salvar a imagem do produto.", e);
+//            Result result = new Result(e.getMessage(), false);
+//
+//            return Response.status(Status.CONFLICT).entity(result).build();
+//        }
+//
+//        produtoService.update(id, nomeImagem);
+//
+//        return Response
+//                .status(Status.NO_CONTENT)
+//                .build();
+//    }
 
     @DELETE
     @Path("/{id}")
@@ -179,6 +179,32 @@ public class ProdutoResource {
         LOG.infof("Buscando produto pelo nome. ", nome);
         LOG.debug("ERRO DE DEBUG.");
         return produtoService.getByNome(nome, page, pageSize);
+    }
+
+    @GET
+    @Path("/image/download/{nomeImagem}")
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    @PermitAll
+    public Response download(@PathParam("nomeImagem") String nomeImagem) {
+        ResponseBuilder response = Response.ok(fileService.download(nomeImagem));
+        response.header("Content-Disposition", "attachment;filename=" + nomeImagem);
+        return response.build();
+    }
+
+    @PATCH
+    @Path("/image/upload")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @PermitAll
+    public Response salvarImagem(@MultipartForm ImageForm form) {
+
+        try {
+            fileService.salvar(form.getId(), form.getNomeImagem(), form.getImagem());
+            return Response.noContent().build();
+        } catch (IOException e) {
+            Result result = new Result(e.getMessage());
+            return Response.status(Status.CONFLICT).entity(result).build();
+        }
+
     }
 
     // @GET

@@ -22,6 +22,10 @@ export class ProdutoFormComponent implements OnInit {
   fornecedores: Fornecedor[] = [];
   categorias: Categoria[] = [];
 
+  fileName: string = '';
+  selectedFile: File | null = null; 
+  imagePreview: string | ArrayBuffer | null = null;
+
   constructor(private formBuilder: FormBuilder,
               private marcaService: MarcaService,
               private fornecedorService: FornecedorService,
@@ -73,6 +77,12 @@ export class ProdutoFormComponent implements OnInit {
 
     const categoria = this.categorias.find(categoria => categoria.id === (produto?.categoria?.id || null));
 
+        // carregando a imagem do preview
+        if (produto && produto.nomeImagem) {
+          this.imagePreview = this.produtoService.getUrlImagem(produto.nomeImagem);
+          this.fileName = produto.nomeImagem;
+        }
+
     this.formGroup = this.formBuilder.group({
       id:[(produto && produto.id) ? produto.id : null],
       nome:[(produto && produto.nome) ? produto.nome : '', Validators.required],
@@ -92,7 +102,8 @@ export class ProdutoFormComponent implements OnInit {
       if (produto.id == null) {
         this.produtoService.save(produto).subscribe({
           next: (produtoCadastrado) => {
-            this.router.navigateByUrl('/produtos/list');
+            this.uploadImage(produtoCadastrado.id);
+
           },
           error: (errorResponse) => {
             // Processar erros da API
@@ -110,7 +121,8 @@ export class ProdutoFormComponent implements OnInit {
       } else {
         this.produtoService.update(produto).subscribe({
           next: (produtoCadastrado) => {
-            this.router.navigateByUrl('/produtos/list');
+            console.log('Id :' + produto.id);
+            this.uploadImage(produto.id);
           },
           error: (errorResponse) => {
             // Processar erros da API
@@ -146,6 +158,36 @@ export class ProdutoFormComponent implements OnInit {
         }
       });
     }      
+  }
+
+  carregarImagemSelecionada(event: any) {
+    this.selectedFile = event.target.files[0];
+
+    if (this.selectedFile) {
+      this.fileName = this.selectedFile.name;
+      // carregando image preview
+      const reader = new FileReader();
+      reader.onload = e => this.imagePreview = reader.result;
+      reader.readAsDataURL(this.selectedFile);
+    }
+
+  }
+
+  private uploadImage(produtoId: number) {
+    if (this.selectedFile) {
+      this.produtoService.uploadImagem(produtoId, this.selectedFile.name, this.selectedFile)
+      .subscribe({
+        next: () => {
+          this.router.navigateByUrl('/produtos/list');
+        },
+        error: err => {
+          console.log('Erro ao fazer o upload da imagem');
+          // tratar o erro
+        }
+      })
+    } else {
+      this.router.navigateByUrl('/produtos/list');
+    }
   }
 
 }

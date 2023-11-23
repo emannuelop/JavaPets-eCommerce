@@ -6,6 +6,9 @@ import jakarta.ws.rs.FormParam;
 
 public class ImageForm {
 
+    @FormParam("id")
+    private Long id;
+
     @FormParam("nomeImagem")
     private String nomeImagem;
 
@@ -29,4 +32,13 @@ public class ImageForm {
         this.imagem = imagem;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    
 }

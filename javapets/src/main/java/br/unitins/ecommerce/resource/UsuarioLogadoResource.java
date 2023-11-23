@@ -168,36 +168,36 @@ public class UsuarioLogadoResource {
         }
     }
 
-    @PATCH
-    @Path("/atualizar-imagem")
-    @RolesAllowed({ "Admin", "User" })
-    @Consumes(MediaType.MULTIPART_FORM_DATA)
-    public Response salvarImagem(@MultipartForm ImageForm form) {
-
-        String nomeImagem = "";
-
-        try {
-            nomeImagem = fileService.salvar(form.getImagem(), form.getNomeImagem());
-            LOG.infof("Imagem salva com sucesso: %s", nomeImagem);
-        } catch (IOException e) {
-            LOG.error("Erro ao salvar a imagem do produto.", e);
-            Result result = new Result(e.getMessage(), false);
-
-            return Response
-                    .status(Status.CONFLICT)
-                    .entity(result)
-                    .build();
-        }
-
-        // obtendo o login a partir do token
-        String login = tokenJwt.getSubject();
-
-        Usuario usuario = usuarioService.getByLogin(login);
-
-        usuarioService.update(usuario.getId(), nomeImagem);
-
-        return Response
-                .status(Status.NO_CONTENT)
-                .build();
-    }
+//    @PATCH
+//    @Path("/atualizar-imagem")
+//    @RolesAllowed({ "Admin", "User" })
+//    @Consumes(MediaType.MULTIPART_FORM_DATA)
+//    public Response salvarImagem(@MultipartForm ImageForm form) {
+//
+//        String nomeImagem = "";
+//
+//        try {
+//            nomeImagem = fileService.salvar(form.getImagem(), form.getNomeImagem());
+//            LOG.infof("Imagem salva com sucesso: %s", nomeImagem);
+//        } catch (IOException e) {
+//            LOG.error("Erro ao salvar a imagem do produto.", e);
+//            Result result = new Result(e.getMessage(), false);
+//
+//            return Response
+//                    .status(Status.CONFLICT)
+//                    .entity(result)
+//                    .build();
+//        }
+//
+//        // obtendo o login a partir do token
+//        String login = tokenJwt.getSubject();
+//
+//        Usuario usuario = usuarioService.getByLogin(login);
+//
+//        usuarioService.update(usuario.getId(), nomeImagem);
+//
+//        return Response
+//                .status(Status.NO_CONTENT)
+//                .build();
+//    }
 }

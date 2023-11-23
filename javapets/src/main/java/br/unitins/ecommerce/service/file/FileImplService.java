@@ -8,7 +8,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
+import br.unitins.ecommerce.model.produto.produto.Produto;
+import br.unitins.ecommerce.repository.ProdutoRepository;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 
 @ApplicationScoped
 public class FileImplService implements FileService {
@@ -19,13 +23,32 @@ public class FileImplService implements FileService {
             + File.separator + "images"
             + File.separator + "produto" + File.separator;
 
+
+    @Inject
+    ProdutoRepository produtoRepository;
+
     @Override
-    public String salvar(byte[] imagem, String nomeImagem) throws IOException {
+    @Transactional
+    public void salvar(Long id, String nomeImagem, byte[] imagem)  throws IOException {
+        Produto produto = produtoRepository.findById(id);
+
+        try {
+            String novoNomeImagem = salvarImagem(nomeImagem, imagem);
+            produto.setNomeImagem(novoNomeImagem);
+            // excluir a imagem antiga (trabalho pra quem????)
+        } catch (IOException e) {
+            throw e;
+        }
+    }
+        
+
+
+    public String salvarImagem(String nomeImagem, byte[] imagem) throws IOException {
 
         // verificando o tipo da imagem
         String mimeType = Files.probeContentType(new File(nomeImagem).toPath());
 
-        List<String> listMimeType = Arrays.asList("image/jpg", "image/png", "image/gif");
+        List<String> listMimeType = Arrays.asList("image/jpg", "image/jpeg", "image/png", "image/gif");
 
         if (!(listMimeType.contains(mimeType))) {
 
