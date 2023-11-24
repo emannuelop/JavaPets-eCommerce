@@ -62,6 +62,13 @@ public class ProdutoResource {
         LOG.debug("ERRO DE DEBUG.");
         return produtoService.getById(id);
     }
+    @GET
+    @Path("/relatorios")
+    @Produces("application/pdf")
+    public Response gerarRelatorioPDF() {
+        byte[] pdf = produtoService.createReportProdutos("");
+        return Response.ok(pdf).header("Content-Disposition", "filename=attachment;relatoriosDeFaixas.pdf").build();
+    }
 
 //     @GET
 //     @Path("image/download/{nomeImagem}")

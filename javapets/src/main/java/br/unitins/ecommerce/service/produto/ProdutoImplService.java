@@ -1,8 +1,23 @@
 package br.unitins.ecommerce.service.produto;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import com.itextpdf.io.source.ByteArrayOutputStream;
+import com.itextpdf.kernel.colors.DeviceRgb;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Cell;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.element.Text;
+import com.itextpdf.layout.properties.HorizontalAlignment;
+import com.itextpdf.layout.properties.TextAlignment;
+import com.itextpdf.layout.properties.UnitValue;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -49,13 +64,13 @@ public class ProdutoImplService implements ProdutoService {
     // @Override
     // public List<ProdutoResponseDTO> getAll() {
 
-    //     return produtoRepository.findAll()
-    //             .stream()
-    //             .map(ProdutoResponseDTO::new)
-    //             .toList();
+    // return produtoRepository.findAll()
+    // .stream()
+    // .map(ProdutoResponseDTO::new)
+    // .toList();
     // }
 
-     @Override
+    @Override
     public List<ProdutoResponseDTO> getAll(int page, int pageSize) {
         List<Produto> list = produtoRepository.findAll().page(page, pageSize).list();
 
@@ -143,7 +158,7 @@ public class ProdutoImplService implements ProdutoService {
             throw new IllegalArgumentException("Número inválido");
 
         Produto produto = produtoRepository.findById(id);
-        
+
         avaliacaoService.delete(produto);
 
         usuarioService.deleteProdutoFromListaDesejo(produto);
@@ -189,55 +204,60 @@ public class ProdutoImplService implements ProdutoService {
     }
 
     // @Override
-    // public List<ProdutoResponseDTO> getByMarca(String nome) throws NullPointerException {
+    // public List<ProdutoResponseDTO> getByMarca(String nome) throws
+    // NullPointerException {
 
-    //     List<Produto> list = produtoRepository.findByMarca(marcaRepository.findByNome(nome).get(0));
+    // List<Produto> list =
+    // produtoRepository.findByMarca(marcaRepository.findByNome(nome).get(0));
 
-    //     if (list == null)
-    //         throw new NullPointerException("Nenhuma marca encontrada");
+    // if (list == null)
+    // throw new NullPointerException("Nenhuma marca encontrada");
 
-    //     return list.stream()
-    //             .map(ProdutoResponseDTO::new)
-    //             .collect(Collectors.toList());
+    // return list.stream()
+    // .map(ProdutoResponseDTO::new)
+    // .collect(Collectors.toList());
     // }
 
     // @Override
-    // public List<ProdutoResponseDTO> filterByPrecoMin(Double preco) throws NullPointerException {
+    // public List<ProdutoResponseDTO> filterByPrecoMin(Double preco) throws
+    // NullPointerException {
 
-    //     List<Produto> list = produtoRepository.filterByPrecoMinimo(preco);
+    // List<Produto> list = produtoRepository.filterByPrecoMinimo(preco);
 
-    //     if (list == null)
-    //         throw new NullPointerException("Nenhum ração encontrada");
+    // if (list == null)
+    // throw new NullPointerException("Nenhum ração encontrada");
 
-    //     return list.stream()
-    //             .map(ProdutoResponseDTO::new)
-    //             .collect(Collectors.toList());
+    // return list.stream()
+    // .map(ProdutoResponseDTO::new)
+    // .collect(Collectors.toList());
     // }
 
     // @Override
     // public List<ProdutoResponseDTO> filterByPrecoMax(Double preco) {
 
-    //     List<Produto> list = produtoRepository.filterByPrecoMaximo(preco);
+    // List<Produto> list = produtoRepository.filterByPrecoMaximo(preco);
 
-    //     if (list == null)
-    //         throw new NullPointerException("Nenhum ração encontrada");
+    // if (list == null)
+    // throw new NullPointerException("Nenhum ração encontrada");
 
-    //     return list.stream()
-    //             .map(ProdutoResponseDTO::new)
-    //             .collect(Collectors.toList());
+    // return list.stream()
+    // .map(ProdutoResponseDTO::new)
+    // .collect(Collectors.toList());
     // }
 
     // @Override
-    // public List<ProdutoResponseDTO> filterByEntrePreco(Double precoMin, Double precoMax) {
+    // public List<ProdutoResponseDTO> filterByEntrePreco(Double precoMin, Double
+    // precoMax) {
 
-    //     List<Produto> list = produtoRepository.filterByEntrePreco(precoMin, precoMax);
+    // List<Produto> list = produtoRepository.filterByEntrePreco(precoMin,
+    // precoMax);
 
-    //     if (list == null)
-    //         throw new NullPointerException("Nenhum ração encontrada");
+    // if (list == null)
+    // throw new NullPointerException("Nenhum ração encontrada");
 
-    //     return list.stream()
-    //             .map(ProdutoResponseDTO::new)
-    //             .collect(Collectors.toList());
+    // return list.stream()
+    // .map(ProdutoResponseDTO::new)
+    // .collect(Collectors.toList());
     // }
 
     private void validar(ProdutoDTO produtoDTO) throws ConstraintViolationException {
@@ -247,6 +267,79 @@ public class ProdutoImplService implements ProdutoService {
         if (!violations.isEmpty())
             throw new ConstraintViolationException(violations);
 
+    }
+
+    @Override
+    public byte[] gerarPdf(List<Produto> produtos) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+        try (PdfWriter pdfWriter = new PdfWriter(baos);
+                PdfDocument pdfDocument = new PdfDocument(pdfWriter);
+                Document document = new Document(pdfDocument)) {
+            Paragraph title = new Paragraph("Relatório de Produtos")
+                    .setFontColor(new DeviceRgb(0, 0, 0)) // Cor preta
+                    .setFontSize(18f)
+                    .setBold()
+                    .setTextAlignment(TextAlignment.CENTER);
+
+            document.add(title);
+            LocalDateTime agora = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+            String dataHoraFormatada = agora.format(formatter);
+
+            Paragraph dataHora = new Paragraph("Gerado em: " + dataHoraFormatada)
+                    .setFontColor(new DeviceRgb(128, 128, 128)) // Cor cinza
+                    .setFontSize(12f)
+                    .setTextAlignment(TextAlignment.CENTER);
+
+            document.add(dataHora);
+
+            Table table = new Table(3)
+                    .setHorizontalAlignment(HorizontalAlignment.CENTER).setWidth(UnitValue.createPercentValue(80)); // 3
+                                                                                                                    // colunas
+                                                                                                                    // para
+                                                                                                                    // ID,
+                                                                                                                    // Nome
+                                                                                                                    // e
+                                                                                                                    // Preço
+
+            for (Produto produto : produtos) {
+                Text idText = new Text("ID: " + produto.getId())
+                        .setFontColor(new DeviceRgb(0, 0, 255))
+                        .setFontSize(12f)
+                        .setBold();
+
+                Text nomeText = new Text("Nome: " + produto.getNome())
+
+                        .setFontSize(14f)
+                        .setItalic();
+
+                Text precoText = new Text("Preço: " + produto.getPreco())
+
+                        .setFontSize(16f)
+                        .setUnderline();
+
+                // Adicione as células à tabela
+                table.addCell(new Cell().add(new Paragraph().add(idText)));
+                table.addCell(new Cell().add(new Paragraph().add(nomeText)));
+                table.addCell(new Cell().add(new Paragraph().add(precoText)));
+            }
+
+            // Adicione a tabela ao documento
+            document.add(table);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return baos.toByteArray();
+    }
+
+    @Override
+
+    public byte[] createReportProdutos(String filterNome) {
+        List<Produto> produtos = produtoRepository.findAll().list();
+        return gerarPdf(produtos);
     }
 
 }

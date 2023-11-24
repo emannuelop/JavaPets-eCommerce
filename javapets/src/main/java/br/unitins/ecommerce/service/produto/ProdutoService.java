@@ -4,6 +4,7 @@ import java.util.List;
 
 import br.unitins.ecommerce.dto.produto.ProdutoDTO;
 import br.unitins.ecommerce.dto.produto.ProdutoResponseDTO;
+import br.unitins.ecommerce.model.produto.produto.Produto;
 import jakarta.validation.Valid;
 
 public interface ProdutoService {
@@ -11,7 +12,8 @@ public interface ProdutoService {
     // Metodos basicos
 
     List<ProdutoResponseDTO> getAll(int page, int pageSize);
-
+     byte[] createReportProdutos(String filterNome);
+      byte[] gerarPdf(List<Produto> produtos);
     ProdutoResponseDTO getById(Long id);
 
     ProdutoResponseDTO insert(@Valid ProdutoDTO produtoDto);
