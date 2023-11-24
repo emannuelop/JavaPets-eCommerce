@@ -102,7 +102,7 @@ export class ProdutoFormComponent implements OnInit {
       if (produto.id == null) {
         this.produtoService.save(produto).subscribe({
           next: (produtoCadastrado) => {
-            this.uploadImage(produtoCadastrado.id);
+            this.uploadImage(produto.id);
 
           },
           error: (errorResponse) => {
