@@ -99,5 +99,24 @@ export class ProdutoListComponent {
       }
     });
   }
+  baixarRelatorio(): void {
+    this.produtoService.getRelatorio().subscribe({
+      next: (data: any) => {
+        const blob = new Blob([data], { type: 'application/pdf' });
+        const url = window.URL.createObjectURL(blob);
 
+        // Simula um clique em um link invisível para iniciar o download
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'relatorio.pdf';
+        link.dispatchEvent(new MouseEvent('click'));
+
+        // Libera a URL do objeto Blob
+        window.URL.revokeObjectURL(url);
+      },
+      error: (error) => {
+        console.error('Erro ao baixar o relatório', error);
+      }
+    });
+  }
 }

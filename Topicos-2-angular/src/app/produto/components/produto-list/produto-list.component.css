@@ -89,3 +89,24 @@ mat-icon {
     flex: 1;
     text-align: center;
 }
+
+.div-container {
+    display: flex;
+    justify-content: flex-end; /* Isso posicionará os itens no canto direito */
+   margin: 10px; /* Ajuste conforme necessário */
+  }
+  
+  .btn-download {
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-download:hover {
+    background-color: #2980b9;
+  }

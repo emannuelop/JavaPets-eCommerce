@@ -6,10 +6,16 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import com.itextpdf.commons.actions.IEvent;
+import com.itextpdf.commons.actions.IEventHandler;
 import com.itextpdf.io.source.ByteArrayOutputStream;
 import com.itextpdf.kernel.colors.DeviceRgb;
+import com.itextpdf.kernel.events.Event;
+import com.itextpdf.kernel.events.PdfDocumentEvent;
 import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfPage;
 import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Paragraph;
@@ -276,6 +282,7 @@ public class ProdutoImplService implements ProdutoService {
         try (PdfWriter pdfWriter = new PdfWriter(baos);
                 PdfDocument pdfDocument = new PdfDocument(pdfWriter);
                 Document document = new Document(pdfDocument)) {
+
             Paragraph title = new Paragraph("Relatório de Produtos")
                     .setFontColor(new DeviceRgb(0, 0, 0)) // Cor preta
                     .setFontSize(18f)
@@ -295,17 +302,16 @@ public class ProdutoImplService implements ProdutoService {
             document.add(dataHora);
 
             Table table = new Table(3)
-                    .setHorizontalAlignment(HorizontalAlignment.CENTER).setWidth(UnitValue.createPercentValue(80)); // 3
-                                                                                                                    // colunas
-                                                                                                                    // para
-                                                                                                                    // ID,
-                                                                                                                    // Nome
-                                                                                                                    // e
-                                                                                                                    // Preço
+                    .setHorizontalAlignment(HorizontalAlignment.CENTER).setWidth(UnitValue.createPercentValue(100)); // 3
+                                                                                                                     // colunas
+                                                                                                                     // para
+                                                                                                                     // ID,
+                                                                                                                     // Nome
+                                                                                                                     // e
+                                                                                                                     // Preço
 
             for (Produto produto : produtos) {
                 Text idText = new Text("ID: " + produto.getId())
-                        .setFontColor(new DeviceRgb(0, 0, 255))
                         .setFontSize(12f)
                         .setBold();
 
@@ -316,8 +322,7 @@ public class ProdutoImplService implements ProdutoService {
 
                 Text precoText = new Text("Preço: " + produto.getPreco())
 
-                        .setFontSize(16f)
-                        .setUnderline();
+                        .setFontSize(16f);
 
                 // Adicione as células à tabela
                 table.addCell(new Cell().add(new Paragraph().add(idText)));
