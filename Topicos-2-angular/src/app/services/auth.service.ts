@@ -46,7 +46,7 @@ export class AuthService {
         if (authToken) {
           this.setToken(authToken);
           const usuarioLogado = res.body;
-          console.log(usuarioLogado, 'asdasd', res.body);
+          console.log(usuarioLogado, 'asdasd');
           if (usuarioLogado) {
             this.setUsuarioLogado(usuarioLogado);
             this.usuarioLogadoSubject.next(usuarioLogado);

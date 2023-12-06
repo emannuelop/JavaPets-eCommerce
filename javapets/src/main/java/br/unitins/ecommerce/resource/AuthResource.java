@@ -4,6 +4,8 @@ import org.eclipse.microprofile.jwt.JsonWebToken;
 
 import org.jboss.logging.Logger;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import br.unitins.ecommerce.dto.usuario.AuthUsuarioDTO;
 import br.unitins.ecommerce.dto.usuario.UsuarioResponseDTO;
 import br.unitins.ecommerce.model.usuario.Usuario;
@@ -21,7 +23,7 @@ import jakarta.ws.rs.core.Response.Status;
 
 @Path("/auth")
 @Consumes(MediaType.APPLICATION_JSON)
-@Produces(MediaType.TEXT_PLAIN)
+@Produces(MediaType.APPLICATION_JSON)
 public class AuthResource {
 
     @Inject
@@ -53,11 +55,10 @@ public class AuthResource {
                         .entity("Usuario não encontrado").build();
             }
 
-            LOG.info("Login do usuário bem-sucedido: " + authDTO.login());
+            LOG.info("Login do usuário bem-sucedido: " + authDTO.login()); 
 
-            return Response.ok()
-                    .header("Authorization", tokenService.generateJwt(usuario))
-                    .build();
+            return Response.ok(usuarioService.getById(usuario.getId())).header("Authorization", tokenService.generateJwt(usuario)).build();
+
         } catch (Exception e) {
 
             LOG.error("Erro durante o login do usuário: " + authDTO.login(), e);
