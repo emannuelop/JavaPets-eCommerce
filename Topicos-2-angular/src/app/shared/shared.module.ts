@@ -11,12 +11,14 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
+import { AdminTemplateComponent } from './components/admin-template/admin-template.component';
 
 @NgModule({
   declarations: [
     HeaderComponent,
     SidebarComponent,
-    FooterComponent
+    FooterComponent,
+    AdminTemplateComponent
   ],
   imports: [
     CommonModule,

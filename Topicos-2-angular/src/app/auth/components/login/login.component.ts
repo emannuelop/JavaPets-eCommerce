@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { ConnectableObservable } from 'rxjs';
+import { Usuario } from 'src/app/models/usuario.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { LocalStorageService } from 'src/app/services/local-storage-service';
 
@@ -35,7 +36,8 @@ export class LoginComponent implements OnInit {
         next: (resp) => {
           //this.showSnackbarTopPosition(this.authService.getToken(), 'Fechar', 2000);
           // redirecionar para a página principal
-          this.router.navigateByUrl('produtos/card-list');
+          console.log(this.authService.getUsuarioLogado);
+          this.router.navigateByUrl('admin/produtos/card-list');
         },
         error: (err) => {
           console.log(err);

@@ -102,7 +102,7 @@ export class ProdutoFormComponent implements OnInit {
       if (produto.id == null) {
         this.produtoService.save(produto).subscribe({
           next: (produtoCadastrado) => {
-            this.uploadImage(produto.id);
+            this.uploadImage(produtoCadastrado.id);
 
           },
           error: (errorResponse) => {
@@ -120,7 +120,7 @@ export class ProdutoFormComponent implements OnInit {
         });
       } else {
         this.produtoService.update(produto).subscribe({
-          next: (produtoCadastrado) => {
+          next: (produtoAtualizado) => {
             console.log('Id :' + produto.id);
             this.uploadImage(produto.id);
           },

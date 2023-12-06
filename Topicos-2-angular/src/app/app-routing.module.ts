@@ -1,8 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './auth/components/login/login.component';
+import { AdminTemplateComponent } from './shared/components/admin-template/admin-template.component';
 
 const routes: Routes = [
+  {
+    path: 'admin',
+    component: AdminTemplateComponent,
+    children: [
   {
     path: 'estados', loadChildren:
       () => import('./estado/estado.module')
@@ -55,12 +60,15 @@ const routes: Routes = [
     path:'pets', loadChildren:
     () => import('./pet/pet.module')
     .then(m => m.PetModule)
+  }
+]
   },
   {
     path: 'auth', loadChildren:
       () => import('./auth/auth.module')
         .then(m => m.AuthModule)
   }
+  
 ];
 
 @NgModule({
