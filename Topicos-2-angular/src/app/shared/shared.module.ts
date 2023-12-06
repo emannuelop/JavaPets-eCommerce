@@ -12,13 +12,19 @@ import {MatListModule} from '@angular/material/list';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import { AdminTemplateComponent } from './components/admin-template/admin-template.component';
+import { UserTemplateComponent } from './components/user-template/user-template.component';
+import { HeaderUserComponent } from './components/header-user/header-user.component';
+import { FooterUserComponent } from './components/footer-user/footer-user.component';
 
 @NgModule({
   declarations: [
     HeaderComponent,
     SidebarComponent,
     FooterComponent,
-    AdminTemplateComponent
+    AdminTemplateComponent,
+    UserTemplateComponent,
+    HeaderUserComponent,
+    FooterUserComponent
   ],
   imports: [
     CommonModule,

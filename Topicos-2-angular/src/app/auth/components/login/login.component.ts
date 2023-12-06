@@ -36,8 +36,14 @@ export class LoginComponent implements OnInit {
         next: (resp) => {
           //this.showSnackbarTopPosition(this.authService.getToken(), 'Fechar', 2000);
           // redirecionar para a página principal
-          console.log(this.authService.getUsuarioLogado);
+          const usuarioLogado = this.localStorageService.getItem('usuario_logado');
+          console.log(usuarioLogado.perfis.includes('ADMIN'));
+          if(usuarioLogado.perfis.includes('ADMIN')){
           this.router.navigateByUrl('admin/produtos/card-list');
+          }
+          else{
+            this.router.navigateByUrl('user');
+            }
         },
         error: (err) => {
           console.log(err);

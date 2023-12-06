@@ -8,6 +8,7 @@ import br.unitins.ecommerce.application.Result;
 import br.unitins.ecommerce.dto.estado.EstadoDTO;
 import br.unitins.ecommerce.dto.estado.EstadoResponseDTO;
 import br.unitins.ecommerce.service.estado.EstadoService;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.ws.rs.Consumes;
@@ -36,7 +37,7 @@ public class EstadoResource {
     private static final Logger LOG = Logger.getLogger(EstadoResource.class);
 
     @GET
-    // @PermitAll
+    @RolesAllowed({"Admin"})
     public List<EstadoResponseDTO> getAll(
             @QueryParam("page") @DefaultValue("0") int page,
             @QueryParam("pageSize") @DefaultValue("2") int pageSize) {

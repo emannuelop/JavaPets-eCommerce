@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.unitins.ecommerce.dto.usuario.AuthUsuarioDTO;
 import br.unitins.ecommerce.dto.usuario.UsuarioResponseDTO;
+import br.unitins.ecommerce.dto.usuario.UsuarioResponseDTOPerfis;
 import br.unitins.ecommerce.model.usuario.Usuario;
 import br.unitins.ecommerce.service.hash.HashService;
 import br.unitins.ecommerce.service.token.TokenJwtService;
@@ -57,7 +58,7 @@ public class AuthResource {
 
             LOG.info("Login do usuário bem-sucedido: " + authDTO.login()); 
 
-            return Response.ok(usuarioService.getById(usuario.getId())).header("Authorization", tokenService.generateJwt(usuario)).build();
+            return Response.ok(UsuarioResponseDTOPerfis.valueOf(usuario)).header("Authorization", tokenService.generateJwt(usuario)).build();
 
         } catch (Exception e) {
 

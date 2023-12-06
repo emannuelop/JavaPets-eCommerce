@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
+import { Usuario } from 'src/app/models/usuario.model';
 import { SidebarService } from '../../services/sidebar.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { LocalStorageService } from 'src/app/services/local-storage-service';
-import { Usuario } from 'src/app/models/usuario.model';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  selector: 'app-header-user',
+  templateUrl: './header-user.component.html',
+  styleUrls: ['./header-user.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderUserComponent implements OnInit {
 
   usuarioLogado: Usuario | null = null;
   private subscription = new Subscription();
@@ -37,5 +37,5 @@ export class HeaderComponent implements OnInit {
     this.authService.removeToken()
     this.authService.removeUsuarioLogado();
   }
-
+  
 }
