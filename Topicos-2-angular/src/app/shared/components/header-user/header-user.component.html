@@ -1,13 +1,18 @@
 <mat-toolbar>
-    <button (click)="clickMenu()" mat-icon-button class="example-icon" id="menu-botao" aria-label="Example icon-button with menu icon">
-        <mat-icon>menu</mat-icon>
-    </button>
     <span class="titulo">JavaPets - Usuario</span>
-    <span class="example-spacer"></span>
-
+    <img class="login-icon" src="assets\logo.png">
+    <button mat-icon-button class="demo-section example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+        <mat-icon [matBadge]="qtdItensCarrinho"  matBadgeColor="warn" matBadgePosition="after" matBadgeOverlap="false">shopping_cart</mat-icon>
+    </button>
     <button value="blah" mat-icon-button (click)="deslogar()">
         <mat-icon>exit_to_app</mat-icon>
       </button>
       <span>{{usuarioLogado?.login}}</span>
-  
+</mat-toolbar>
+<mat-toolbar>
+    <span>Acesse Nossos Produtos:</span>
+    <span>Cachorro</span>
+    <span>Gato</span>
+    <span>Passaro</span>
+    <span routerLink="produtos/card-list">Todos</span>
 </mat-toolbar>

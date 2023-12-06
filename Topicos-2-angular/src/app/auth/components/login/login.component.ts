@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
           this.router.navigateByUrl('admin/produtos/card-list');
           }
           else{
-            this.router.navigateByUrl('user');
+            this.router.navigateByUrl('user/home/home-page');
             }
         },
         error: (err) => {

@@ -12,6 +12,8 @@ import { Subscription } from 'rxjs';
 })
 export class HeaderUserComponent implements OnInit {
 
+  qtdItensCarrinho:number = 0;
+
   usuarioLogado: Usuario | null = null;
   private subscription = new Subscription();
 
@@ -24,7 +26,12 @@ export class HeaderUserComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.obterQtdItensCarrinho();
     this.obterUsuarioLogado();   
+}
+
+obterQtdItensCarrinho() {
+    this.qtdItensCarrinho = 5;
 }
 
   obterUsuarioLogado() {

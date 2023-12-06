@@ -1,0 +1,56 @@
+.propaganda{
+    padding-top: 50px;
+}
+
+.carousel {
+    width: 80%;
+    height: 600px;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+    border: 3px solid rgb(238, 255, 0);
+    border-radius: 30px;
+
+  }
+  
+  .carousel img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .carousel button {
+    width: 50px;
+    height: 50px;
+    background-color: #ccc;
+    border-radius: 50%;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  
+  .carousel button.prev {
+    left: 0;
+  }
+  
+  .carousel button.next {
+    right: 0;
+  }
+  
+  @media (max-width: 575px) {
+    .carousel {
+      width: 30%;
+      height: 300px;
+    }
+  
+    .carousel img {
+      width: 30%;
+      height: 100%;
+    }
+  
+    .carousel button {
+      width: 30px;
+      height: 30px;
+    }
+  }

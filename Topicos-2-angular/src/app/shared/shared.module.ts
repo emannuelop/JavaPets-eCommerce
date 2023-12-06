@@ -15,6 +15,7 @@ import { AdminTemplateComponent } from './components/admin-template/admin-templa
 import { UserTemplateComponent } from './components/user-template/user-template.component';
 import { HeaderUserComponent } from './components/header-user/header-user.component';
 import { FooterUserComponent } from './components/footer-user/footer-user.component';
+import { MatBadgeModule } from '@angular/material/badge';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { FooterUserComponent } from './components/footer-user/footer-user.compon
     MatSidenavModule,
     MatListModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    MatBadgeModule
     
   ],
   exports: [

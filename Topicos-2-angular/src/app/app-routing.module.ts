@@ -73,7 +73,18 @@ const routes: Routes = [
   {
     path: 'user',
     component: UserTemplateComponent,
-    children: []
+    children: [
+      {
+        path:'home', loadChildren:
+        () => import('./home/home.module')
+        .then(m => m.HomeModule)
+      },
+      {
+        path: 'produtos', loadChildren:
+          () => import('./produto/produto.module')
+            .then(m => m.ProdutoModule)
+      }
+    ]
   }
   
 ];

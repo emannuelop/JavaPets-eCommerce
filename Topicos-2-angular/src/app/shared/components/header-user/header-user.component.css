@@ -3,7 +3,7 @@
 }
 mat-toolbar{
     background: linear-gradient(135deg, #ff9900, #ffcc66);
-    font-size: 27px;
+    font-size: 23px;
 }
 
 span{
@@ -13,3 +13,48 @@ span{
 #menu-botao{
     color: white;
 }
+
+
+.mat-toolbar span {
+    display: inline-block;
+    margin: 0 2%;
+  }
+  
+  .mat-toolbar span:first-child {
+    margin-left: 0;
+  }
+
+  .mat-toolbar {
+    display: flex;
+    justify-content: center;
+  }
+
+  .login-icon {
+    width: 6%; /* ou outro valor desejado */
+    height: auto; /* Mantém a proporção da imagem */
+  
+  margin: 0 center;
+  display: block;
+}
+
+.mat-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .mat-toolbar span.titulo {
+    margin-left: 15px;
+  }
+  
+  .login-icon {
+    margin: 0 auto;
+  }
+  
+  .example-spacer {
+    flex: 1 1 auto;
+  }
+  
+  .mat-icon-button {
+    margin-right: 15px;
+  }
