@@ -1,0 +1,77 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(to right, #FF8C00, #FF5722); /* Gradiente laranja */
+}
+
+.login-box {
+  position: relative; /* Adiciona posição relativa */
+  z-index: 1; /* Garante que a caixa esteja sobreposta ao plano de fundo */
+  background: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35); /* Ajuste os valores para tornar a sombra mais evidente */
+}
+
+
+  .login-icon {
+    width: 200px; /* ou outro valor desejado */
+    height: auto; /* Mantém a proporção da imagem */
+  
+  margin: 0 auto 20px;
+  display: block;
+}
+
+.login-title {
+  font-size: 24px;
+  margin: 10px 0;
+  color: #333;
+}
+
+.login-input {
+  width: 100%;
+  margin: 10px 0;
+}
+
+.mat-raised-button.login-button {
+  background-color: #FF8C00; /* Laranja mais suave */
+  color: #fff; /* Texto branco */
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.mat-raised-button.login-button:hover {
+  background-color: #FFA726; /* Laranja mais suave no hover */
+}
+
+.welcome-container {
+  background: rgb(255, 255, 255); /* Cor de fundo com opacidade */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  margin-left: 20px;
+  min-height: 100vh; /* Ocupar altura total da tela */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  opacity: 0.9;
+}
+
+
+
+.bold-orange {
+  font-weight: bold; /* Negrito */
+  color: #FFA500; /* Laranja */
+}
+
+.welcome-message {
+  font-size: 16px;
+  color: #333;
+}

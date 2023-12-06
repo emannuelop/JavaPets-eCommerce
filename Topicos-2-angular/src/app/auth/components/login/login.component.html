@@ -1,0 +1,29 @@
+
+
+<div class="login-container">
+   <div class="elevation-container"><div class="login-box">
+       
+    <h2 class="login-title">Entre na <span class="bold-orange">JavaPets!</span></h2>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <mat-form-field class="login-input">
+            <input matInput placeholder="Email" formControlName="email" required>
+            <mat-error *ngIf="loginForm.get('email')!.hasError('required')">O email é obrigatório</mat-error>
+        </mat-form-field>
+        <mat-form-field class="login-input">
+            <input matInput type="password" placeholder="Senha" formControlName="password" required>
+            <mat-error *ngIf="loginForm.get('password')!.hasError('required')">A senha é obrigatória</mat-error>
+        </mat-form-field>
+        <button mat-raised-button class="login-button" style="background-color: #3B1F11 !important; color: #fff;" type="submit">Login</button>
+
+    </form>
+</div></div>
+    
+
+    <div class="welcome-container">
+        <img class="login-icon" src="assets\logo.png">
+        <p class="welcome-message">
+            <span class="bold-orange">Bem-vindo de volta!</span>
+            Esperamos que tenha um ótimo dia.
+        </p>
+    </div>
+</div>

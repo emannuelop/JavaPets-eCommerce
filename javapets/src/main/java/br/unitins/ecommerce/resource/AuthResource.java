@@ -5,6 +5,7 @@ import org.eclipse.microprofile.jwt.JsonWebToken;
 import org.jboss.logging.Logger;
 
 import br.unitins.ecommerce.dto.usuario.AuthUsuarioDTO;
+import br.unitins.ecommerce.dto.usuario.UsuarioResponseDTO;
 import br.unitins.ecommerce.model.usuario.Usuario;
 import br.unitins.ecommerce.service.hash.HashService;
 import br.unitins.ecommerce.service.token.TokenJwtService;
