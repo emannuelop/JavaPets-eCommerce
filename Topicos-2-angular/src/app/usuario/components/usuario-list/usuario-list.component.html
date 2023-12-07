@@ -1,7 +1,7 @@
 <mat-toolbar>
   <div class="flex-container">
     <span class="toolbar-title"> Controle de Usuários </span>
-    <button mat-fab class="mat-custom-color" routerLink="/usuarios/new">
+    <button mat-fab class="mat-custom-color" routerLink="/admin/usuarios/new">
       <mat-icon>add</mat-icon>
     </button>
   </div>
@@ -80,7 +80,7 @@
     <ng-container matColumnDef="acao-column">
       <th mat-header-cell *matHeaderCellDef> Ação </th>
       <td mat-cell *matCellDef="let usuario">
-        <button mat-icon-button color="primary" routerLink="/usuarios/edit/{{ usuario.id }}">
+        <button mat-icon-button color="primary" routerLink="/admin/usuarios/edit/{{ usuario.id }}">
           <mat-icon>edit</mat-icon>
         </button>
         <button mat-icon-button color="warn" (click)="openConfirmationDialog(usuario)">
