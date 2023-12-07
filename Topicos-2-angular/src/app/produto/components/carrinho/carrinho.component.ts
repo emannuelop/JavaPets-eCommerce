@@ -2,6 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ItemCarrinho } from 'src/app/models/item-carrinho.interface';
+import { ItemCompra } from 'src/app/models/itemCompra.model';
 import { CarrinhoService } from 'src/app/services/carrinho.service';
 import { CompraService } from 'src/app/services/compra.service';
 
@@ -29,6 +30,21 @@ export class CarrinhoComponent implements OnInit {
 
   calcularTotal(): number {
     return this.carrinhoItens.reduce((total, item) => total + item.quantidade * item.preco, 0);
+  }
+
+  finalizarCompra() {
+    this.carrinhoItens.forEach((itemCarrinho) => {
+      this.compraService.insertIntoCarrrinho(itemCarrinho).subscribe(
+        (response) => {
+          console.log('Item adicionado com sucesso!', response);
+          this.router.navigateByUrl('user/compra/finalizar-compra');
+        },
+        (error) => {
+          console.error('Erro ao adicionar item ao carrinho', error);
+          // Trate o erro conforme necessário
+        }
+      );
+    });
   }
   
 }

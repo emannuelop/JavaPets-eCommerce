@@ -85,11 +85,10 @@ public class CompraResource {
     }
 
     @POST
-    @Path("/carrinho/adiconar-item")
     @RolesAllowed({ "User", "User_Basic" })
     public Response insertIntoCarrrinho(ItemCompraDTO itemCompraDTO) {
         Result result = null;
-
+        LOG.info("Ta vindo");
         try {
 
             String login = tokenJwt.getSubject();

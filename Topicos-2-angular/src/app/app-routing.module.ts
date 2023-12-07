@@ -88,6 +88,11 @@ const routes: Routes = [
         path: 'produtos', loadChildren:
           () => import('./produto/produto.module')
             .then(m => m.ProdutoModule)
+      },
+      {
+        path: 'compra', loadChildren:
+          () => import('./compra/compra.module')
+            .then(m => m.CompraModule)
       }
     ]
   }
