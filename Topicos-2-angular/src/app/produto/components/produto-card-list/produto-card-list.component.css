@@ -43,4 +43,18 @@ img {
     height: 54px;
     align-self: flex-start; /* Alinhar o botão verticalmente ao topo */
 }
-
+.product-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    transition: box-shadow 0.3s ease; /* Adiciona uma transição suave ao efeito de elevação */
+  }
+  
+  .product-card:hover {
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.1); /* Adiciona um efeito de elevação ao passar o mouse */
+  }
+  
+  .centered-text {
+    text-align: center;
+  }
