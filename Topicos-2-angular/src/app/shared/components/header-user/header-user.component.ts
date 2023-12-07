@@ -4,6 +4,7 @@ import { SidebarService } from '../../services/sidebar.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { LocalStorageService } from 'src/app/services/local-storage-service';
 import { Subscription } from 'rxjs';
+import { CarrinhoService } from 'src/app/services/carrinho.service';
 
 @Component({
   selector: 'app-header-user',
@@ -19,6 +20,7 @@ export class HeaderUserComponent implements OnInit {
 
   constructor(private sidebarService: SidebarService,
     private authService: AuthService,
+    private carrinhoService: CarrinhoService,
     private localStorageService: LocalStorageService) {  }
 
   clickMenu() {
@@ -31,7 +33,9 @@ export class HeaderUserComponent implements OnInit {
 }
 
 obterQtdItensCarrinho() {
-    this.qtdItensCarrinho = 5;
+  this.carrinhoService.carrinho$.subscribe(itens => {
+    this.qtdItensCarrinho = itens.length
+  });
 }
 
   obterUsuarioLogado() {
