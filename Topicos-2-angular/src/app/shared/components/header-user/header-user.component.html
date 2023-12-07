@@ -1,6 +1,10 @@
 <mat-toolbar>
-    <span class="titulo">JavaPets - Usuario</span>
-    <img class="login-icon" src="assets\logo.png">
+    <span routerLink="/user/home/home-page" class="titulo">JavaPets - Usuario</span>
+    
+    
+        <img routerLink="/user/home/home-page" class="login-icon" src="assets\logo.png">
+
+   
     <button mat-icon-button class="demo-section example-icon favorite-icon" aria-label="Example icon-button with heart icon">
         <mat-icon [matBadge]="qtdItensCarrinho"  matBadgeColor="warn" matBadgePosition="after" matBadgeOverlap="false">shopping_cart</mat-icon>
     </button>
@@ -11,8 +15,16 @@
 </mat-toolbar>
 <mat-toolbar>
     <span>Acesse Nossos Produtos:</span>
-    <span>Cachorro</span>
-    <span>Gato</span>
-    <span>Passaro</span>
-    <span routerLink="produtos/card-list">Todos</span>
+    <div class="menu-item-container">
+        <span class="menu-item">Cachorro</span>
+    </div>
+    <div class="menu-item-container">
+        <span class="menu-item">Gato</span>
+    </div>
+    <div class="menu-item-container">
+        <span class="menu-item">Passaro</span>
+    </div>
+    <div class="menu-item-container" routerLink="produtos/card-list">
+        <span class="menu-item">Todos</span>
+    </div>
 </mat-toolbar>
