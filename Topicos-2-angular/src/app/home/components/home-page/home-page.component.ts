@@ -22,6 +22,11 @@ export class HomePageComponent implements OnInit{
       src: 'https://www.amoviralata.com/wp-content/uploads/2020/09/viajar-com-pets.jpg',
       alt: 'Imagem 3',
       link: 'https://www.example.com/image3'
+    },
+    {
+      src: "https://cdn.totallythebomb.com/wp-content/uploads/2021/04/Dog-Haircut-Feature-700x366.png",
+      alt: 'Cão calvo',
+      link:'https://www.example.com/image4'
     }
   ];
 
