@@ -67,8 +67,8 @@ export class LoginComponent implements OnInit {
       horizontalPosition: "center" // Allowed values are 'start' | 'center' | 'end' | 'left' | 'right'
     });
   }
-  togglePasswordVisibility(event: Event) {
-    event.preventDefault(); // Impede a ação padrão do botão (enviar o formulário)
+  togglePasswordVisibility() {
+  
     this.showPassword = !this.showPassword;
   }
 }

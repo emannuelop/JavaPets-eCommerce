@@ -10,7 +10,7 @@
           </mat-form-field>
          <mat-form-field class="login-input">
   <input matInput type="{{ showPassword ? 'text' : 'password' }}" placeholder="Senha" formControlName="password" required>
-  <button mat-icon-button matSuffix (click)="togglePasswordVisibility($event)">
+  <button mat-icon-button matSuffix (click)="togglePasswordVisibility()">
     <mat-icon>{{ showPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
   </button>
   <mat-error *ngIf="loginForm.get('password')!.hasError('required')">A senha é obrigatória</mat-error>
