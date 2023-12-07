@@ -15,7 +15,10 @@ export class AppComponent {
   ngOnInit() {
     if (!this.authService.isTokenExpired()){
       this.currentPage = this.router.url;
-
+     console.log(this.currentPage);
+     if(this.currentPage === "/"){
+      this.router.navigateByUrl("/user/home/home-page")
+     }
     }else{
       this.router.navigateByUrl('/auth/login');
     this.currentPage = this.router.url;
