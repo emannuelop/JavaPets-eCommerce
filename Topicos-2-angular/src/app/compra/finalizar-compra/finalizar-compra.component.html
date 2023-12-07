@@ -1,1 +1,26 @@
-<h1>{{compra.totalCompra}}</h1>
+<mat-stepper orientation="vertical">
+    <mat-step>
+      <ng-template matStepLabel>Step 1</ng-template>
+      <ng-template matStepContent>
+        <p>Deseja finalizar sua Compra ?</p>
+        <p>{{usuario.login}}</p>
+        <p>Total da Compra</p>
+        <p>{{compra.totalCompra}}</p>
+        <button mat-button matStepperNext>Next</button>
+      </ng-template>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Step 2</ng-template>
+      <ng-template matStepContent>
+        <p>Escolha sua Forma de Pagamento</p>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Pix</button>
+        <button mat-button matStepperNext>Boleto</button>
+      </ng-template>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Step 3</ng-template>
+      <p>Obrigado pela preferencia</p>
+      <button mat-button routerLink="home/home-page">Voltar para pagina principal</button>
+    </mat-step>
+  </mat-stepper>

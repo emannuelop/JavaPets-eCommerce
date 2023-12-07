@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Compra } from 'src/app/models/compra.model';
+import { Usuario } from 'src/app/models/usuario.model';
+import { AuthService } from 'src/app/services/auth.service';
 import { CompraService } from 'src/app/services/compra.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 
@@ -15,8 +17,9 @@ export class FinalizarCompraComponent implements OnInit {
   apiResponse: any = null;
 
   compra!: Compra;
+  usuario!: Usuario;
 
-  constructor(private formBuilder: FormBuilder, private compraService: CompraService, 
+  constructor(private formBuilder: FormBuilder, private compraService: CompraService,private authService: AuthService ,
     private usuarioService: UsuarioService,
     private router: Router,
     private activatedRoute: ActivatedRoute) {
@@ -25,7 +28,7 @@ export class FinalizarCompraComponent implements OnInit {
     this.formGroup = this.formBuilder.group({
       id: [null],
       dataCompra: ['', Validators.required],
-      totalCompra: ['', Validators.required],
+      totalCompra: [null],
       ifConcluida: ['', Validators.required],
 
       endereco: this.formBuilder.group({
@@ -49,6 +52,14 @@ export class FinalizarCompraComponent implements OnInit {
       this.compra = compra;
       this.initializeForm();
     });
+    
+    this.authService.getUsuarioLogado().subscribe((usuario: Usuario | null) => {
+      if(usuario){
+      this.usuario = usuario;
+      }
+      this.initializeForm();
+    });
+
     this.initializeForm();
     
   }
