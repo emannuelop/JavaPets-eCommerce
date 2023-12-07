@@ -21,12 +21,15 @@ import { FormsModule } from '@angular/forms';
 import {MatDialogModule} from '@angular/material/dialog';
 import { CustomPaginatorIntl } from 'src/app/models/custom-paginator-intl'
 import { ProdutoCardListComponent } from './components/produto-card-list/produto-card-list.component';
+import { CarrinhoComponent } from './components/carrinho/carrinho.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
     ProdutoListComponent,
     ProdutoFormComponent,
-    ProdutoCardListComponent
+    ProdutoCardListComponent,
+    CarrinhoComponent
   ],
   imports: [
     CommonModule,
@@ -42,7 +45,8 @@ import { ProdutoCardListComponent } from './components/produto-card-list/produto
     MatTableModule,
     MatPaginatorModule,
     FormsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSnackBarModule
   ],
   providers: [
     CustomPaginatorIntl

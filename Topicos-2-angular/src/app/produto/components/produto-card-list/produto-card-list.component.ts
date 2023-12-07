@@ -1,10 +1,13 @@
 import { Component, OnInit, ViewChild, signal } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { CustomPaginatorIntl } from 'src/app/models/custom-paginator-intl';
 import { Produto } from 'src/app/models/produto.model';
+import { CarrinhoService } from 'src/app/services/carrinho.service';
 import { ProdutoService } from 'src/app/services/produto.service';
 
 type Card = {
+  idProduto: number;
   titulo: string;
   preco: number;
   urlImagem: string;
@@ -25,7 +28,7 @@ export class ProdutoCardListComponent implements OnInit  {
   filtro: string = "";
   pageSize = 10;
   pagina = 0;
-  constructor(private produtoService: ProdutoService, private customPaginatorIntl: CustomPaginatorIntl) {}
+  constructor(private produtoService: ProdutoService,private carrinhoService: CarrinhoService, private customPaginatorIntl: CustomPaginatorIntl, private snackBar: MatSnackBar) {}
 
   ngAfterViewInit() {
     if (this.paginator) {
@@ -78,6 +81,7 @@ export class ProdutoCardListComponent implements OnInit  {
     const cards: Card[] = [];
     this.produtos.forEach(produto => {
       cards.push({
+        idProduto: produto.id,
         titulo: produto.nome,
         preco: produto.preco,
         urlImagem: this.produtoService.getUrlImagem(produto.nomeImagem)
@@ -89,6 +93,26 @@ export class ProdutoCardListComponent implements OnInit  {
   aplicarFiltro() {
     this.carregarProdutos();
   
+  }
+
+  showSnackbarTopPosition(content:any, action:any) {
+    this.snackBar.open(content, action, {
+      duration: 2000,
+      verticalPosition: "top", // Allowed values are  'top' | 'bottom'
+      horizontalPosition: "center" // Allowed values are 'start' | 'center' | 'end' | 'left' | 'right'
+    });
+  }
+
+  adicionarAoCarrinho(card: Card) {
+    this.showSnackbarTopPosition('Produto adicionado ao carrinho!', 'Fechar');
+    this.carrinhoService.adicionar({
+      id: card.idProduto,
+      nome: card.titulo,
+      preco: card.preco,
+      quantidade: 1,
+      urlImagem: card.urlImagem
+    })
+
   }
 
 }
