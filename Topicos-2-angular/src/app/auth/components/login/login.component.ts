@@ -14,6 +14,7 @@ import { LocalStorageService } from 'src/app/services/local-storage-service';
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
+  showPassword: boolean = false;
 
   constructor(private formBuilder: FormBuilder,
               private authService: AuthService,
@@ -65,5 +66,9 @@ export class LoginComponent implements OnInit {
       verticalPosition: "top", // Allowed values are  'top' | 'bottom'
       horizontalPosition: "center" // Allowed values are 'start' | 'center' | 'end' | 'left' | 'right'
     });
+  }
+  togglePasswordVisibility(event: Event) {
+    event.preventDefault(); // Impede a ação padrão do botão (enviar o formulário)
+    this.showPassword = !this.showPassword;
   }
 }
