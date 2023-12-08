@@ -33,7 +33,7 @@ export class MarcaFormComponent {
       if (marca.id == null) {
         this.marcaService.save(marca).subscribe({
           next: (marcaCadastrado) => {
-            this.router.navigateByUrl('/marcas/list');
+            this.router.navigateByUrl('/admin/marcas/list');
           },
           error: (errorResponse) => {
             // Processar erros da API
@@ -49,7 +49,7 @@ export class MarcaFormComponent {
       } else {
         this.marcaService.update(marca).subscribe({
           next: (marcaCadastrado) => {
-            this.router.navigateByUrl('/marcas/list');
+            this.router.navigateByUrl('/admin/marcas/list');
           },
           error: (errorResponse) => {
             // Processar erros da API
@@ -76,7 +76,7 @@ export class MarcaFormComponent {
     if (marca.id != null) {
       this.marcaService.delete(marca).subscribe({
         next: (e) => {
-          this.router.navigateByUrl('/marcas/list');
+          this.router.navigateByUrl('/admin/marcas/list');
         },
         error: (err) => {
           console.log('Erro ao excluir' + JSON.stringify(err));

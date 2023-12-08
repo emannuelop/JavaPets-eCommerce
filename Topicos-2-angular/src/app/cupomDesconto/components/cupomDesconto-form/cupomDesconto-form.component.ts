@@ -34,7 +34,7 @@ export class CupomDescontoFormComponent {
       if (cupomDesconto.id == null) {
         this.cupomDescontoService.save(cupomDesconto).subscribe({
           next: (cupomDescontoCadastrado) => {
-            this.router.navigateByUrl('/cupomDescontos/list');
+            this.router.navigateByUrl('/admin/cupomDescontos/list');
           },
           error: (errorResponse) => {
              // Processar erros da API
@@ -51,7 +51,7 @@ export class CupomDescontoFormComponent {
       } else {
         this.cupomDescontoService.update(cupomDesconto).subscribe({
           next: (cupomDescontoCadastrado) => {
-            this.router.navigateByUrl('/cupomDescontos/list');
+            this.router.navigateByUrl('/admin/cupomDescontos/list');
           },
           error: (errorResponse) => {
             // Processar erros da API
@@ -80,7 +80,7 @@ export class CupomDescontoFormComponent {
     if (cupomDesconto.id != null) {
       this.cupomDescontoService.delete(cupomDesconto).subscribe({
         next: (e) => {
-          this.router.navigateByUrl('/cupomDescontos/list');
+          this.router.navigateByUrl('/admin/cupomDescontos/list');
         },
         error: (err) => {
           console.log('Erro ao excluir' + JSON.stringify(err));

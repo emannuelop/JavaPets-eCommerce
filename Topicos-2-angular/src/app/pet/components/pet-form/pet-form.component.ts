@@ -35,7 +35,7 @@ export class PetFormComponent {
       if (pet.id == null) {
         this.petService.save(pet).subscribe({
           next: (petCadastrado) => {
-            this.router.navigateByUrl('/pets/list');
+            this.router.navigateByUrl('/admin/pets/list');
           },
           error: (errorResponse) => {
             // Processar erros da API
@@ -53,7 +53,7 @@ export class PetFormComponent {
       } else {
         this.petService.update(pet).subscribe({
           next: (petCadastrado) => {
-            this.router.navigateByUrl('/pets/list');
+            this.router.navigateByUrl('/admin/pets/list');
           },
           error: (errorResponse) => {
             // Processar erros da API
@@ -82,7 +82,7 @@ export class PetFormComponent {
     if (pet.id != null) {
       this.petService.delete(pet).subscribe({
         next: (e) => {
-          this.router.navigateByUrl('/pets/list');
+          this.router.navigateByUrl('/admin/pets/list');
         },
         error: (err) => {
           console.log('Erro ao excluir' + JSON.stringify(err));
