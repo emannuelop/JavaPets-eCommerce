@@ -59,7 +59,9 @@ export class LoginComponent implements OnInit {
   onRegister() {
     // criar usuário
   }
-
+irParaTelaCadastro(){
+  this.router.navigateByUrl('user/usuarios/new');
+}
   showSnackbarTopPosition(content:any, action:any, duration:any) {
     this.snackBar.open(content, action, {
       duration: 2000,

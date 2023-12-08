@@ -10,13 +10,23 @@
           </mat-form-field>
          <mat-form-field class="login-input">
   <input matInput type="{{ showPassword ? 'text' : 'password' }}" placeholder="Senha" formControlName="password" required>
-  <button mat-icon-button matSuffix (click)="togglePasswordVisibility()">
+  <button mat-icon-button matSuffix (click)="togglePasswordVisibility()" type="button">
     <mat-icon>{{ showPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
   </button>
   <mat-error *ngIf="loginForm.get('password')!.hasError('required')">A senha é obrigatória</mat-error>
 </mat-form-field>
-          <button mat-raised-button class="login-button" style="background-color: #3B1F11 !important; color: #fff;" type="submit">Login</button>
+
+<div class="botoes-container"> 
+  <button mat-raised-button class="login-button" style="background-color: #3B1F11 !important; color: #fff;" type="submit">Login</button>
+
+  <button mat-raised-button class="login-button" style="background-color: #FF8C00 !important; color: #fff;" type="button" (click)="irParaTelaCadastro()" >Cadastre-se</button>
+</div>
+
+
+
+         
         </form>
+     
       </div>
     
 

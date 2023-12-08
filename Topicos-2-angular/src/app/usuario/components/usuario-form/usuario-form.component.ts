@@ -127,7 +127,12 @@ this.initializeForm();
       if (usuario.id == null) {
         this.usuarioService.save(usuario).subscribe({
           next: (usuarioCadastrado) => {
-            this.router.navigateByUrl('/usuarios/list');
+            console.log(this.router.url)
+            if(this.router.url == '/user/usuarios/new'){
+              this.router.navigateByUrl('/auth/login');
+            }else{
+              this.router.navigateByUrl('/usuarios/list');
+            }
           },
           error: (errorResponse) => {
             this.apiResponse = errorResponse.error;
