@@ -11,6 +11,7 @@ import br.unitins.ecommerce.model.compra.Compra;
 import br.unitins.ecommerce.model.compra.ItemCompra;
 
 public record CompraResponseDTO(
+    Long id,
     LocalDate dataCompra,
     String totalCompra,
     List<Map<String, Object>> itensCompra,
@@ -22,7 +23,8 @@ public record CompraResponseDTO(
     
     public CompraResponseDTO (Compra compra) {
 
-        this(compra.getDataCompra(),
+        this(compra.getId(),
+            compra.getDataCompra(),
             "R$ " + String.format("%.2f", compra.getTotalCompra()),
             compra.getItemCompra() != null?
                 viewItensCompra(compra.getItemCompra()) :

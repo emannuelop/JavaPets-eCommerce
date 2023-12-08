@@ -14,13 +14,13 @@
       <ng-template matStepContent>
         <p>Escolha sua Forma de Pagamento</p>
         <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Pix</button>
-        <button mat-button matStepperNext>Boleto</button>
+        <button (click)="realizarPagamentoPix()" mat-button matStepperNext>Pix</button>
+        <button (click)="realizarPagamentoBoleto()" mat-button matStepperNext>Boleto</button>
       </ng-template>
     </mat-step>
     <mat-step>
       <ng-template matStepLabel>Step 3</ng-template>
       <p>Obrigado pela preferencia</p>
-      <button mat-button routerLink="home/home-page">Voltar para pagina principal</button>
+      <button mat-button routerLink="/user/compra/meus-pedidos">Ir para meus pedidos</button>
     </mat-step>
   </mat-stepper>

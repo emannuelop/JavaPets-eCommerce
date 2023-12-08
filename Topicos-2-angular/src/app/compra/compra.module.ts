@@ -14,11 +14,13 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatDialogModule } from '@angular/material/dialog';
+import { PedidosComponent } from './pedidos/pedidos.component';
 
 
 @NgModule({
   declarations: [
-    FinalizarCompraComponent
+    FinalizarCompraComponent,
+    PedidosComponent
   ],
   imports: [
     CommonModule,

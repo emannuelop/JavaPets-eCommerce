@@ -36,6 +36,7 @@ export class CarrinhoComponent implements OnInit {
     this.carrinhoItens.forEach((itemCarrinho) => {
       this.compraService.insertIntoCarrrinho(itemCarrinho).subscribe(
         (response) => {
+          this.carrinhoService.removerTudo();
           console.log('Item adicionado com sucesso!', response);
           this.router.navigateByUrl('user/compra/finalizar-compra');
         },

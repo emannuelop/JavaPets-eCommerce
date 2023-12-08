@@ -18,6 +18,11 @@ export class CompraService {
     return this.http.get<Compra>(`${this.baseURL}/carrinho`);
   }
 
+  getCompras(): Observable<Compra[]> {
+    
+    return this.http.get<Compra[]>(`${this.baseURL}/historico-compras`);
+  }
+
   insertIntoCarrrinho(itemCompra: ItemCarrinho): Observable<any> {
 
     // const headers = new HttpHeaders({
@@ -32,5 +37,25 @@ export class CompraService {
     console.log(obj);
     return this.http.post(`${this.baseURL}` , obj);
   }
+
+  pagarPix(): Observable<any> {
+
+        const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${this.authService.getToken}`,
+    });
+
+    return this.http.patch(`${this.baseURL}/carrinho/pagar-pix`, headers);
+  }
+
+  pagarBoleto(): Observable<any> {
+
+    const headers = new HttpHeaders({
+  'Content-Type': 'application/json',
+  'Authorization': `Bearer ${this.authService.getToken}`,
+});
+
+return this.http.patch(`${this.baseURL}/carrinho/pagar-boleto-bancario`, headers);
+}
 
 }

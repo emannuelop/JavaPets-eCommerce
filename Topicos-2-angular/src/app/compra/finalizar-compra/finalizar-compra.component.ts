@@ -97,4 +97,31 @@ export class FinalizarCompraComponent implements OnInit {
       ) 
     });
   }
+
+  realizarPagamentoPix() {
+      this.compraService.pagarPix().subscribe(
+        (response) => {
+          console.log('Item adicionado com sucesso!', response);
+          this.router.navigateByUrl('user/compra/finalizar-compra');
+        },
+        (error) => {
+          console.error('Erro ao adicionar item ao carrinho', error);
+          // Trate o erro conforme necessário
+        }
+      );
+  }
+
+  realizarPagamentoBoleto() {
+    this.compraService.pagarPix().subscribe(
+      (response) => {
+        console.log('Item adicionado com sucesso!', response);
+        this.router.navigateByUrl('user/compra/finalizar-compra');
+      },
+      (error) => {
+        console.error('Erro ao adicionar item ao carrinho', error);
+        // Trate o erro conforme necessário
+      }
+    );
+}
+
 }
