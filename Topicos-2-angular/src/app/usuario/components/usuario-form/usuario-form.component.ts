@@ -188,6 +188,15 @@ this.initializeForm();
     }
   }
 
+  trocarUrl(){
+    if(this.router.url == '/user/usuarios/new'){
+      this.router.navigateByUrl('/auth/login')
+    }
+    else{
+      this.router.navigateByUrl('/admin/usuarios/list')
+    }
+  }
+
   // No seu componente TypeScript
 
   get telefonesFormArray() {
