@@ -19,23 +19,23 @@ export class CompraService {
   }
 
   getCompras(): Observable<Compra[]> {
-    
+
     return this.http.get<Compra[]>(`${this.baseURL}/historico-compras`);
   }
 
-  insertIntoCarrrinho(itemCompra: ItemCarrinho): Observable<any> {
+  insertIntoCarrrinho(itemCompra: ItemCarrinho[]): Observable<any> {
 
     // const headers = new HttpHeaders({
     //   'Content-Type': 'application/json',
     //   'Authorization': `Bearer ${this.authService.getToken}`,
     // });
 
-    const obj = {
-      idProduto: itemCompra.id,
-      quantidade: itemCompra.quantidade
-    }
-    console.log(obj);
-    return this.http.post(`${this.baseURL}` , obj);
+    const itens = itemCompra.map(item => ({
+      idProduto: item.id,
+      quantidade: item.quantidade
+    }));
+    console.log(itens);
+    return this.http.post(`${this.baseURL}` , itens);
   }
 
   pagarPix(): Observable<any> {

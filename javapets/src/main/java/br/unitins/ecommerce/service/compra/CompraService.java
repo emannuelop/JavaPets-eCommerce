@@ -12,7 +12,7 @@ public interface CompraService {
 
     CompraResponseDTO getCompraEmAndamento (Long idUsuario);
     
-    void insertItemIntoCompra (Long idUsuario, ItemCompraDTO itemCompraDTO);
+    void insertItemIntoCompra (Long idUsuario, ItemCompraDTO[] itemCompraDTO);
 
     void removeItemCompra (Long idUsuario, Long idItemCompra);
 

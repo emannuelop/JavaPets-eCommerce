@@ -33,11 +33,11 @@ export class CarrinhoComponent implements OnInit {
   }
 
   finalizarCompra() {
-    this.carrinhoItens.forEach((itemCarrinho) => {
-      this.compraService.insertIntoCarrrinho(itemCarrinho).subscribe(
+      this.compraService.insertIntoCarrrinho(this.carrinhoItens).subscribe(
         (response) => {
           this.carrinhoService.removerTudo();
           console.log('Item adicionado com sucesso!', response);
+          console.log(this.carrinhoItens);
           this.router.navigateByUrl('user/compra/finalizar-compra');
         },
         (error) => {
@@ -45,7 +45,6 @@ export class CarrinhoComponent implements OnInit {
           // Trate o erro conforme necessário
         }
       );
-    });
   }
   
 }
