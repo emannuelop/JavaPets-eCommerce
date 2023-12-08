@@ -97,19 +97,26 @@ mat-icon {
     display: flex;
     justify-content: flex-end; /* Isso posicionará os itens no canto direito */
    margin: 10px; /* Ajuste conforme necessário */
+   align-items: center;
   }
   
   .btn-download {
+    display: flex;
     background-color: #3498db;
     color: #fff;
     border: none;
-    padding: 10px 20px;
+    padding: 10px;
     cursor: pointer;
     border-radius: 5px;
     font-size: 16px;
+    align-items: center;
     transition: background-color 0.3s ease;
   }
   
   .btn-download:hover {
     background-color: #2980b9;
+  }
+
+  .btn-download mat-icon {
+    margin-right: 5px; /* Adiciona um espaçamento à direita do ícone */
   }
