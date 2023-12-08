@@ -87,3 +87,26 @@ span {
 .titulo{
   cursor: pointer
 }
+.menu-button{
+  font-size: 20px;
+  color: black
+}
+
+.menu-usuario-span{
+  color: #FFFFFF; /* Cor do texto do botão do menu */
+  transition: 0.3s;
+
+}
+.menu-usuario-span:hover{
+  color: #3b1f11; /* Cor do texto do botão do menu */
+
+}
+
+.item-menu-user,
+.item-menu-user .mat-icon{
+transition: 0.5s;
+}
+.item-menu-user:hover,
+.item-menu-user:hover .mat-icon{
+  color: #ff9900;
+}

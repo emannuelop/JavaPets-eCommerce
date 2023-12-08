@@ -7,10 +7,21 @@
     <button routerLink="/user/produtos/carrinho" mat-icon-button class="demo-section example-icon favorite-icon" aria-label="Example icon-button with heart icon">
         <mat-icon [matBadge]="qtdItensCarrinho"  matBadgeColor="warn" matBadgePosition="after" matBadgeOverlap="false">shopping_cart</mat-icon>
     </button>
-    <button value="blah" mat-icon-button (click)="deslogar()" routerLink="/user/auth/login">
-        <mat-icon>exit_to_app</mat-icon>
-      </button>
-      <span>{{usuarioLogado?.login}}</span>
+    <button mat-button [matMenuTriggerFor]="menu" class="menu-button">
+        <span class="menu-usuario-span">{{usuarioLogado?.login}}</span>
+     </button>
+     <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="deslogar()" class="item-menu-user"  routerLink="/user/auth/login">
+            <mat-icon>account_circle</mat-icon> Perfil
+          </button>
+
+          <button mat-menu-item (click)="deslogar()"  class="item-menu-user" routerLink="/user/auth/login">
+            <mat-icon>view_list</mat-icon> Pedidos
+          </button>
+          <button class="item-menu-user" mat-menu-item (click)="deslogar()"  routerLink="/user/auth/login">
+            <mat-icon >exit_to_app</mat-icon> Sair
+          </button>
+     </mat-menu>
 </mat-toolbar>
 <mat-toolbar>
     <span>Acesse Nossos Produtos:</span>
