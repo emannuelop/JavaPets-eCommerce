@@ -19,12 +19,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule} from '@angular/material/paginator';
 import { FormsModule } from '@angular/forms';
 import {MatDialogModule} from '@angular/material/dialog';
-import { CustomPaginatorIntl } from 'src/app/models/custom-paginator-intl'
+import { CustomPaginatorIntl } from 'src/app/models/custom-paginator-intl';
+import { UsuarioDetalhesComponent } from './components/usuario-detalhes/usuario-detalhes.component'
 
 @NgModule({
   declarations: [
     UsuarioListComponent,
-    UsuarioFormComponent
+    UsuarioFormComponent,
+    UsuarioDetalhesComponent
   ],
   imports: [
     CommonModule,

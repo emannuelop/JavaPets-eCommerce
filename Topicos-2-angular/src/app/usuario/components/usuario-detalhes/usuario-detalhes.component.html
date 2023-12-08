@@ -1,0 +1,39 @@
+<mat-toolbar class="centered-toolbar"><p>Perfil</p></mat-toolbar>
+
+<div class="form-container">
+  <mat-card>
+    <mat-card-content>
+      <h2>Detalhes do Usuário</h2>
+      <form *ngIf="usuarioLogado" class="formulario">
+        <mat-form-field>
+          <label for="login">Login:</label>
+          <input matInput type="text" id="login" [value]="usuarioLogado.login" readonly>
+        </mat-form-field>
+    
+        <mat-form-field>
+          <label for="nome">Nome:</label>
+          <input matInput type="text" id="nome" [value]="usuarioLogado.nome" readonly>
+        </mat-form-field>
+    
+        <mat-form-field>
+          <label for="email">Email:</label>
+          <input matInput type="text" id="email" [value]="usuarioLogado.email" readonly>
+        </mat-form-field>
+    
+        <mat-form-field>
+          <label for="cpf">CPF:</label>
+          <input matInput type="text" id="cpf" [value]="usuarioLogado.cpf" readonly>
+        </mat-form-field>
+    
+        <mat-form-field>
+          <label for="sexo">Sexo:</label>
+          <input matInput type="text" id="sexo" [value]="usuarioLogado.sexo" readonly>
+        </mat-form-field>
+    
+        <!-- Adicione outros campos conforme necessário -->
+    
+      </form>
+    </mat-card-content>
+  </mat-card>
+  
+</div>

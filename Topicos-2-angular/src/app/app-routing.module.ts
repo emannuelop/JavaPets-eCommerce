@@ -93,7 +93,12 @@ const routes: Routes = [
         path: 'compra', loadChildren:
           () => import('./compra/compra.module')
             .then(m => m.CompraModule)
-      }
+      },
+      {
+        path:'usuarios', loadChildren:
+        () => import('./usuario/usuario.module')
+        .then(m => m.UsuarioModule)
+      },
     ]
   }
   
