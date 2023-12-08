@@ -1,6 +1,9 @@
 # JavaPets-eCommerce
 
-<img src="imagens/JavaPets.png" width=300><br><sub>JavaPets</sub>
+<center>
+<img src="imagens/JavaPets.png" width=300><br>
+<sub>JavaPets</sub>
+</center>
 
 ## Resumo do projeto
 Este projeto foi desenvolvido como trabalho da disciplina de Tópicos I e II da Universidade Estadual do Tocantins - UNITINS. O objetivo era criar um eCommerce para cães e gatos, chamado JavaPets.
