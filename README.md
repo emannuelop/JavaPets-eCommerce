@@ -7,7 +7,7 @@ O projeto foi desenvolvido utilizando a linguagem Java, o framework Quarkus e An
 
 ## 📝 UML
 
-![UML do JavaCoffee](https://github.com/emannuelop/JavaPets-eCommerce/blob/main/images/uml.png)
+![UML do JavaCoffee](https://github.com/emannuelop/JavaPets-eCommerce/blob/main/imagens/uml.png)
 
 ## ✔️ Técnicas e tecnologias utilizadas
 
