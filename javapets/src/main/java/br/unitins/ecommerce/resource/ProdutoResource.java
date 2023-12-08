@@ -203,7 +203,7 @@ public class ProdutoResource {
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @PermitAll
     public Response salvarImagem(@MultipartForm ImageForm form) {
-
+        LOG.infof("Imagem. ");
         try {
             fileService.salvar(form.getId(), form.getNomeImagem(), form.getImagem());
             return Response.noContent().build();

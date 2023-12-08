@@ -79,6 +79,7 @@ export class ProdutoService {
     formData.append('id', id.toString());
     formData.append('nomeImagem', imagem.name);
     formData.append('imagem', imagem, imagem.name);
+    console.log(formData.get('nomeImagem'));
 
     return this.http.patch<Produto>(`${this.baseURL}/produtos/image/upload`, formData);
   }
