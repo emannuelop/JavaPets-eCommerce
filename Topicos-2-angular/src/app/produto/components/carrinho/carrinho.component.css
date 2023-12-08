@@ -1,63 +1,39 @@
-ng-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 400px;
-    padding: 20px;
-  }
+/* Adicione este estilo no seu arquivo de estilo global ou componente específico */
+
+.carrinho-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
 
 .carrinho-item {
-    width: 12%;
-    display: flex;
-    flex-direction: column;
-    padding: 1rem;
-    border-bottom: 1px solid #ccc;
-    background-color: #f0f0f0;
-    height: 400px;
-  }
-  
-  .carrinho-item img {
-    width: 75%;
-    height: 100px;
-    margin-bottom: 1rem;
-  }
-  
-  .carrinho-item h3 {
-    width: 75%;
-    font-size: 1.2rem;
-    color: #333;
-  }
-  
-  .carrinho-item p {
-    font-size: 1rem;
-    color: #666;
-  }
-  
-  .carrinho-item button {
-    margin-top: 1rem;
-    background-color: #d9534f;
-    color: #fff;
-  }
-  
-  .carrinho-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-  }
+  display: flex;
+  background-color: #ffffff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
-  .carrinho-total {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-  }
-  
-  .carrinho-total p {
-    font-size: 1.5rem;
-    font-weight: bold;
-  }
-  
-  .carrinho-total button {
-    width: 100%;
-  }
+.carrinho-item img {
+  max-width: 100px;
+  max-height: 100px;
+  margin-right: 15px;
+  border-radius: 4px;
+}
+
+.carrinho-item-details {
+  flex: 1;
+}
+
+.carrinho-total {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.carrinho-vazio {
+  text-align: center;
+  margin-top: 20px;
+}
