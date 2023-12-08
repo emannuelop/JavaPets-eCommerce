@@ -21,13 +21,7 @@ O projeto foi desenvolvido utilizando a linguagem Java, o framework Quarkus e An
 
 ## ‍ Autores
 
-|<img src="https://github.com/emannuelop/JavaPets-eCommerce/blob/main/images/emannuel.png" width=115><br><sub>Emannuel Oliveira</sub> 
-
-| [<img src="https://github.com/emannuelop/JavaPets-eCommerce/blob/main/images/erick.png" width=115><br><sub>Erick Silva</sub>](Erick Santos) 
-
-| [<img src="https://github.com/emannuelop/JavaPets-eCommerce/blob/main/images/matheus.jpg" width=115><br><sub>Matheus Souza</sub>](Matheus Uchoa) 
-|
-
+|<img src="https://github.com/emannuelop/JavaPets-eCommerce/blob/main/images/emannuel.png" width=115><br><sub>Emannuel Oliveira</sub> | [<img src="https://github.com/emannuelop/JavaPets-eCommerce/blob/main/images/erick.png" width=115><br><sub>Erick Silva</sub>](Erick Santos) | [<img src="https://github.com/emannuelop/JavaPets-eCommerce/blob/main/images/matheus.jpg" width=115><br><sub>Matheus Souza</sub>](Matheus Uchoa)|
 | :---: | :---: | :---: |
 
 ## 📁 Acesso ao projeto
