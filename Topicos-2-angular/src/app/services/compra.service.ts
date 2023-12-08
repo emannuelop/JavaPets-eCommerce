@@ -5,7 +5,7 @@ import { Compra } from '../models/compra.model';
 import { ItemCompra } from '../models/itemCompra.model';
 import { ItemCarrinho } from '../models/item-carrinho.interface';
 import { AuthService } from './auth.service';
-import { Cartao } from '../models/pagamento.model';
+import { BandeiraCartao, Cartao } from '../models/pagamento.model';
 
 @Injectable({
   providedIn: 'root'
@@ -67,6 +67,10 @@ pagarCartao(cartao: Cartao): Observable<any> {
 });
 
 return this.http.patch(`${this.baseURL}/carrinho/pagar-cartao-credito`, headers);
+}
+
+findBandeiras(): Observable<BandeiraCartao[]> {
+  return this.http.get<BandeiraCartao[]>(`${this.baseURL}/bandeiras`);
 }
 
 }

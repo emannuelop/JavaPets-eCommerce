@@ -13,7 +13,7 @@ import { CompraService } from 'src/app/services/compra.service';
 export class PedidosComponent implements OnInit{
 
 
-  tableColumns: string[] = ['id-column', 'totalCompra-column'];
+  tableColumns: string[] = ['id-column', 'totalCompra-column', 'pagamento-column'];
   compras: Compra[] = [];
 
 

@@ -18,6 +18,12 @@
         <th mat-header-cell *matHeaderCellDef> Total </th>
         <td mat-cell *matCellDef="let compra"> {{compra.totalCompra}} </td>
       </ng-container>
+
+      <!-- Total Column -->
+      <ng-container matColumnDef="pagamento-column">
+        <th mat-header-cell *matHeaderCellDef> Data do Pagamento </th>
+        <td mat-cell *matCellDef="let compra"> {{compra.dataCompra}} </td>
+      </ng-container>
   
       <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: tableColumns;"></tr>

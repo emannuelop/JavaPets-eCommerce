@@ -11,6 +11,10 @@
   margin-bottom: 20px;
 }
 
+.mat-option{
+  color: #1565c0;
+}
+
 .mat-step-label {
   font-size: 18px;
   font-weight: bold;

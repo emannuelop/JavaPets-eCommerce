@@ -43,10 +43,14 @@
                 <mat-label>Cpf Titular</mat-label>
                 <input matInput type="text" formControlName="cpfTitular">
               </mat-form-field>
-              <mat-form-field>
+              <mat-form-field appearance="outline" class="full-width-input">
                 <mat-label>Bandeira</mat-label>
-                <input matInput type="number" formControlName="bandeiraCartao">
-              </mat-form-field>
+                <mat-select formControlName="bandeiraCartao" #selectBandeiraCartao >
+                    <mat-option *ngFor="let bandeiraCartao of bandeiraCartoes" [value]="bandeiraCartao">
+                        {{ bandeiraCartao }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
               <mat-action-row>
                 <button mat-button color="primary" matStepperNext (click)="realizarPagamentoBoleto()">Next</button>
               </mat-action-row>

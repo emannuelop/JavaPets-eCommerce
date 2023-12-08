@@ -16,6 +16,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatDialogModule } from '@angular/material/dialog';
 import { PedidosComponent } from './pedidos/pedidos.component';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { MatSelectModule } from '@angular/material/select';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatTableModule,
     MatPaginatorModule,
     FormsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSelectModule
   ]
 })
 export class CompraModule { }
