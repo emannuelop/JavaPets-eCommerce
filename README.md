@@ -19,10 +19,10 @@ O projeto foi desenvolvido utilizando a linguagem Java, o framework Quarkus e An
 
 ## 👨‍💻 Autores
 
-|  [<img src="https://github.com/emannuelop/JavaPets-eCommerce/blob/main/images/emannuel.png" width=115><br><sub>Emannuel Oliveira</sub>](https://github.com/emannuelop/JavaPets-eCommerce/blob/main/imagens/emannuel.png) | 
-|  [<img src="https://github.com/emannuelop/JavaPets-eCommerce/blob/main/images/emannuel.png" width=115><br><sub>Emannuel Oliveira</sub>](https://github.com/emannuelop/JavaPets-eCommerce/blob/main/imagens/erick.jpg) | 
-|  [<img src="https://github.com/emannuelop/JavaPets-eCommerce/blob/main/images/emannuel.png" width=115><br><sub>Emannuel Oliveira</sub>](https://github.com/emannuelop/JavaPets-eCommerce/blob/main/imagens/matheus.jpg) |
-| :---: | 
+## ‍ Autores
+
+| <img src="https://github.com/emannuelop/JavaPets-eCommerce/blob/main/images/emannuel.png" width=115><br><sub>Emannuel Oliveira</sub> | [<img src="https://github.com/emannuelop/JavaPets-eCommerce/blob/main/images/erick.png" width=115><br><sub>Erick Silva</sub>](https://github.com/erickjsilva) | [<img src="https://github.com/emannuelop/JavaPets-eCommerce/blob/main/images/matheus.jpg" width=115><br><sub>Matheus Souza</sub>](https://github.com/matheusssouza) |
+| :---: | :---: | :---: |
 
 ## 📁 Acesso ao projeto
 Você pode acessar os arquivos da parte do back-end clicando [aqui](https://github.com/emannuelop/JavaPets-eCommerce/tree/main/back-end).
