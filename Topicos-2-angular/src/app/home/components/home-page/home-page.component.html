@@ -1,7 +1,32 @@
-<body>
+
+  <h1 class="titulo">JavaPets: Aqui, o seu pet é nossa prioridade.</h1>
 <section class="propaganda">
     <div class="carousel">
         <img src="{{images[currentImageIndex].src}}" alt="{{images[currentImageIndex].alt}}" />
       </div>
 </section>
-</body>
+
+<div class="titulo">
+  <h1>Produtos <button routerLink="/user/produtos/card-list" style="background-color: #bbc70d;" mat-mini-fab aria-label="Example icon button with a menu icon">
+      <mat-icon>menu</mat-icon>
+    </button>
+</h1>
+</div>
+
+<div class="container responsive-grid">
+  <mat-card *ngFor="let card of cards()" class="product-card">
+
+      <img mat-card-image [src]="card.urlImagem" >
+     
+      <mat-card-title class="centered-text"> {{card.titulo}} </mat-card-title>
+      
+      <mat-card-content class="centered-text"> 
+          {{card.preco | currency:'BRL'}} 
+      </mat-card-content>
+
+      <mat-card-actions class="centered-text">
+          <button mat-button style="color: #4169E1">Ver mais ...</button>
+      </mat-card-actions>
+
+  </mat-card>
+</div>

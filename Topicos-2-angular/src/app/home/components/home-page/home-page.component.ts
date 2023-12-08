@@ -1,4 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
+import { Produto } from 'src/app/models/produto.model';
+import { ProdutoService } from 'src/app/services/produto.service';
+
+type Card = {
+  idProduto: number;
+  titulo: string;
+  preco: number;
+  urlImagem: string;
+}
 
 @Component({
   selector: 'app-home-page',
@@ -7,6 +16,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomePageComponent implements OnInit{
    
+  cards = signal<Card[]> ([]);
+  produtos: Produto[] = [];
+
   images = [
     {
       src: 'https://coinculture.com/au/wp-content/uploads/2022/06/DOGECOIN-VS-BITCOIN-FEATURE-1150x600-1.png',
@@ -32,13 +44,33 @@ export class HomePageComponent implements OnInit{
 
   currentImageIndex = 0;
 
+  constructor(private produtoService: ProdutoService){}
+
   ngOnInit(): void {
 
     // Iniciar um temporizador para trocar de imagem a cada 5 segundos
     setInterval(() => {
       this.currentImageIndex = (this.currentImageIndex + 1) % this.images.length;
     }, 5000);
+
+    this.produtoService.findAll(0, 5).subscribe(data => {
+      this.produtos = data;
+      this.carregarCards();
+    })
   
+  }
+
+  carregarCards() {
+    const cards: Card[] = [];
+    this.produtos.forEach(produto => {
+      cards.push({
+        idProduto: produto.id,
+        titulo: produto.nome,
+        preco: produto.preco,
+        urlImagem: this.produtoService.getUrlImagem(produto.nomeImagem)
+      });
+    });
+    this.cards.set(cards);
   }
 
   onImageClick(imageIndex: number) {

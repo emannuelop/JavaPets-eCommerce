@@ -2,6 +2,10 @@
     padding-top: 50px;
 }
 
+.titulo{
+  text-align: center;
+}
+
 .carousel {
     width: 80%;
     height: 600px;
@@ -53,4 +57,57 @@
       width: 30px;
       height: 30px;
     }
+  }
+
+img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+}
+
+.container {
+    padding: 20px;
+}
+
+.responsive-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.centered-text {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.input-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Alinhar elementos à esquerda verticalmente */
+    width: 80%;
+}
+.input-field {
+    flex: 1;
+    margin-right: 8px;
+}
+.search-button {
+    width: 54px;
+    height: 54px;
+    align-self: flex-start; /* Alinhar o botão verticalmente ao topo */
+}
+.product-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    transition: box-shadow 0.3s ease; /* Adiciona uma transição suave ao efeito de elevação */
+  }
+  
+  .product-card:hover {
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.1); /* Adiciona um efeito de elevação ao passar o mouse */
+  }
+  
+  .centered-text {
+    text-align: center;
   }
