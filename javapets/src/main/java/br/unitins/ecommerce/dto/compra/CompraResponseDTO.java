@@ -9,6 +9,11 @@ import java.util.Map;
 import br.unitins.ecommerce.dto.usuario.UsuarioResponseDTO;
 import br.unitins.ecommerce.model.compra.Compra;
 import br.unitins.ecommerce.model.compra.ItemCompra;
+import br.unitins.ecommerce.model.pagamento.BandeiraCartao;
+import jakarta.annotation.security.RolesAllowed;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.core.Response;
 
 public record CompraResponseDTO(
     Long id,

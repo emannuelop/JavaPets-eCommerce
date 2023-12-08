@@ -33,7 +33,7 @@ export class EstadoFormComponent {
       if (estado.id == null) {
         this.estadoService.save(estado).subscribe({
           next: (estadoCadastrado) => {
-            this.router.navigateByUrl('/estados/list');
+            this.router.navigateByUrl('/admin/estados/list');
           },
           error: (errorResponse) => {
             // Processar erros da API
@@ -49,7 +49,7 @@ export class EstadoFormComponent {
       } else {
         this.estadoService.update(estado).subscribe({
           next: (estadoCadastrado) => {
-            this.router.navigateByUrl('/estados/list');
+            this.router.navigateByUrl('/admin/estados/list');
           },
           error: (errorResponse) => {
 
@@ -74,7 +74,7 @@ export class EstadoFormComponent {
     if (estado.id != null) {
       this.estadoService.delete(estado).subscribe({
         next: (e) => {
-          this.router.navigateByUrl('/estados/list');
+          this.router.navigateByUrl('/admin/estados/list');
         },
         error: (err) => {
           console.log('Erro ao excluir' + JSON.stringify(err));

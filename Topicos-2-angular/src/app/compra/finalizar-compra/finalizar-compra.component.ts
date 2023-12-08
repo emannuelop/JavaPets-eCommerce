@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Compra } from 'src/app/models/compra.model';
+import { BandeiraCartao } from 'src/app/models/pagamento.model';
 import { Usuario } from 'src/app/models/usuario.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { CompraService } from 'src/app/services/compra.service';
@@ -18,6 +19,7 @@ export class FinalizarCompraComponent implements OnInit {
 
   compra!: Compra;
   usuario!: Usuario;
+  bandeiraCartoes!: BandeiraCartao[];
 
   constructor(private formBuilder: FormBuilder, private compraService: CompraService,private authService: AuthService ,
     private usuarioService: UsuarioService,
@@ -42,6 +44,13 @@ export class FinalizarCompraComponent implements OnInit {
       this.compra = compra;
       this.initializeForm();
     });
+
+    this.compraService.findBandeiras().subscribe((data) => {
+      this.bandeiraCartoes = data;
+      console.log(this.bandeiraCartoes);
+      this.initializeForm();
+    });
+
     
     this.authService.getUsuarioLogado().subscribe((usuario: Usuario | null) => {
       if(usuario){

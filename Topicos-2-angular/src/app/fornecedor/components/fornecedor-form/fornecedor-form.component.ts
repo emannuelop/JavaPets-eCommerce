@@ -34,7 +34,7 @@ export class FornecedorFormComponent {
       if (fornecedor.id == null) {
         this.fornecedorService.save(fornecedor).subscribe({
           next: (fornecedorCadastrado) => {
-            this.router.navigateByUrl('/fornecedores/list');
+            this.router.navigateByUrl('/admin/fornecedores/list');
           },
           error: (errorResponse) => {
             // Processar erros da API
@@ -50,7 +50,7 @@ export class FornecedorFormComponent {
       } else {
         this.fornecedorService.update(fornecedor).subscribe({
           next: (fornecedorCadastrado) => {
-            this.router.navigateByUrl('/fornecedores/list');
+            this.router.navigateByUrl('/admin/fornecedores/list');
           },
           error: (errorResponse) => {
             // Processar erros da API
@@ -77,7 +77,7 @@ export class FornecedorFormComponent {
     if (fornecedor.id != null) {
       this.fornecedorService.delete(fornecedor).subscribe({
         next: (e) => {
-          this.router.navigateByUrl('/fornecedores/list');
+          this.router.navigateByUrl('/admin/fornecedores/list');
         },
         error: (err) => {
           console.log('Erro ao excluir' + JSON.stringify(err));

@@ -7,6 +7,7 @@ import org.eclipse.microprofile.jwt.JsonWebToken;
 import br.unitins.ecommerce.application.Result;
 import br.unitins.ecommerce.dto.compra.CartaoCreditoDTO;
 import br.unitins.ecommerce.dto.compra.ItemCompraDTO;
+import br.unitins.ecommerce.model.pagamento.BandeiraCartao;
 import br.unitins.ecommerce.model.usuario.Usuario;
 import br.unitins.ecommerce.service.compra.CompraService;
 import br.unitins.ecommerce.service.usuario.UsuarioService;
@@ -229,5 +230,12 @@ public class CompraResource {
 
             return Response.status(Status.NOT_FOUND).entity(result).build();
         }
+    }
+
+    @GET
+   @RolesAllowed({ "User", "User_Basic", "Admin" })
+    @Path("/bandeiras")
+    public Response getBandeiras() {
+        return Response.ok(BandeiraCartao.values()).build();
     }
 }

@@ -159,7 +159,7 @@ this.initializeForm();
       } else {
         this.usuarioService.update(usuario).subscribe({
           next: (UsuarioCadastrado) => {
-            this.router.navigateByUrl('/usuarios/list');
+            this.router.navigateByUrl('/admin/usuarios/list');
           },
           error: (errorResponse) => {
             console.log('Erro ao alterar' + JSON.stringify(errorResponse));
@@ -179,7 +179,7 @@ this.initializeForm();
     if (usuario.id != null) {
       this.usuarioService.delete(usuario).subscribe({
         next: (e) => {
-          this.router.navigateByUrl('/usuarios/list');
+          this.router.navigateByUrl('/admin/usuarios/list');
         },
         error: (err) => {
           console.log('Erro ao excluir' + JSON.stringify(err));
