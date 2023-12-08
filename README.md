@@ -1,7 +1,7 @@
 # JavaPets-eCommerce
 
 ## Resumo do projeto
-Este projeto foi desenvolvido como trabalho da disciplina de programação da Universidade Estadual do Tocantins - UNITINS. O objetivo era criar um eCommerce para cães e gatos, chamado JavaPets.
+Este projeto foi desenvolvido como trabalho da disciplina de Tópicos I e II da Universidade Estadual do Tocantins - UNITINS. O objetivo era criar um eCommerce para cães e gatos, chamado JavaPets.
 
 O projeto foi desenvolvido utilizando a linguagem Java, o framework Quarkus e Angular. Os conceitos do paradigma orientado a objetos também foram aplicados.
 
@@ -19,8 +19,6 @@ O projeto foi desenvolvido utilizando a linguagem Java, o framework Quarkus e An
 
 ## 👨‍💻 Autores
 
-## ‍ Autores
-
 |<img src="imagens/emannuel.png" width=115><br><sub>Emannuel Oliveira</sub> | <img src="imagens/erick.jpg" width=115><br><sub>Erick Santos</sub> | <img src="imagens/matheus.png" width=115><br><sub>Matheus Uchoa</sub>|
 | :---: | :---: | :---: |
 
@@ -28,4 +26,3 @@ O projeto foi desenvolvido utilizando a linguagem Java, o framework Quarkus e An
 Você pode acessar os arquivos da parte do back-end clicando [aqui](https://github.com/emannuelop/JavaPets-eCommerce/tree/main/back-end).
 
 Você pode acessar os arquivos da parte do front-end clicando [aqui](https://github.com/emannuelop/JavaPets-eCommerce/tree/main/front-end).
-
