@@ -5,6 +5,7 @@ import { Compra } from '../models/compra.model';
 import { ItemCompra } from '../models/itemCompra.model';
 import { ItemCarrinho } from '../models/item-carrinho.interface';
 import { AuthService } from './auth.service';
+import { Cartao } from '../models/pagamento.model';
 
 @Injectable({
   providedIn: 'root'
@@ -56,6 +57,16 @@ export class CompraService {
 });
 
 return this.http.patch(`${this.baseURL}/carrinho/pagar-boleto-bancario`, headers);
+}
+
+pagarCartao(cartao: Cartao): Observable<any> {
+
+  const headers = new HttpHeaders({
+'Content-Type': 'application/json',
+'Authorization': `Bearer ${this.authService.getToken}`,
+});
+
+return this.http.patch(`${this.baseURL}/carrinho/pagar-cartao-credito`, headers);
 }
 
 }

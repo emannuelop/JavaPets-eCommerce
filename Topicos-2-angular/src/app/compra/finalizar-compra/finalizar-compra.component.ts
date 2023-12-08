@@ -25,23 +25,13 @@ export class FinalizarCompraComponent implements OnInit {
     private activatedRoute: ActivatedRoute) {
       //const usuario: Usuario = this.activatedRoute.snapshot.data['usuario'];
 
-    this.formGroup = this.formBuilder.group({
-      id: [null],
-      dataCompra: ['', Validators.required],
-      totalCompra: [null],
-      ifConcluida: ['', Validators.required],
+      this.formGroup = formBuilder.group({
+        numeroCartao:['', Validators.required],
+        nomeImpressoCartao:['', Validators.required],
+        cpfTitular:['', Validators.required],
+        bandeiraCartao:[null]
+      })
 
-      endereco: this.formBuilder.group({
-        logradouro: ['', Validators.required],
-        bairro: ['', Validators.required],
-        numero: ['', Validators.required],
-        complemento: '',
-        cep: ['', Validators.required]
-      }),
-       pagamento: this.formBuilder,
-       usuario: this.formBuilder,
-       itemCompra: this.formBuilder.array([])
-    });
   }
 
 
@@ -73,29 +63,29 @@ export class FinalizarCompraComponent implements OnInit {
 
     console.log(this.compra);
 
-    this.formGroup = this.formBuilder.group({
-      id: [this.compra?.id ?? null], 
-      dataCompra: [this.compra?.dataCompra ?? '', Validators.required], 
-      totalCompra: [this.compra?.totalCompra ?? '', Validators.required],
-      ifConcluida: [this.compra?.ifConcluida ?? false, Validators.required], 
+    // this.formGroup = this.formBuilder.group({
+    //   id: [this.compra?.id ?? null], 
+    //   dataCompra: [this.compra?.dataCompra ?? '', Validators.required], 
+    //   totalCompra: [this.compra?.totalCompra ?? '', Validators.required],
+    //   ifConcluida: [this.compra?.ifConcluida ?? false, Validators.required], 
     
-      endereco: this.formBuilder.group({
-        logradouro: [this.compra?.endereco?.logradouro ?? '', Validators.required], 
-        bairro: [this.compra?.endereco?.bairro ?? '', Validators.required],
-        numero: [this.compra?.endereco?.numero ?? '', Validators.required],
-        complemento: [this.compra?.endereco?.complemento ?? ''], 
-        cep: [this.compra?.endereco?.cep ?? '', Validators.required]
-      }),
-      pagamento: this.compra?.pagamento ?? this.formBuilder.group({ 
-        id: [this.compra?.pagamento?.id ?? null]
-       }), 
-      usuario: this.compra?.usuario ?? this.formBuilder.group({ 
-        login: [(this.compra?.usuario && this.compra.usuario.login) || '', Validators.required]
-       }), 
-      itemCompra: this.formBuilder.array(
-        this.compra?.itemCompra?.map(item => this.formBuilder.group({})) ?? []
-      ) 
-    });
+    //   endereco: this.formBuilder.group({
+    //     logradouro: [this.compra?.endereco?.logradouro ?? '', Validators.required], 
+    //     bairro: [this.compra?.endereco?.bairro ?? '', Validators.required],
+    //     numero: [this.compra?.endereco?.numero ?? '', Validators.required],
+    //     complemento: [this.compra?.endereco?.complemento ?? ''], 
+    //     cep: [this.compra?.endereco?.cep ?? '', Validators.required]
+    //   }),
+    //   pagamento: this.compra?.pagamento ?? this.formBuilder.group({ 
+    //     id: [this.compra?.pagamento?.id ?? null]
+    //    }), 
+    //   usuario: this.compra?.usuario ?? this.formBuilder.group({ 
+    //     login: [(this.compra?.usuario && this.compra.usuario.login) || '', Validators.required]
+    //    }), 
+    //   itemCompra: this.formBuilder.array(
+    //     this.compra?.itemCompra?.map(item => this.formBuilder.group({})) ?? []
+    //   ) 
+    // });
   }
 
   realizarPagamentoPix() {
@@ -111,6 +101,19 @@ export class FinalizarCompraComponent implements OnInit {
       );
   }
 
+  realizarPagamentoCartao() {
+    this.compraService.pagarCartao(this.formGroup.value).subscribe(
+      (response) => {
+        console.log('Item adicionado com sucesso!', response);
+        this.router.navigateByUrl('user/compra/finalizar-compra');
+      },
+      (error) => {
+        console.error('Erro ao adicionar item ao carrinho', error);
+        // Trate o erro conforme necessário
+      }
+    );
+}
+
   realizarPagamentoBoleto() {
     this.compraService.pagarPix().subscribe(
       (response) => {
@@ -123,5 +126,19 @@ export class FinalizarCompraComponent implements OnInit {
       }
     );
 }
+
+step = 0;
+
+  setStep(index: number) {
+    this.step = index;
+  }
+
+  nextStep() {
+    this.step++;
+  }
+
+  prevStep() {
+    this.step--;
+  }
 
 }
