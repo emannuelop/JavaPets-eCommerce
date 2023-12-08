@@ -19,14 +19,13 @@ O projeto foi desenvolvido utilizando a linguagem Java, o framework Quarkus e An
 
 ## 👨‍💻 Autores
 
-|  [<img src="https://github.com/emannuelop/JavaPets-eCommerce/blob/main/images/emannuel.png" width=115><br><sub>Emannuel Oliveira</sub>](https://github.com/emannuelop) | 
-| :---: |
-|  [<img src="https://github.com/emannuelop/JavaPets-eCommerce/blob/main/images/emannuel.png" width=115><br><sub>Emannuel Oliveira</sub>](https://github.com/emannuelop) | 
-| :---: |
-|  [<img src="https://github.com/emannuelop/JavaPets-eCommerce/blob/main/images/emannuel.png" width=115><br><sub>Emannuel Oliveira</sub>](https://github.com/emannuelop) | 
+|  [<img src="https://github.com/emannuelop/JavaPets-eCommerce/blob/main/images/emannuel.png" width=115><br><sub>Emannuel Oliveira</sub>](https://github.com/emannuelop/JavaPets-eCommerce/blob/main/imagens/emannuel.png) | 
+|  [<img src="https://github.com/emannuelop/JavaPets-eCommerce/blob/main/images/emannuel.png" width=115><br><sub>Emannuel Oliveira</sub>](https://github.com/emannuelop/JavaPets-eCommerce/blob/main/imagens/erick.jpg) | 
+|  [<img src="https://github.com/emannuelop/JavaPets-eCommerce/blob/main/images/emannuel.png" width=115><br><sub>Emannuel Oliveira</sub>](https://github.com/emannuelop/JavaPets-eCommerce/blob/main/imagens/matheus.jpg) |
+| :---: | 
 
 ## 📁 Acesso ao projeto
-Você pode acessar os arquivos da parte do back-end clicando [aqui](https://github.com/emannuelop/JavaPets-eCommerce/tree/main/javapets).
+Você pode acessar os arquivos da parte do back-end clicando [aqui](https://github.com/emannuelop/JavaPets-eCommerce/tree/main/back-end).
 
-Você pode acessar os arquivos da parte do front-end clicando [aqui](https://github.com/emannuelop/JavaPets-eCommerce/tree/main/javapets).
+Você pode acessar os arquivos da parte do front-end clicando [aqui](https://github.com/emannuelop/JavaPets-eCommerce/tree/main/front-end).
 
