@@ -1,26 +1,38 @@
-<mat-stepper orientation="vertical">
-    <mat-step>
-      <ng-template matStepLabel>Step 1</ng-template>
-      <ng-template matStepContent>
-        <p>Deseja finalizar sua Compra ?</p>
-        <p>{{usuario.login}}</p>
+<mat-stepper orientation="vertical" class="mat-stepper-vertical">
+  <mat-step>
+    <ng-template matStepLabel>Step 1</ng-template>
+    <ng-template matStepContent>
+      <div class="step-content">
+        <p>Deseja finalizar sua compra?</p>
+        <p>{{ usuario.login }}</p>
         <p>Total da Compra</p>
-        <p>{{compra.totalCompra}}</p>
-        <button mat-button matStepperNext>Next</button>
-      </ng-template>
-    </mat-step>
-    <mat-step>
-      <ng-template matStepLabel>Step 2</ng-template>
-      <ng-template matStepContent>
+        <p>{{ compra.totalCompra }}</p>
+        <div class="mat-step-actions">
+          <button mat-button matStepperNext>Próximo</button>
+        </div>
+      </div>
+    </ng-template>
+  </mat-step>
+
+  <mat-step>
+    <ng-template matStepLabel>Step 2</ng-template>
+    <ng-template matStepContent>
+      <div class="step-content">
         <p>Escolha sua Forma de Pagamento</p>
-        <button mat-button matStepperPrevious>Back</button>
-        <button (click)="realizarPagamentoPix()" mat-button matStepperNext>Pix</button>
-        <button (click)="realizarPagamentoBoleto()" mat-button matStepperNext>Boleto</button>
-      </ng-template>
-    </mat-step>
-    <mat-step>
-      <ng-template matStepLabel>Step 3</ng-template>
-      <p>Obrigado pela preferencia</p>
+        <div class="mat-step-buttons">
+          <button mat-button matStepperPrevious>Voltar</button>
+          <button (click)="realizarPagamentoPix()" mat-button matStepperNext>Pix</button>
+          <button (click)="realizarPagamentoBoleto()" mat-button matStepperNext>Boleto</button>
+        </div>
+      </div>
+    </ng-template>
+  </mat-step>
+
+  <mat-step>
+    <ng-template matStepLabel>Step 3</ng-template>
+    <p class="step-content">Obrigado pela preferência</p>
+    <div class="mat-step-actions">
       <button mat-button routerLink="/user/compra/meus-pedidos">Ir para meus pedidos</button>
-    </mat-step>
-  </mat-stepper>
+    </div>
+  </mat-step>
+</mat-stepper>
