@@ -5,6 +5,7 @@ import { Compra } from '../models/compra.model';
 import { ItemCompra } from '../models/itemCompra.model';
 import { ItemCarrinho } from '../models/item-carrinho.interface';
 import { AuthService } from './auth.service';
+import { Cartao } from '../models/pagamento.model';
 
 @Injectable({
   providedIn: 'root'
@@ -19,23 +20,23 @@ export class CompraService {
   }
 
   getCompras(): Observable<Compra[]> {
-    
+
     return this.http.get<Compra[]>(`${this.baseURL}/historico-compras`);
   }
 
-  insertIntoCarrrinho(itemCompra: ItemCarrinho): Observable<any> {
+  insertIntoCarrrinho(itemCompra: ItemCarrinho[]): Observable<any> {
 
     // const headers = new HttpHeaders({
     //   'Content-Type': 'application/json',
     //   'Authorization': `Bearer ${this.authService.getToken}`,
     // });
 
-    const obj = {
-      idProduto: itemCompra.id,
-      quantidade: itemCompra.quantidade
-    }
-    console.log(obj);
-    return this.http.post(`${this.baseURL}` , obj);
+    const itens = itemCompra.map(item => ({
+      idProduto: item.id,
+      quantidade: item.quantidade
+    }));
+    console.log(itens);
+    return this.http.post(`${this.baseURL}` , itens);
   }
 
   pagarPix(): Observable<any> {
@@ -56,6 +57,16 @@ export class CompraService {
 });
 
 return this.http.patch(`${this.baseURL}/carrinho/pagar-boleto-bancario`, headers);
+}
+
+pagarCartao(cartao: Cartao): Observable<any> {
+
+  const headers = new HttpHeaders({
+'Content-Type': 'application/json',
+'Authorization': `Bearer ${this.authService.getToken}`,
+});
+
+return this.http.patch(`${this.baseURL}/carrinho/pagar-cartao-credito`, headers);
 }
 
 }

@@ -15,6 +15,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatDialogModule } from '@angular/material/dialog';
 import { PedidosComponent } from './pedidos/pedidos.component';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { PedidosComponent } from './pedidos/pedidos.component';
   ],
   imports: [
     CommonModule,
+    MatExpansionModule,
     CompraRoutingModule,
     MatStepperModule,
     FormsModule,

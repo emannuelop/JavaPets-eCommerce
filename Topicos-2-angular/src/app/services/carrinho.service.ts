@@ -16,14 +16,14 @@ export class CarrinhoService {
     this.carrinhoSubject.next(carrinhoArmazenado);
   }
 
-  adicionar(faixa: ItemCarrinho): void {
+  adicionar(produto: ItemCarrinho): void {
     const carrinhoAtual = this.carrinhoSubject.value;
-    const itemExistente = carrinhoAtual.find(item => item.id === faixa.id);
+    const itemExistente = carrinhoAtual.find(item => item.id === produto.id);
 
     if (itemExistente) {
-      itemExistente.quantidade += faixa.quantidade || 1;
+      itemExistente.quantidade += produto.quantidade || 1;
     } else {
-      carrinhoAtual.push({ ...faixa });
+      carrinhoAtual.push({ ...produto });
     }
 
     this.carrinhoSubject.next(carrinhoAtual);

@@ -73,9 +73,11 @@ public class CompraImplService implements CompraService {
 
     @Override
     @Transactional
-    public void insertItemIntoCompra(Long idUsuario, ItemCompraDTO itemCompraDTO) throws NullPointerException {
+    public void insertItemIntoCompra(Long idUsuario, ItemCompraDTO[] itemCompraDTO) throws NullPointerException {
         
-        Produto produto = validar(itemCompraDTO);
+        for(int i=0; i< itemCompraDTO.length; i++){
+
+        Produto produto = validar(itemCompraDTO[i]);
 
         Compra compra = validar(idUsuario);
 
@@ -87,14 +89,14 @@ public class CompraImplService implements CompraService {
 
             itemCompra = compra.getItemCompra().get(indice);
 
-            itemCompra.updateQuantidade(itemCompraDTO.quantidade());
+            itemCompra.updateQuantidade(itemCompraDTO[i].quantidade());
 
-            compra.plusTotalCompra(itemCompra.getPrecoUnitario() * itemCompraDTO.quantidade());
+            compra.plusTotalCompra(itemCompra.getPrecoUnitario() * itemCompraDTO[i].quantidade());
         }
 
         else {
 
-            itemCompra = new ItemCompra(produto, itemCompraDTO.quantidade());
+            itemCompra = new ItemCompra(produto, itemCompraDTO[i].quantidade());
 
             itemCompraRepository.persist(itemCompra);
 
@@ -102,6 +104,7 @@ public class CompraImplService implements CompraService {
 
             compra.plusTotalCompra(itemCompra.getPrecoUnitario() * itemCompra.getQuantidade());
         }
+    }
     }
 
     @Override

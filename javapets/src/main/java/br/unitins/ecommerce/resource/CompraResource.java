@@ -86,7 +86,7 @@ public class CompraResource {
 
     @POST
     @RolesAllowed({ "User", "User_Basic" })
-    public Response insertIntoCarrrinho(ItemCompraDTO itemCompraDTO) {
+    public Response insertIntoCarrrinho(ItemCompraDTO[] itemCompraDTO) {
         Result result = null;
         LOG.info("Ta vindo");
         try {
