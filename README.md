@@ -21,7 +21,7 @@ O projeto foi desenvolvido utilizando a linguagem Java, o framework Quarkus e An
 
 ## ‍ Autores
 
-|<img src="imagens/emannuel.png" width=115><br><sub>Emannuel Oliveira</sub> | <img src="imagens/erick.jpg" width=115><br><sub>Erick Santos</sub> | <img src="imagens/matheus.jpg" width=115><br><sub>Matheus Uchoa</sub>|
+|<img src="imagens/emannuel.png" width=115><br><sub>Emannuel Oliveira</sub> | <img src="imagens/erick.jpg" width=115><br><sub>Erick Santos</sub> | <img src="imagens/matheus.png" width=115><br><sub>Matheus Uchoa</sub>|
 | :---: | :---: | :---: |
 
 ## 📁 Acesso ao projeto
