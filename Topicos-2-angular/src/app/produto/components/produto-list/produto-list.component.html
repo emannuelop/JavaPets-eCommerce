@@ -19,6 +19,11 @@
     </button>
   </div>
 </div>
+<div class="div-container">
+  <button (click)="baixarRelatorio()" class="btn-download">
+    <mat-icon> insert_drive_file</mat-icon> Baixar Relatório
+  </button>
+</div>
 
 <div class="mat-elevation-z8">
   <table mat-table [dataSource]="produtos" matSort>
@@ -94,11 +99,7 @@
       <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
     </tr>
   </table>
-  <div class="div-container">
-    <button (click)="baixarRelatorio()" class="btn-download">
-      <mat-icon> insert_drive_file</mat-icon> Baixar Relatório
-    </button>
-  </div>
+  
 
   <mat-paginator [pageSizeOptions]="[2, 4, 8, 16]" [pageSize]="pageSize" [length]="totalRegistros"
     (page)="paginar($event)">
